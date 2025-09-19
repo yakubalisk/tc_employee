@@ -81,7 +81,7 @@
             
             <!-- Main Content -->
             <main class="flex-1 p-6 bg-muted/30">
-                {{ $slot }}
+                @yield('content')
             </main>
         </div>
     </div>
