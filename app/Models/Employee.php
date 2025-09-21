@@ -21,6 +21,7 @@ class Employee extends Model
         'dateOfAppointment',
         'designationAtAppointment',
         'designationAtPresent',
+        'current_designation',
         'presentPosting',
         'personalFileNo',
         'officeLandline',
@@ -29,7 +30,12 @@ class Employee extends Model
         'homeTown',
         'residentialAddress',
         'status',
-        'promoted'
+        'promoted',
+        'last_promotion_date',
+        'current_promotion_id',
+        'current_posting',
+        'last_transfer_date',
+        'current_transfer_id'
     ];
 
     protected $casts = [
@@ -37,7 +43,48 @@ class Employee extends Model
         'dateOfBirth' => 'date',
         'dateOfRetirement' => 'date',
         'promoted' => 'boolean',
+        'last_promotion_date' => 'date',
+        'last_transfer_date' => 'date',
     ];
+
+        // Relationships
+    public function promotions(): HasMany
+    {
+        return $this->hasMany(Promotion::class);
+    }
+
+    public function currentPromotion(): BelongsTo
+    {
+        return $this->belongsTo(Promotion::class, 'current_promotion_id');
+    }
+
+    // Scopes
+    public function scopeEligibleForPromotion($query)
+    {
+        return $query->where('status', 'EXISTING')
+                    ->whereDoesntHave('promotions', function ($q) {
+                        $q->where('approval_status', 'Pending')
+                          ->orWhere('effective_date', '>', now()->subYear());
+                    });
+    }
+
+    public function scopeWithPromotions($query)
+    {
+        return $query->whereHas('promotions', function ($q) {
+            $q->where('approval_status', 'Approved');
+        });
+    }
+
+    // Accessors
+    public function getPromotionEligibilityAttribute()
+    {
+        if (!$this->last_promotion_date) {
+            return 'Eligible';
+        }
+        
+        $lastPromotion = $this->last_promotion_date->diffInMonths(now());
+        return $lastPromotion >= 12 ? 'Eligible' : 'Not Eligible';
+    }
 
     // Accessor for age calculation
     public function getAgeAttribute()
@@ -80,5 +127,31 @@ class Employee extends Model
             return $query->where('status', $status);
         }
         return $query;
+    }
+
+        // Relationships
+    public function transfers(): HasMany
+    {
+        return $this->hasMany(Transfer::class);
+    }
+
+    public function currentTransfer(): BelongsTo
+    {
+        return $this->belongsTo(Transfer::class, 'current_transfer_id');
+    }
+
+    // Scopes
+    public function scopeByPosting($query, $posting)
+    {
+        return $query->where('current_posting', $posting);
+    }
+
+    public function scopeEligibleForTransfer($query)
+    {
+        return $query->where('status', 'EXISTING')
+                    ->whereDoesntHave('transfers', function ($q) {
+                        $q->where('status', 'Pending')
+                          ->orWhere('transfer_date', '>', now()->subYear());
+                    });
     }
 }

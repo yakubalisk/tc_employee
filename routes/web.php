@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\ExportController;
+use App\Http\Controllers\PromotionController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\TransferController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -28,3 +32,33 @@ Route::delete('/employees/{employee}', [EmployeeController::class, 'destroy'])->
 Route::get('/reports/generate', [ReportController::class, 'generate'])->name('reports.generate');
 Route::get('/promotions/process', [PromotionController::class, 'process'])->name('promotions.process');
 Route::get('/transfers/schedule', [TransferController::class, 'schedule'])->name('transfers.schedule');
+
+Route::get('/export', [ExportController::class, 'index'])->name('export.index');
+Route::post('/export', [ExportController::class, 'export'])->name('export.process');
+Route::post('/export/email', [ExportController::class, 'emailReport'])->name('export.email');
+Route::post('/export/schedule', [ExportController::class, 'scheduleExport'])->name('export.schedule');
+
+
+// Promotion routes
+Route::get('/promotions', [PromotionController::class, 'index'])->name('promotions.index');
+Route::get('/promotions/create', [PromotionController::class, 'create'])->name('promotions.create');
+Route::post('/promotions', [PromotionController::class, 'store'])->name('promotions.store');
+Route::get('/promotions/{promotion}', [PromotionController::class, 'show'])->name('promotions.show');
+Route::post('/promotions/{promotion}/approve', [PromotionController::class, 'approve'])->name('promotions.approve');
+Route::post('/promotions/{promotion}/reject', [PromotionController::class, 'reject'])->name('promotions.reject');
+Route::get('/promotions/report', [PromotionController::class, 'report'])->name('promotions.report');
+
+
+Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+Route::post('/reports/export', [ReportController::class, 'export'])->name('reports.export');
+
+
+// Transfer routes
+Route::get('/transfers', [TransferController::class, 'index'])->name('transfers.index');
+Route::get('/transfers/create', [TransferController::class, 'create'])->name('transfers.create');
+Route::post('/transfers', [TransferController::class, 'store'])->name('transfers.store');
+Route::get('/transfers/{transfer}', [TransferController::class, 'show'])->name('transfers.show');
+Route::post('/transfers/{transfer}/approve', [TransferController::class, 'approve'])->name('transfers.approve');
+Route::post('/transfers/{transfer}/complete', [TransferController::class, 'complete'])->name('transfers.complete');
+Route::post('/transfers/{transfer}/reject', [TransferController::class, 'reject'])->name('transfers.reject');
+Route::get('/api/location-distribution', [TransferController::class, 'getLocationDistribution'])->name('transfers.location-distribution');
