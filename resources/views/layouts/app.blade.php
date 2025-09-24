@@ -7,14 +7,18 @@
 
     <title>{{ config('app.name', 'Employee Management System') }}</title>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bundy.net/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts (correct URL) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <!-- Styles -->
-    <style>
+<!--     <style>
         [x-cloak] { display: none !important; }
         
         .sidebar-icon, .bell-icon, .settings-icon, .user-icon {
@@ -28,9 +32,199 @@
         .bell-icon { background-image: url("data:image/svg+xml,..."); }
         .settings-icon { background-image: url("data:image/svg+xml,..."); }
         .user-icon { background-image: url("data:image/svg+xml,..."); }
+    </style> -->
+
+
+        <!-- Custom Styles for React-like Components -->
+    <style>
+        /* Custom component classes */
+        .btn {
+            @apply inline-flex items-center px-4 py-2 border border-transparent rounded-md font-medium text-xs uppercase tracking-widest transition ease-in-out duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2;
+        }
+        
+        .btn-primary {
+            @apply bg-primary-500 text-white hover:bg-primary-600 focus:ring-primary-500;
+        }
+        
+        .btn-success {
+            @apply bg-success-500 text-white hover:bg-success-600 focus:ring-success-500;
+        }
+        
+        .btn-danger {
+            @apply bg-danger-500 text-white hover:bg-danger-600 focus:ring-danger-500;
+        }
+        
+        .btn-outline {
+            @apply border border-gray-300 text-gray-700 bg-white hover:bg-gray-50 focus:ring-gray-500;
+        }
+        
+        .btn-ghost {
+            @apply text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:ring-gray-500;
+        }
+        
+        .btn-sm {
+            @apply px-3 py-1.5 text-sm;
+        }
+        
+        .btn-lg {
+            @apply px-6 py-3 text-base;
+        }
+        
+        .card {
+            @apply bg-white overflow-hidden shadow-sm rounded-lg border border-gray-200;
+        }
+        
+        .card-header {
+            @apply px-6 py-4 border-b border-gray-200;
+        }
+        
+        .card-title {
+            @apply text-lg font-semibold text-gray-900;
+        }
+        
+        .card-content {
+            @apply p-6;
+        }
+        
+        .input {
+            @apply block w-full rounded-md border border-gray-300 px-3 py-2 text-sm placeholder-gray-400 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 focus:outline-none;
+        }
+        
+        .textarea {
+            @apply block w-full rounded-md border border-gray-300 px-3 py-2 text-sm placeholder-gray-400 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 focus:outline-none;
+        }
+        
+        .select {
+            @apply block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-500 focus:outline-none;
+        }
+        
+        .badge {
+            @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+        }
+        
+        .badge-primary {
+            @apply bg-primary-100 text-primary-800;
+        }
+        
+        .badge-secondary {
+            @apply bg-gray-100 text-gray-800;
+        }
+        
+        .badge-success {
+            @apply bg-success-100 text-success-800;
+        }
+        
+        .badge-warning {
+            @apply bg-yellow-100 text-yellow-800;
+        }
+        
+        .badge-danger {
+            @apply bg-danger-100 text-danger-800;
+        }
+        
+        .badge-outline {
+            @apply border border-gray-300 text-gray-700 bg-transparent;
+        }
+        
+        .table {
+            @apply min-w-full divide-y divide-gray-200;
+        }
+        
+        .table thead {
+            @apply bg-gray-50;
+        }
+        
+        .table th {
+            @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
+        }
+        
+        .table td {
+            @apply px-6 py-4 whitespace-nowrap text-sm text-gray-900;
+        }
+        
+        .table tbody tr {
+            @apply hover:bg-gray-50;
+        }
+        
+        .table tbody tr:nth-child(even) {
+            @apply bg-gray-50;
+        }
+        
+        .label {
+            @apply block text-sm font-medium text-gray-700 mb-1;
+        }
+        
+        .modal {
+            @apply fixed inset-0 z-50 overflow-y-auto;
+        }
+        
+        .modal-backdrop {
+            @apply fixed inset-0 bg-gray-600 bg-opacity-75;
+        }
+        
+        .modal-content {
+            @apply relative bg-white rounded-lg shadow-xl max-w-md mx-auto my-8;
+        }
+        
+        /* React-like spacing */
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+        
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+        
+        .space-y-3 > * + * {
+            margin-top: 0.75rem;
+        }
+        
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
+        }
+        
+        /* Grid system */
+        .grid-cols-1 {
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+        }
+        
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        
+        .grid-cols-3 {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        
+        .grid-cols-4 {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+        
+        @media (min-width: 768px) {
+            .md\:grid-cols-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+            
+            .md\:grid-cols-3 {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+            
+            .md\:grid-cols-4 {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .lg\:grid-cols-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+            
+            .lg\:grid-cols-3 {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
     </style>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen flex w-full bg-background font-sans antialiased">
     <div x-data="{ sidebarOpen: false }" class="flex w-full">
@@ -87,8 +281,6 @@
             </main>
         </div>
     </div>
-
-<!-- Alpine.js for interactivity -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>
 </html>

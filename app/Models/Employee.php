@@ -47,6 +47,29 @@ class Employee extends Model
         'last_transfer_date' => 'date',
     ];
 
+        // Validation rules
+    public static $rules = [
+        'empCode' => 'required|unique:employees|max:50',
+        'empId' => 'required|unique:employees|max:50',
+        'name' => 'required|max:255',
+        'gender' => 'required|in:MALE,FEMALE,OTHER',
+        'category' => 'required|in:General,OBC,SC,ST',
+        'education' => 'nullable|string',
+        'mobile' => 'nullable|digits:10',
+        'email' => 'nullable|email|unique:employees',
+        'dateOfAppointment' => 'required|date',
+        'designationAtAppointment' => 'required|string|max:255',
+        'designationAtPresent' => 'required|string|max:255',
+        'presentPosting' => 'required|string|max:255',
+        'personalFileNo' => 'nullable|string|max:50',
+        'officeLandline' => 'nullable|string|max:20',
+        'dateOfBirth' => 'required|date',
+        'dateOfRetirement' => 'required|date|after:dateOfBirth',
+        'homeTown' => 'nullable|string|max:255',
+        'residentialAddress' => 'nullable|string',
+        'status' => 'required|in:EXISTING,RETIRED,TRANSFERRED'
+    ];
+
         // Relationships
     public function promotions(): HasMany
     {
