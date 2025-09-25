@@ -59,19 +59,19 @@
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <!-- Personal Information -->
                     <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">Personal Information</div>
+                        <div class="card-header mb-5">
+                            <div class="card-title text-2xl">Personal Information</div>
                         </div>
                         <div class="card-content space-y-4">
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label for="empCode" class="label">Employee Code *</label>
+                                    <label for="empCode" class="label text-sm">Employee Code *</label>
                                     <input type="text" id="empCode" name="empCode" 
                                         value="{{ old('empCode') }}" class="input" 
                                         placeholder="130228" required>
                                 </div>
                                 <div>
-                                    <label for="empId" class="label">Employee ID *</label>
+                                    <label for="empId" class="label text-sm">Employee ID *</label>
                                     <input type="text" id="empId" name="empId" 
                                         value="{{ old('empId') }}" class="input" 
                                         placeholder="295" required>
@@ -79,7 +79,7 @@
                             </div>
                             
                             <div>
-                                <label for="name" class="label">Full Name *</label>
+                                <label for="name" class="label text-sm">Full Name *</label>
                                 <input type="text" id="name" name="name" 
                                     value="{{ old('name') }}" class="input" 
                                     placeholder="DR. K S MURALI DHARA" required>
@@ -87,7 +87,7 @@
                             
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label for="gender" class="label">Gender *</label>
+                                    <label for="gender" class="label text-sm">Gender *</label>
                                     <select id="gender" name="gender" class="select" required>
                                         <option value="">Select Gender</option>
                                         <option value="MALE" {{ old('gender') == 'MALE' ? 'selected' : '' }}>Male</option>
@@ -96,7 +96,7 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label for="category" class="label">Category *</label>
+                                    <label for="category" class="label text-sm">Category *</label>
                                     <select id="category" name="category" class="select" required>
                                         <option value="">Select Category</option>
                                         <option value="General" {{ old('category') == 'General' ? 'selected' : '' }}>General</option>
@@ -108,7 +108,7 @@
                             </div>
 
                             <div>
-                                <label for="education" class="label">Education</label>
+                                <label for="education" class="label text-sm">Education</label>
                                 <input type="text" id="education" name="education" 
                                     value="{{ old('education') }}" class="input" 
                                     placeholder="M.SC.(PHY,ECO-ENVI), PH.D.(SCIENCE)">
@@ -116,13 +116,13 @@
 
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label for="mobile" class="label">Mobile</label>
+                                    <label for="mobile" class="label text-sm">Mobile</label>
                                     <input type="tel" id="mobile" name="mobile" 
                                         value="{{ old('mobile') }}" class="input" 
                                         placeholder="9967533770" pattern="[0-9]{10}">
                                 </div>
                                 <div>
-                                    <label for="email" class="label">Email</label>
+                                    <label for="email" class="label text-sm">Email</label>
                                     <input type="email" id="email" name="email" 
                                         value="{{ old('email') }}" class="input" 
                                         placeholder="employee@company.com">
@@ -133,46 +133,46 @@
 
                     <!-- Official Information -->
                     <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">Official Information</div>
+                        <div class="card-header mb-5">
+                            <div class="card-title text-2xl">Official Information</div>
                         </div>
                         <div class="card-content space-y-4">
                             <div>
-                                <label for="dateOfAppointment" class="label">Date of Appointment *</label>
+                                <label for="dateOfAppointment" class="label text-sm">Date of Appointment *</label>
                                 <input type="date" id="dateOfAppointment" name="dateOfAppointment" 
                                     value="{{ old('dateOfAppointment') }}" class="input" required>
                             </div>
 
                             <div>
-                                <label for="designationAtAppointment" class="label">Designation at Appointment *</label>
+                                <label for="designationAtAppointment" class="label text-sm">Designation at Appointment *</label>
                                 <input type="text" id="designationAtAppointment" name="designationAtAppointment" 
                                     value="{{ old('designationAtAppointment') }}" class="input" 
                                     placeholder="QAO (LAB)" required>
                             </div>
 
                             <div>
-                                <label for="designationAtPresent" class="label">Current Designation *</label>
+                                <label for="designationAtPresent" class="label text-sm">Current Designation *</label>
                                 <input type="text" id="designationAtPresent" name="designationAtPresent" 
                                     value="{{ old('designationAtPresent') }}" class="input" 
                                     placeholder="JT. DIRECTOR (LAB)" required>
                             </div>
 
                             <div>
-                                <label for="presentPosting" class="label">Present Posting *</label>
+                                <label for="presentPosting" class="label text-sm">Present Posting *</label>
                                 <input type="text" id="presentPosting" name="presentPosting" 
                                     value="{{ old('presentPosting') }}" class="input" 
                                     placeholder="MUMBAI" required>
                             </div>
 
                             <div>
-                                <label for="personalFileNo" class="label">Personal File No.</label>
+                                <label for="personalFileNo" class="label text-sm">Personal File No.</label>
                                 <input type="text" id="personalFileNo" name="personalFileNo" 
                                     value="{{ old('personalFileNo') }}" class="input" 
                                     placeholder="206">
                             </div>
 
                             <div>
-                                <label for="officeLandline" class="label">Office Landline</label>
+                                <label for="officeLandline" class="label text-sm">Office Landline</label>
                                 <input type="text" id="officeLandline" name="officeLandline" 
                                     value="{{ old('officeLandline') }}" class="input" 
                                     placeholder="02266527524">
@@ -182,39 +182,39 @@
 
                     <!-- Additional Details -->
                     <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">Additional Details</div>
+                        <div class="card-header mb-5">
+                            <div class="card-title text-2xl">Additional Details</div>
                         </div>
                         <div class="card-content space-y-4">
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label for="dateOfBirth" class="label">Date of Birth *</label>
+                                    <label for="dateOfBirth" class="label text-sm">Date of Birth *</label>
                                     <input type="date" id="dateOfBirth" name="dateOfBirth" 
                                         value="{{ old('dateOfBirth') }}" class="input" required>
                                 </div>
                                 <div>
-                                    <label for="dateOfRetirement" class="label">Date of Retirement *</label>
+                                    <label for="dateOfRetirement" class="label text-sm">Date of Retirement *</label>
                                     <input type="date" id="dateOfRetirement" name="dateOfRetirement" 
                                         value="{{ old('dateOfRetirement') }}" class="input" required>
                                 </div>
                             </div>
 
                             <div>
-                                <label for="homeTown" class="label">Home Town</label>
+                                <label for="homeTown" class="label text-sm">Home Town</label>
                                 <input type="text" id="homeTown" name="homeTown" 
                                     value="{{ old('homeTown') }}" class="input" 
                                     placeholder="KRISHNA RAJA NAGARA, MYSORE">
                             </div>
 
                             <div>
-                                <label for="residentialAddress" class="label">Residential Address</label>
+                                <label for="residentialAddress" class="label text-sm">Residential Address</label>
                                 <textarea id="residentialAddress" name="residentialAddress" 
                                     class="textarea" placeholder="Complete residential address" 
                                     rows="3">{{ old('residentialAddress') }}</textarea>
                             </div>
 
                             <div>
-                                <label for="status" class="label">Status *</label>
+                                <label for="status" class="label text-sm">Status *</label>
                                 <select id="status" name="status" class="select" required>
                                     <option value="">Select Status</option>
                                     <option value="EXISTING" {{ old('status') == 'EXISTING' ? 'selected' : '' }}>Active</option>
@@ -227,14 +227,14 @@
                 </div>
 
                 <!-- Form Actions -->
-                <div class="flex justify-end gap-3 pt-6 border-t">
+               <!--  <div class="flex justify-end gap-3 pt-6 border-t">
                     <a href="{{ route('employees.index') }}" class="btn btn-outline">
                         <i class="fas fa-times mr-2"></i>Cancel
                     </a>
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-save mr-2"></i>Save Employee
                     </button>
-                </div>
+                </div> -->
             </div>
         </form>
     </div>

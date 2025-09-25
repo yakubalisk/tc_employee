@@ -35,196 +35,226 @@
     </style> -->
 
 
-        <!-- Custom Styles for React-like Components -->
     <style>
-        /* Custom component classes */
-        .btn {
-            @apply inline-flex items-center px-4 py-2 border border-transparent rounded-md font-medium text-xs uppercase tracking-widest transition ease-in-out duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2;
+        :root {
+            font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+            font-weight: 400;
+            color-scheme: light dark;
+            color: rgba(255, 255, 255, 0.87);
+            background-color: #242424;
+            font-synthesis: none;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-text-size-adjust: 100%;
         }
-        
-        .btn-primary {
-            @apply bg-primary-500 text-white hover:bg-primary-600 focus:ring-primary-500;
+
+        #root {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem;
+            text-align: center;
         }
-        
-        .btn-success {
-            @apply bg-success-500 text-white hover:bg-success-600 focus:ring-success-500;
+
+        .logo {
+            height: 6em;
+            padding: 1.5em;
+            will-change: filter;
+            transition: filter 300ms;
         }
-        
-        .btn-danger {
-            @apply bg-danger-500 text-white hover:bg-danger-600 focus:ring-danger-500;
+        .logo:hover {
+            filter: drop-shadow(0 0 2em #646cffaa);
         }
-        
-        .btn-outline {
-            @apply border border-gray-300 text-gray-700 bg-white hover:bg-gray-50 focus:ring-gray-500;
+        .logo.react:hover {
+            filter: drop-shadow(0 0 2em #61dafbaa);
         }
-        
-        .btn-ghost {
-            @apply text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:ring-gray-500;
+
+        @keyframes logo-spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
         }
-        
-        .btn-sm {
-            @apply px-3 py-1.5 text-sm;
+
+        @media (prefers-reduced-motion: no-preference) {
+            a:nth-of-type(2) .logo {
+                animation: logo-spin infinite 20s linear;
+            }
         }
-        
-        .btn-lg {
-            @apply px-6 py-3 text-base;
-        }
-        
+
         .card {
-            @apply bg-white overflow-hidden shadow-sm rounded-lg border border-gray-200;
+            padding: 2em;
         }
-        
-        .card-header {
-            @apply px-6 py-4 border-b border-gray-200;
+
+        .read-the-docs {
+            color: #888;
         }
-        
-        .card-title {
-            @apply text-lg font-semibold text-gray-900;
+
+        /* React component styles */
+        a {
+            font-weight: 500;
+            color: #646cff;
+            text-decoration: inherit;
         }
-        
-        .card-content {
-            @apply p-6;
+        a:hover {
+            color: #535bf2;
         }
-        
-        .input {
-            @apply block w-full rounded-md border border-gray-300 px-3 py-2 text-sm placeholder-gray-400 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 focus:outline-none;
+
+        body {
+            margin: 0;
+            display: flex;
+            place-items: center;
+            min-width: 320px;
+            min-height: 100vh;
         }
-        
-        .textarea {
-            @apply block w-full rounded-md border border-gray-300 px-3 py-2 text-sm placeholder-gray-400 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 focus:outline-none;
+
+        h1 {
+            font-size: 3.2em;
+            line-height: 1.1;
         }
-        
-        .select {
-            @apply block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-500 focus:outline-none;
+
+        button {
+            border-radius: 8px;
+            border: 1px solid transparent;
+            padding: 0.6em 1.2em;
+            font-size: 1em;
+            font-weight: 500;
+            font-family: inherit;
+            background-color: #1a1a1a;
+            color: white;
+            cursor: pointer;
+            transition: border-color 0.25s;
         }
-        
-        .badge {
-            @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+        button:hover {
+            border-color: #646cff;
         }
-        
-        .badge-primary {
-            @apply bg-primary-100 text-primary-800;
+        button:focus,
+        button:focus-visible {
+            outline: 4px auto -webkit-focus-ring-color;
         }
-        
-        .badge-secondary {
-            @apply bg-gray-100 text-gray-800;
+
+        @media (prefers-color-scheme: light) {
+            :root {
+                color: #213547;
+                background-color: #ffffff;
+            }
+            a:hover {
+                color: #747bff;
+            }
+            button {
+                background-color: #f9f9f9;
+                color: #213547;
+            }
         }
-        
-        .badge-success {
-            @apply bg-success-100 text-success-800;
+
+        /* Additional React-like component styles */
+        .flex {
+            display: flex;
         }
-        
-        .badge-warning {
-            @apply bg-yellow-100 text-yellow-800;
+
+        .justify-center {
+            justify-content: center;
         }
-        
-        .badge-danger {
-            @apply bg-danger-100 text-danger-800;
+
+        .items-center {
+            align-items: center;
         }
-        
-        .badge-outline {
-            @apply border border-gray-300 text-gray-700 bg-transparent;
+
+        .space-x-4 > * + * {
+            margin-left: 1rem;
         }
-        
-        .table {
-            @apply min-w-full divide-y divide-gray-200;
-        }
-        
-        .table thead {
-            @apply bg-gray-50;
-        }
-        
-        .table th {
-            @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
-        }
-        
-        .table td {
-            @apply px-6 py-4 whitespace-nowrap text-sm text-gray-900;
-        }
-        
-        .table tbody tr {
-            @apply hover:bg-gray-50;
-        }
-        
-        .table tbody tr:nth-child(even) {
-            @apply bg-gray-50;
-        }
-        
-        .label {
-            @apply block text-sm font-medium text-gray-700 mb-1;
-        }
-        
-        .modal {
-            @apply fixed inset-0 z-50 overflow-y-auto;
-        }
-        
-        .modal-backdrop {
-            @apply fixed inset-0 bg-gray-600 bg-opacity-75;
-        }
-        
-        .modal-content {
-            @apply relative bg-white rounded-lg shadow-xl max-w-md mx-auto my-8;
-        }
-        
-        /* React-like spacing */
-        .space-y-6 > * + * {
-            margin-top: 1.5rem;
-        }
-        
+
         .space-y-4 > * + * {
             margin-top: 1rem;
         }
-        
-        .space-y-3 > * + * {
-            margin-top: 0.75rem;
+
+        .grid {
+            display: grid;
         }
-        
-        .space-y-2 > * + * {
-            margin-top: 0.5rem;
-        }
-        
-        /* Grid system */
-        .grid-cols-1 {
-            grid-template-columns: repeat(1, minmax(0, 1fr));
-        }
-        
-        .grid-cols-2 {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-        
+
         .grid-cols-3 {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-template-columns: repeat(3, 1fr);
         }
-        
-        .grid-cols-4 {
-            grid-template-columns: repeat(4, minmax(0, 1fr));
+
+        .gap-6 {
+            gap: 1.5rem;
         }
-        
-        @media (min-width: 768px) {
-            .md\:grid-cols-2 {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-            
-            .md\:grid-cols-3 {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-            }
-            
-            .md\:grid-cols-4 {
-                grid-template-columns: repeat(4, minmax(0, 1fr));
-            }
+
+        .p-6 {
+            padding: 1.5rem;
         }
-        
-        @media (min-width: 1024px) {
-            .lg\:grid-cols-2 {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-            
-            .lg\:grid-cols-3 {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-            }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .text-3xl {
+            font-size: 1.875rem;
+            line-height: 2.25rem;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .text-gray-600 {
+            color: #6b7280;
+        }
+
+        /* Form styles matching React components */
+        .input-group {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            background-color: white;
+            color: #374151;
+            transition: border-color 0.15s ease-in-out;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .select-field {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            background-color: white;
+            color: #374151;
+        }
+
+        .textarea-field {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            background-color: white;
+            color: #374151;
+            resize: vertical;
+            min-height: 100px;
         }
     </style>
-
+<!-- Vite CSS -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen flex w-full bg-background font-sans antialiased">
     <div x-data="{ sidebarOpen: false }" class="flex w-full">
