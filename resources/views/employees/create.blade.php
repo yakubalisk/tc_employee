@@ -63,6 +63,51 @@
                             <div class="card-title text-2xl">Personal Information</div>
                         </div>
                         <div class="card-content space-y-4">
+                            <div class="flex flex-col sm:flex-row gap-6 items-start sm:items-center">
+            <div class="flex-shrink-0">
+                <div class="relative">
+                    <!-- Image Preview -->
+                    <div id="imagePreview" class="w-24 h-24 bg-gray-200 dark:bg-neutral-700 rounded-full border-2 border-dashed border-gray-300 dark:border-neutral-600 flex items-center justify-center overflow-hidden">
+                        <svg id="defaultAvatar" class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                        </svg>
+                        <img id="previewImage" class="w-full h-full object-cover hidden" alt="Profile preview">
+                    </div>
+                    
+                    <!-- Remove Image Button -->
+                    <button type="button" id="removeImage" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600 transition-colors duration-200 hidden">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="flex-1 min-w-0">
+                <label for="profile_image" class="label text-sm">Profile Photo</label>
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <div class="flex-1">
+                        <input type="file" 
+                               id="profile_image" 
+                               name="profile_image" 
+                               accept="image/*" 
+                               class="hidden"
+                               >
+                        <button type="button" 
+                                onclick="document.getElementById('profile_image').click()" 
+                                class="w-full sm:w-auto py-2 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 dark:bg-neutral-800 dark:border-neutral-600 dark:text-neutral-300 dark:hover:bg-neutral-700">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                            Choose Photo
+                        </button>
+                    </div>
+                    <div class="text-xs text-gray-500 dark:text-neutral-400">
+                        Max 2MB.
+                    </div>
+                </div>
+            </div>
+        </div>
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
                                     <label for="empCode" class="label text-sm">Employee Code *</label>
@@ -269,6 +314,102 @@ document.addEventListener('DOMContentLoaded', function() {
             this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);
         });
     }
+ // Image preview functionality
+    const imageInput = document.getElementById('profile_image');
+    const preview = document.getElementById('previewImage');
+    const defaultAvatar = document.getElementById('defaultAvatar');
+    const removeButton = document.getElementById('removeImage');
+    const dropArea = document.getElementById('imagePreview');
+
+    // Handle file input change
+    imageInput.addEventListener('change', function(e) {
+        handleImageSelection(this);
+    });
+
+    function handleImageSelection(input) {
+        if (input.files && input.files[0]) {
+            const file = input.files[0];
+            
+            // Validate file size (2MB)
+            if (file.size > 2 * 1024 * 1024) {
+                alert('File size must be less than 2MB');
+                input.value = '';
+                return;
+            }
+            
+            // Validate file type
+            const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+            if (!validTypes.includes(file.type)) {
+                alert('Please select a valid image file (JPG, PNG, or WEBP)');
+                input.value = '';
+                return;
+            }
+            
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.classList.remove('hidden');
+                defaultAvatar.classList.add('hidden');
+                removeButton.classList.remove('hidden');
+            }
+            
+            reader.readAsDataURL(file);
+        }
+    }
+
+    // Remove image functionality
+    removeButton.addEventListener('click', function() {
+        imageInput.value = '';
+        preview.src = '';
+        preview.classList.add('hidden');
+        defaultAvatar.classList.remove('hidden');
+        removeButton.classList.add('hidden');
+    });
+
+    // Drag and drop functionality
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, highlight, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, unhighlight, false);
+    });
+
+    function highlight() {
+        dropArea.classList.add('border-blue-500', 'border-2');
+    }
+
+    function unhighlight() {
+        dropArea.classList.remove('border-blue-500', 'border-2');
+    }
+
+    dropArea.addEventListener('drop', handleDrop, false);
+
+    function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        
+        if (files.length) {
+            imageInput.files = files;
+            handleImageSelection(imageInput);
+        }
+    }
+
+    // Click on preview to upload
+    dropArea.addEventListener('click', function() {
+        imageInput.click();
+    });
 });
+
 </script>
 @endsection
