@@ -10,65 +10,87 @@ class Employee extends Model
     use HasFactory;
 
     protected $fillable = [
+        // Personal Information
+        'profile_image',
         'empCode',
-        'empId',
+        'empId', 
         'name',
         'gender',
         'category',
         'education',
         'mobile',
         'email',
+        
+        // Employment Details
         'dateOfAppointment',
         'designationAtAppointment',
         'designationAtPresent',
-        'current_designation',
         'presentPosting',
         'personalFileNo',
         'officeLandline',
+        
+        // Personal Details
         'dateOfBirth',
-        'dateOfRetirement',
+        'dateOfRetirement', 
         'homeTown',
         'residentialAddress',
         'status',
-        'promoted',
-        'last_promotion_date',
-        'current_promotion_id',
-        'current_posting',
-        'last_transfer_date',
-        'current_transfer_id'
+        
+        // Additional Fields
+        'office_in_charge',
+        'promotee_transferee',
+        'pension_file_no',
+        'nps',
+        'increment_month',
+        'probation_period',
+        'status_of_post',
+        'department',
+        'seniority_sequence_no',
+        'sddlsection_incharge',
+        'benevolent_member',
+        'increment_individual_selc',
+        'office_landline_number',
+        'increment_withheld',
+        'FR56J_2nd_batch',
+        'apar_hod',
+        'karmayogi_certificate_completed',
+        '2021_2022',
+        '2022_2023', 
+        '2023_2024',
+        '2024_2025',
     ];
 
     protected $casts = [
         'dateOfAppointment' => 'date',
         'dateOfBirth' => 'date',
         'dateOfRetirement' => 'date',
-        'promoted' => 'boolean',
-        'last_promotion_date' => 'date',
-        'last_transfer_date' => 'date',
+        
+        // Cast boolean fields
+        'office_in_charge' => 'boolean',
+        'nps' => 'boolean',
+        'probation_period' => 'boolean',
+        'department' => 'boolean',
+        'increment_individual_selc' => 'boolean',
+        'increment_withheld' => 'boolean',
+        'FR56J_2nd_batch' => 'boolean',
+        'apar_hod' => 'boolean',
+        'karmayogi_certificate_completed' => 'boolean',
+        '2021_2022' => 'boolean',
+        '2022_2023' => 'boolean',
+        '2023_2024' => 'boolean',
+        '2024_2025' => 'boolean',
+        
+        'increment_month' => 'integer',
     ];
 
-        // Validation rules
-    public static $rules = [
-        'empCode' => 'required|unique:employees|max:50',
-        'empId' => 'required|unique:employees|max:50',
-        'name' => 'required|max:255',
-        'gender' => 'required|in:MALE,FEMALE,OTHER',
-        'category' => 'required|in:General,OBC,SC,ST',
-        'education' => 'nullable|string',
-        'mobile' => 'nullable|digits:10',
-        'email' => 'nullable|email|unique:employees',
-        'dateOfAppointment' => 'required|date',
-        'designationAtAppointment' => 'required|string|max:255',
-        'designationAtPresent' => 'required|string|max:255',
-        'presentPosting' => 'required|string|max:255',
-        'personalFileNo' => 'nullable|string|max:50',
-        'officeLandline' => 'nullable|string|max:20',
-        'dateOfBirth' => 'required|date',
-        'dateOfRetirement' => 'required|date|after:dateOfBirth',
-        'homeTown' => 'nullable|string|max:255',
-        'residentialAddress' => 'nullable|string',
-        'status' => 'required|in:EXISTING,RETIRED,TRANSFERRED'
-    ];
+    // Accessor for profile image URL
+    public function getProfileImageUrlAttribute()
+    {
+        if ($this->profile_image) {
+            return asset('storage/' . $this->profile_image);
+        }
+        return asset('images/default-avatar.png');
+    }
 
         // Relationships
     public function promotions(): HasMany
@@ -109,11 +131,21 @@ class Employee extends Model
         return $lastPromotion >= 12 ? 'Eligible' : 'Not Eligible';
     }
 
-    // Accessor for age calculation
-    public function getAgeAttribute()
-    {
-        return $this->dateOfBirth ? now()->diffInYears($this->dateOfBirth) : null;
+    // // Accessor for age calculation
+    // public function getAgeAttribute()
+    // {
+    //     return $this->dateOfBirth ? now()->diffInYears($this->dateOfBirth) : null;
+    // }
+
+public function getAgeAttribute()
+{
+  
+    if (!$this->dateOfBirth) {
+        return 0;
     }
+    
+    return \Carbon\Carbon::parse($this->dateOfBirth)->age;
+}
 
         // Scope for filtering
     public function scopeSearch($query, $searchTerm)

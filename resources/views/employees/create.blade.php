@@ -3,7 +3,7 @@
 @section('content')
 <div class="min-h-screen bg-gray-50 p-6">
     <div class="max-w-7xl mx-auto">
-        <form action="{{ route('employees.store') }}" method="POST">
+        <form action="{{ route('employees.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             
             <div class="space-y-6">
@@ -89,6 +89,7 @@
                     <div class="flex-1">
                         <input type="file" 
                                id="profile_image" 
+                               value="{{ old('profile_image') }}"
                                name="profile_image" 
                                accept="image/*" 
                                class="hidden"
@@ -110,30 +111,30 @@
         </div>
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label for="empCode" class="label text-sm">Employee Code *</label>
+                                    <label for="empCode" class="label text-sm font-semibold">Employee Code *</label>
                                     <input type="text" id="empCode" name="empCode" 
-                                        value="{{ old('empCode') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" 
+                                        value="{{ old('empCode') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 border" 
                                         placeholder="130228" required>
                                 </div>
                                 <div>
-                                    <label for="empId" class="label text-sm">Employee ID *</label>
+                                    <label for="empId" class="label text-sm font-semibold">Employee ID *</label>
                                     <input type="text" id="empId" name="empId" 
-                                        value="{{ old('empId') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" 
+                                        value="{{ old('empId') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 border" 
                                         placeholder="295" required>
                                 </div>
                             </div>
                             
                             <div>
-                                <label for="name" class="label text-sm">Full Name *</label>
+                                <label for="name" class="label text-sm font-semibold">Full Name *</label>
                                 <input type="text" id="name" name="name" 
-                                    value="{{ old('name') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" 
+                                    value="{{ old('name') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 border" 
                                     placeholder="DR. K S MURALI DHARA" required>
                             </div>
                             
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label for="gender" class="label text-sm">Gender *</label>
-                                    <select id="gender" name="gender" class="py-3 px-4 pe-9 block w-full bg-gray-100 border-transparent rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:border-transparent dark:text-neutral-400 dark:focus:ring-neutral-600" required>
+                                    <label for="gender" class="label text-sm font-semibold">Gender *</label>
+                                    <select id="gender" name="gender" class="py-3 px-4 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 border" required>
                                         <option value="">Select Gender</option>
                                         <option value="MALE" {{ old('gender') == 'MALE' ? 'selected' : '' }}>Male</option>
                                         <option value="FEMALE" {{ old('gender') == 'FEMALE' ? 'selected' : '' }}>Female</option>
@@ -141,8 +142,8 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label for="category" class="label text-sm">Category *</label>
-                                    <select id="category" name="category" class="py-3 px-4 pe-9 block w-full bg-gray-100 border-transparent rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:border-transparent dark:text-neutral-400 dark:focus:ring-neutral-600" required>
+                                    <label for="category" class="label text-sm font-semibold">Category *</label>
+                                    <select id="category" name="category" class="py-3 px-4 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 border" required>
                                         <option value="">Select Category</option>
                                         <option value="General" {{ old('category') == 'General' ? 'selected' : '' }}>General</option>
                                         <option value="OBC" {{ old('category') == 'OBC' ? 'selected' : '' }}>OBC</option>
@@ -153,23 +154,23 @@
                             </div>
 
                             <div>
-                                <label for="education" class="label text-sm">Education</label>
+                                <label for="education" class="label text-sm font-semibold">Education</label>
                                 <input type="text" id="education" name="education" 
-                                    value="{{ old('education') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" 
+                                    value="{{ old('education') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 border" 
                                     placeholder="M.SC.(PHY,ECO-ENVI), PH.D.(SCIENCE)">
                             </div>
 
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label for="mobile" class="label text-sm">Mobile</label>
+                                    <label for="mobile" class="label text-sm font-semibold">Mobile</label>
                                     <input type="tel" id="mobile" name="mobile" 
-                                        value="{{ old('mobile') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" 
+                                        value="{{ old('mobile') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 border" 
                                         placeholder="9967533770" pattern="[0-9]{10}">
                                 </div>
                                 <div>
-                                    <label for="email" class="label text-sm">Email</label>
+                                    <label for="email" class="label text-sm font-semibold">Email</label>
                                     <input type="email" id="email" name="email" 
-                                        value="{{ old('email') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" 
+                                        value="{{ old('email') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 border" 
                                         placeholder="employee@company.com">
                                 </div>
                             </div>
@@ -183,43 +184,43 @@
                         </div>
                         <div class="card-content space-y-4">
                             <div>
-                                <label for="dateOfAppointment" class="label text-sm">Date of Appointment *</label>
+                                <label for="dateOfAppointment" class="label text-sm font-semibold">Date of Appointment *</label>
                                 <input type="date" id="dateOfAppointment" name="dateOfAppointment" 
-                                    value="{{ old('dateOfAppointment') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
+                                    value="{{ old('dateOfAppointment') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 border" required>
                             </div>
 
                             <div>
-                                <label for="designationAtAppointment" class="label text-sm">Designation at Appointment *</label>
+                                <label for="designationAtAppointment" class="label text-sm font-semibold">Designation at Appointment *</label>
                                 <input type="text" id="designationAtAppointment" name="designationAtAppointment" 
-                                    value="{{ old('designationAtAppointment') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" 
+                                    value="{{ old('designationAtAppointment') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 border" 
                                     placeholder="QAO (LAB)" required>
                             </div>
 
                             <div>
-                                <label for="designationAtPresent" class="label text-sm">Current Designation *</label>
+                                <label for="designationAtPresent" class="label text-sm font-semibold">Current Designation *</label>
                                 <input type="text" id="designationAtPresent" name="designationAtPresent" 
-                                    value="{{ old('designationAtPresent') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" 
+                                    value="{{ old('designationAtPresent') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 border" 
                                     placeholder="JT. DIRECTOR (LAB)" required>
                             </div>
 
                             <div>
-                                <label for="presentPosting" class="label text-sm">Present Posting *</label>
+                                <label for="presentPosting" class="label text-sm font-semibold">Present Posting *</label>
                                 <input type="text" id="presentPosting" name="presentPosting" 
-                                    value="{{ old('presentPosting') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" 
+                                    value="{{ old('presentPosting') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 border" 
                                     placeholder="MUMBAI" required>
                             </div>
 
                             <div>
-                                <label for="personalFileNo" class="label text-sm">Personal File No.</label>
+                                <label for="personalFileNo" class="label text-sm font-semibold">Personal File No.</label>
                                 <input type="text" id="personalFileNo" name="personalFileNo" 
-                                    value="{{ old('personalFileNo') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" 
+                                    value="{{ old('personalFileNo') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 border" 
                                     placeholder="206">
                             </div>
 
                             <div>
-                                <label for="officeLandline" class="label text-sm">Office Landline</label>
+                                <label for="officeLandline" class="label text-sm font-semibold">Office Landline</label>
                                 <input type="text" id="officeLandline" name="officeLandline" 
-                                    value="{{ old('officeLandline') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" 
+                                    value="{{ old('officeLandline') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 border" 
                                     placeholder="02266527524">
                             </div>
                         </div>
@@ -233,34 +234,34 @@
                         <div class="card-content space-y-4">
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label for="dateOfBirth" class="label text-sm">Date of Birth *</label>
+                                    <label for="dateOfBirth" class="label text-sm font-semibold">Date of Birth *</label>
                                     <input type="date" id="dateOfBirth" name="dateOfBirth" 
-                                        value="{{ old('dateOfBirth') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
+                                        value="{{ old('dateOfBirth') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 border" required>
                                 </div>
                                 <div>
-                                    <label for="dateOfRetirement" class="label text-sm">Date of Retirement *</label>
+                                    <label for="dateOfRetirement" class="label text-sm font-semibold">Date of Retirement *</label>
                                     <input type="date" id="dateOfRetirement" name="dateOfRetirement" 
-                                        value="{{ old('dateOfRetirement') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
+                                        value="{{ old('dateOfRetirement') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 border" required>
                                 </div>
                             </div>
 
                             <div>
-                                <label for="homeTown" class="label text-sm">Home Town</label>
+                                <label for="homeTown" class="label text-sm font-semibold">Home Town</label>
                                 <input type="text" id="homeTown" name="homeTown" 
-                                    value="{{ old('homeTown') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" 
+                                    value="{{ old('homeTown') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 border" 
                                     placeholder="KRISHNA RAJA NAGARA, MYSORE">
                             </div>
 
                             <div>
-                                <label for="residentialAddress" class="label text-sm">Residential Address</label>
+                                <label for="residentialAddress" class="label text-sm font-semibold">Residential Address</label>
                                 <textarea id="residentialAddress" name="residentialAddress" 
-                                    class="py-2 px-3 sm:py-3 sm:px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" rows="3" placeholder="This is a textarea placeholder" placeholder="Complete residential address" 
+                                    class="py-2 px-3 sm:py-3 sm:px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 border" rows="3" placeholder="This is a textarea placeholder" placeholder="Complete residential address" 
                                     rows="3">{{ old('residentialAddress') }}</textarea>
                             </div>
 
                             <div>
-                                <label for="status" class="label text-sm">Status *</label>
-                                <select id="status" name="status" class="py-3 px-4 pe-9 block w-full bg-gray-100 border-transparent rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:border-transparent dark:text-neutral-400 dark:focus:ring-neutral-600" required>
+                                <label for="status" class="label text-sm font-semibold">Status *</label>
+                                <select id="status" name="status" class="py-3 px-4 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 border" required>
                                     <option value="">Select Status</option>
                                     <option value="EXISTING" {{ old('status') == 'EXISTING' ? 'selected' : '' }}>Active</option>
                                     <option value="RETIRED" {{ old('status') == 'RETIRED' ? 'selected' : '' }}>Retired</option>
@@ -270,6 +271,149 @@
                         </div>
                     </div>
                 </div>
+
+                                    <!-- More Details -->
+                    <div class="card border rounded-xl">
+                        <div class="card-header mb-5">
+                            <div class="card-title text-2xl">More Details</div>
+                        </div>
+                        <div class="card-content space-y-4">
+                            <div class="grid grid-cols-3 gap-4">
+                                <div class="mt-5">
+                                      <label for="hs-checkbox-in-form" class="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
+                                        <input type="checkbox" value="{{ old('office_in_charge') }}" name="office_in_charge" class="shrink-0 mt-0.5 border-gray-200 rounded-sm text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-checkbox-in-form sm:text-sm">
+                                        <span class="text-sm text-gray-500 ms-3 dark:text-neutral-400 font-semibold">Officer In Charge</span>
+                                      </label>
+                                </div>                                
+                                <div>
+                                    <label for="homeTown" class="label text-sm font-semibold">Promotee/Transferee</label>
+                                    <input type="text" id="homeTown" name="promotee_transferee" 
+                                        value="{{ old('promotee_transferee') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 border" 
+                                        placeholder="Promotee/Transferee">
+                                </div>
+                                <div>
+                                    <label for="homeTown" class="label text-sm font-semibold">Pension FIle Number</label>
+                                    <input type="text" id="homeTown" name="pension_file_no" 
+                                        value="{{ old('pension_file_no') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 border" 
+                                        placeholder="Pension FIle Number">
+                                </div>
+                                <div class="mt-5">
+                                      <label for="hs-checkbox-in-form" class="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
+                                        <input type="checkbox" value="{{ old('nps') }}" name="nps" class="shrink-0 mt-0.5 border-gray-200 rounded-sm text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-checkbox-in-form sm:text-sm">
+                                        <span class="text-sm text-gray-500 ms-3 dark:text-neutral-400 font-semibold">NPS</span>
+                                      </label>
+                                </div>                                
+                                <div>
+                                    <label for="homeTown" class="label text-sm font-semibold">Increment Month</label>
+                                    <input type="text" id="homeTown" name="increment_month" 
+                                        value="{{ old('increment_month') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 border" 
+                                        placeholder="Increment Month">
+                                </div>
+                                <div class="mt-5">
+                                      <label for="hs-checkbox-in-form" class="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
+                                        <input type="checkbox" value="{{ old('pwd') }}" name="pwd" class="shrink-0 mt-0.5 border-gray-200 rounded-sm text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-checkbox-in-form sm:text-sm">
+                                        <span class="text-sm text-gray-500 ms-3 dark:text-neutral-400 font-semibold">PWD</span>
+                                      </label>
+                                </div>
+                                <div class="mt-5">
+                                      <label for="hs-checkbox-in-form" class="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
+                                        <input type="checkbox" value="{{ old('probation_period') }}" name="probation_period" class="shrink-0 mt-0.5 border-gray-200 rounded-sm text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-checkbox-in-form sm:text-sm">
+                                        <span class="text-sm text-gray-500 ms-3 dark:text-neutral-400 font-semibold">Probation Period cleared</span>
+                                      </label>
+                                </div>                                
+                                <div>
+                                    <label for="homeTown" class="label text-sm font-semibold">Status of Post</label>
+                                    <input type="text" id="homeTown" name="status_of_post" 
+                                        value="{{ old('status_of_post') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 border" 
+                                        placeholder="KRISHNA RAJA NAGARA, MYSORE">
+                                </div>
+                                <div class="mt-5">
+                                      <label for="hs-checkbox-in-form" class="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
+                                        <input type="checkbox" value="{{ old('department') }}" name="department" class="shrink-0 mt-0.5 border-gray-200 rounded-sm text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-checkbox-in-form sm:text-sm">
+                                        <span class="text-sm text-gray-500 ms-3 dark:text-neutral-400 font-semibold">Department/Section Incharge</span>
+                                      </label>
+                                </div>                                 
+                                <div class="mt-5">
+                                      <label for="hs-checkbox-in-form" class="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
+                                        <input type="checkbox" value="{{ old('2021_2022') }}" name="2021_2022" class="shrink-0 mt-0.5 border-gray-200 rounded-sm text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-checkbox-in-form sm:text-sm">
+                                        <span class="text-sm text-gray-500 ms-3 dark:text-neutral-400 font-semibold">2021-2022</span>
+                                      </label>
+                                </div>                                
+                                <div>
+                                    <label for="homeTown" class="label text-sm font-semibold">Seniority Sequence number</label>
+                                    <input type="text" id="homeTown" name="seniority_sequence_no" 
+                                        value="{{ old('seniority_sequence_no') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 border" 
+                                        placeholder="Seniority Sequence number">
+                                </div>                                
+                                <div>
+                                    <label for="homeTown" class="label text-sm font-semibold">Addl section incharge</label>
+                                    <textarea type="text" id="homeTown" name="sddlsection_incharge" 
+                                        value="{{ old('sddlsection_incharge') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 border" 
+                                        placeholder="Addl section incharge"></textarea>
+                                </div>                                
+                                <div class="mt-5">
+                                      <label for="hs-checkbox-in-form" class="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
+                                        <input type="checkbox" value="{{ old('2023_2024') }}" name="2023_2024" class="shrink-0 mt-0.5 border-gray-200 rounded-sm text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-checkbox-in-form sm:text-sm">
+                                        <span class="text-sm text-gray-500 ms-3 dark:text-neutral-400 font-semibold">2023-2024 APAR</span>
+                                      </label>
+                                </div>                                  
+                                <div>
+                                    <label for="homeTown" class="label text-sm font-semibold">Benevolent Member</label>
+                                    <input type="text" id="homeTown" name="benevolent_member" 
+                                        value="{{ old('benevolent_member') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 border" 
+                                        placeholder="Benevolent Member">
+                                </div>
+                                <div></div>
+                                <div class="mt-5">
+                                      <label for="hs-checkbox-in-form" class="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
+                                        <input type="checkbox" value="{{ old('2022_2023') }}" name="2022_2023" class="shrink-0 mt-0.5 border-gray-200 rounded-sm text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-checkbox-in-form sm:text-sm">
+                                        <span class="text-sm text-gray-500 ms-3 dark:text-neutral-400 font-semibold">2022-23 APAR</span>
+                                      </label>
+                                </div>
+                                <div class="mt-5">
+                                      <label for="hs-checkbox-in-form" class="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
+                                        <input type="checkbox" value="{{ old('increment_individual_selc') }}" name="increment_individual_selc" class="shrink-0 mt-0.5 border-gray-200 rounded-sm text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-checkbox-in-form sm:text-sm">
+                                        <span class="text-sm text-gray-500 ms-3 dark:text-neutral-400 font-semibold">Increment Individual selc</span>
+                                      </label>
+                                </div>
+                                <div>
+                                    <label for="homeTown" class="label text-sm font-semibold">Office Landline Number</label>
+                                    <input type="text" id="homeTown" name="office_landline_number" 
+                                        value="{{ old('office_landline_number') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 border" 
+                                        placeholder="KRISHNA RAJA NAGARA, MYSORE">
+                                </div> 
+                                <div class="mt-5">
+                                      <label for="hs-checkbox-in-form" class="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
+                                        <input type="checkbox" value="{{ old('increment_withheld') }}" name="increment_withheld" class="shrink-0 mt-0.5 border-gray-200 rounded-sm text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-checkbox-in-form sm:text-sm">
+                                        <span class="text-sm text-gray-500 ms-3 dark:text-neutral-400 font-semibold">Increment withheld</span>
+                                      </label>
+                                </div>
+                                <div class="mt-5">
+                                      <label for="hs-checkbox-in-form" class="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
+                                        <input type="checkbox" value="{{ old('FR56J_2nd_batch') }}" name="FR56J_2nd_batch" class="shrink-0 mt-0.5 border-gray-200 rounded-sm text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-checkbox-in-form sm:text-sm">
+                                        <span class="text-sm text-gray-500 ms-3 dark:text-neutral-400 font-semibold">FR56J 2nd batch</span>
+                                      </label>
+                                </div>
+                                <div class="mt-5">
+                                      <label for="hs-checkbox-in-form" class="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
+                                        <input type="checkbox" value="{{ old('apar_hod') }}" name="apar_hod" class="shrink-0 mt-0.5 border-gray-200 rounded-sm text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-checkbox-in-form sm:text-sm">
+                                        <span class="text-sm text-gray-500 ms-3 dark:text-neutral-400 font-semibold">Apar HoD</span>
+                                      </label>
+                                </div> <div class="mt-5">
+                                      <label for="hs-checkbox-in-form" class="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
+                                        <input type="checkbox" value="{{ old('2024_2025') }}" name="2024_2025" class="shrink-0 mt-0.5 border-gray-200 rounded-sm text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-checkbox-in-form sm:text-sm">
+                                        <span class="text-sm text-gray-500 ms-3 dark:text-neutral-400 font-semibold">2024-25 APAR</span>
+                                      </label>
+                                </div> <div class="mt-5">
+                                      <label for="hs-checkbox-in-form" class="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
+                                        <input type="checkbox" value="{{ old('karmayogi_certificate_completed') == 1 ? 'checked' : '' }}" name="karmayogi_certificate_completed" class="shrink-0 mt-0.5 border-gray-200 rounded-sm text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-checkbox-in-form sm:text-sm">
+                                        <span class="text-sm text-gray-500 ms-3 dark:text-neutral-400 font-semibold">Karmayogi Certificate Completed
+</span>
+                                      </label>
+                                </div>                                                             
+                            </div>
+                        </div>
+                    </div>
 
                 <!-- Form Actions -->
                <!--  <div class="flex justify-end gap-3 pt-6 border-t">

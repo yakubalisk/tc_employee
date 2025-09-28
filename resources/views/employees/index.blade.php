@@ -9,11 +9,11 @@
             <p class="text-muted-foreground">Manage and view all employee records</p>
         </div>
         <div class="flex gap-2">
-            <a href="{{ route('employees.export', request()->query()) }}" class="btn btn-outline">
+            <a href="{{ route('employees.export', request()->query()) }}" class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-green-600 text-white hover:bg-green-700 focus:outline-hidden focus:bg-green-700 disabled:opacity-50 disabled:pointer-events-none">
                 <i class="fa fa-download mr-2"></i>
                 Export
             </a>
-            <a href="{{ route('employees.create') }}" class="btn btn-primary">
+            <a href="{{ route('employees.create') }}" class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
                 <i class="fa fa-eye mr-2"></i>
                 Add Employee
             </a>
@@ -116,9 +116,15 @@
                 <td class="px-4 py-4 whitespace-nowrap">
                     <div class="flex items-center">
                         <div class="flex-shrink-0 h-10 w-10 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800 rounded-full flex items-center justify-center">
+                        @if($employee->profile_image)
+                            <img src="{{ asset('public/storage/' . $employee->profile_image) }}" 
+                                     alt="{{ $employee->name }}"
+                                     class="h-full w-full object-cover group-hover:scale-105 group-focus:scale-105 transition-transform duration-500 ease-in-out rounded-xl">
+                        @else
                             <span class="text-sm font-medium text-blue-800 dark:text-blue-200">
                                 {{ substr($employee->name, 0, 1) }}
                             </span>
+                        @endif
                         </div>
                         <div class="ml-4">
                             <div class="text-sm font-medium text-gray-900 dark:text-neutral-100">{{ $employee->name }}</div>

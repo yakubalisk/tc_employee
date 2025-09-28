@@ -1,5 +1,5 @@
 <div class="space-y-6">
-    <div class="card">
+    <div class="card border rounded-lg">
         <div class="card-header">
             <div class="card-title">Employees Retiring Soon (Next 2 Years)</div>
         </div>

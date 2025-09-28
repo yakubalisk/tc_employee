@@ -1,12 +1,12 @@
 <div class="space-y-6">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="card">
+        <div class="card border rounded-lg">
             <div class="p-4 card-content">
                 <div class="text-2xl font-bold text-success">{{ $reportData['promotedThisYear'] }}</div>
                 <div class="text-sm text-muted-foreground">Promotions This Year</div>
             </div>
         </div>
-        <div class="card">
+        <div class="card border rounded-lg">
             <div class="p-4 card-content">
                 <div class="text-2xl font-bold text-warning">{{ $reportData['pendingPromotions'] }}</div>
                 <div class="text-sm text-muted-foreground">Pending Promotions</div>
@@ -14,7 +14,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card border rounded-lg">
         <div class="card-header">
             <div class="card-title">Recently Promoted Employees</div>
         </div>
