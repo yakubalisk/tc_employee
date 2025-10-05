@@ -53,6 +53,20 @@
                                 <i data-lucide="user-plus" class="h-4 w-4"></i>
                                 <span class="whitespace-nowrap">Add Employee</span>
                             </a>
+                        </li>                        
+                        <li>
+                            <a href="{{ route('apar.index') }}" 
+                            class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover-nav {{ request()->is('apar*') ? 'active-nav' : '' }}">
+                               <i data-lucide="users" class="h-4 w-4"></i>
+                                <span class="whitespace-nowrap">APAR Module</span>
+                            </a>
+                        </li>                        
+                        <li>
+                            <a href="{{ route('financial-upgradation.index') }}" 
+                               class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover-nav {{ request()->is('financial-upgradation*') ? 'active-nav' : '' }}">
+                                <i data-lucide="users" class="h-4 w-4"></i>
+                                <span class="whitespace-nowrap">Financial Upgradation</span>
+                            </a>
                         </li>
                         <li>
                             <a href="{{ url('/reports') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover-nav {{ request()->is('reports') ? 'active-nav' : '' }}">

@@ -209,4 +209,21 @@ public function getAgeAttribute()
                           ->orWhere('transfer_date', '>', now()->subYear());
                     });
     }
+
+public function aparGradings()
+{
+    return $this->hasMany(AparGrading::class);
+}
+
+// Accessor for latest APAR
+public function getLatestAparAttribute()
+{
+    return $this->aparGradings()->latest()->first();
+}
+
+// Scope for employees with APAR records
+public function scopeWithApar($query)
+{
+    return $query->whereHas('aparGradings');
+}
 }

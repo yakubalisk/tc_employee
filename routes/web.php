@@ -7,6 +7,8 @@ use App\Http\Controllers\ExportController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TransferController;
+use App\Http\Controllers\AparGradingController;
+use App\Http\Controllers\FinancialUpgradationController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -51,6 +53,27 @@ Route::get('/promotions/report', [PromotionController::class, 'report'])->name('
 
 Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
 Route::post('/reports/export', [ReportController::class, 'export'])->name('reports.export');
+
+// Separate APAR Module Routes
+Route::prefix('apar')->name('apar.')->group(function () {
+    Route::get('/import', [AparGradingController::class, 'import'])->name('import');
+    Route::post('/import', [AparGradingController::class, 'processImport'])->name('process-import');
+    Route::get('/template', [AparGradingController::class, 'exportTemplate'])->name('export-template');
+    Route::get('/export', [AparGradingController::class, 'export'])->name('export');
+    Route::get('/', [AparGradingController::class, 'index'])->name('index');
+    Route::get('/create', [AparGradingController::class, 'create'])->name('create');
+    Route::post('/', [AparGradingController::class, 'store'])->name('store');
+    Route::get('/{aparGrading}', [AparGradingController::class, 'show'])->name('show');
+    Route::get('/{aparGrading}/edit', [AparGradingController::class, 'edit'])->name('edit');
+    Route::put('/{aparGrading}', [AparGradingController::class, 'update'])->name('update');
+    Route::delete('/{aparGrading}', [AparGradingController::class, 'destroy'])->name('destroy');
+});
+
+Route::get('financial-upgradation/export', [FinancialUpgradationController::class, 'export'])->name('financial-upgradation.export');
+Route::get('financial-upgradation/import', [FinancialUpgradationController::class, 'importForm'])->name('financial-upgradation.import.form');
+Route::post('financial-upgradation/import', [FinancialUpgradationController::class, 'import'])->name('financial-upgradation.import');
+Route::get('financial-upgradation/template', [FinancialUpgradationController::class, 'downloadTemplate'])->name('financial-upgradation.template');
+Route::resource('financial-upgradation', FinancialUpgradationController::class);
 
 
 // Transfer routes

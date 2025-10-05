@@ -214,7 +214,7 @@ public function store(Request $request)
     // Show method
 public function show(Employee $employee)
 {
-    return $employee;
+    // return $employee;
     return view('employees.show', compact('employee'));
 }
 

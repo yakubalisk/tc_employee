@@ -247,6 +247,49 @@
                 </div>
             </div>
 
+            <!-- APAR Grading Section -->
+<div class="card border rounded-xl">
+    <div class="card-header mb-5">
+        <div class="card-title text-2xl">APAR Grading History</div>
+    </div>
+    <div class="card-content">
+        @if($employee->aparGradings->count() > 0)
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Period</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Grading Type</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Reporting Marks</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Reviewing Marks</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Consideration</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        @foreach($employee->aparGradings as $apar)
+                        <tr>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">
+                                {{ $apar->from_month }} {{ $apar->from_year }} - {{ $apar->to_month }} {{ $apar->to_year }}
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $apar->grading_type }}</td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $apar->reporting_marks ?? 'N/A' }}</td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $apar->reviewing_marks ?? 'N/A' }}</td>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $apar->consideration ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                    {{ $apar->consideration ? 'TRUE' : 'FALSE' }}
+                                </span>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @else
+            <p class="text-gray-500 text-center py-4">No APAR records found for this employee.</p>
+        @endif
+    </div>
+</div>
+
             <!-- Timestamps -->
             <div class="card border rounded-xl">
                 <div class="card-header mb-5">
