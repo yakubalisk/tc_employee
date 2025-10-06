@@ -67,6 +67,20 @@
                                 <i data-lucide="users" class="h-4 w-4"></i>
                                 <span class="whitespace-nowrap">Financial Upgradation</span>
                             </a>
+                        </li>                        
+                        <li>
+                            <a href="{{ route('mode-of-recruitment.index') }}" 
+                               class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover-nav {{ request()->is('mode-of-recruitment*') ? 'active-nav' : '' }}">
+                                <i data-lucide="users" class="h-4 w-4"></i>
+                                <span class="whitespace-nowrap">MOM</span>
+                            </a>
+                        </li>                        
+                        <li>
+                            <a href="{{ route('pay-fixation.index') }}" 
+                               class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover-nav {{ request()->is('pay-fixation*') ? 'active-nav' : '' }}">
+                                <i data-lucide="users" class="h-4 w-4"></i>
+                                <span class="whitespace-nowrap">Pay Fixation</span>
+                            </a>
                         </li>
                         <li>
                             <a href="{{ url('/reports') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover-nav {{ request()->is('reports') ? 'active-nav' : '' }}">

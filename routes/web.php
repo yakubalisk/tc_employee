@@ -9,6 +9,8 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TransferController;
 use App\Http\Controllers\AparGradingController;
 use App\Http\Controllers\FinancialUpgradationController;
+use App\Http\Controllers\ModeOfRecruitmentController;
+use App\Http\Controllers\PayFixationController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -85,3 +87,15 @@ Route::post('/transfers/{transfer}/approve', [TransferController::class, 'approv
 Route::post('/transfers/{transfer}/complete', [TransferController::class, 'complete'])->name('transfers.complete');
 Route::post('/transfers/{transfer}/reject', [TransferController::class, 'reject'])->name('transfers.reject');
 Route::get('/api/location-distribution', [TransferController::class, 'getLocationDistribution'])->name('transfers.location-distribution');
+
+Route::get('mode-of-recruitment/export', [ModeOfRecruitmentController::class, 'export'])->name('mode-of-recruitment.export');
+Route::get('mode-of-recruitment/import', [ModeOfRecruitmentController::class, 'importForm'])->name('mode-of-recruitment.import');
+Route::post('mode-of-recruitment/import', [ModeOfRecruitmentController::class, 'import'])->name('mode-of-recruitment.import.post');
+Route::get('mode-of-recruitment/template', [ModeOfRecruitmentController::class, 'downloadTemplate'])->name('mode-of-recruitment.template');
+Route::resource('mode-of-recruitment', ModeOfRecruitmentController::class);
+
+Route::get('pay-fixation/export', [PayFixationController::class, 'export'])->name('pay-fixation.export');
+Route::get('pay-fixation/import', [PayFixationController::class, 'importForm'])->name('pay-fixation.import');
+Route::post('pay-fixation/import', [PayFixationController::class, 'import'])->name('pay-fixation.import.post');
+Route::get('pay-fixation/template', [PayFixationController::class, 'downloadTemplate'])->name('pay-fixation.template');
+Route::resource('pay-fixation', PayFixationController::class);
