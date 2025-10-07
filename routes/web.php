@@ -6,7 +6,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\ReportController;
-use App\Http\Controllers\TransferController;
+use App\Http\Controllers\TransferControllers;
 use App\Http\Controllers\AparGradingController;
 use App\Http\Controllers\FinancialUpgradationController;
 use App\Http\Controllers\ModeOfRecruitmentController;
@@ -78,15 +78,15 @@ Route::get('financial-upgradation/template', [FinancialUpgradationController::cl
 Route::resource('financial-upgradation', FinancialUpgradationController::class);
 
 
-// Transfer routes
-Route::get('/transfers', [TransferController::class, 'index'])->name('transfers.index');
-Route::get('/transfers/create', [TransferController::class, 'create'])->name('transfers.create');
-Route::post('/transfers', [TransferController::class, 'store'])->name('transfers.store');
-Route::get('/transfers/{transfer}', [TransferController::class, 'show'])->name('transfers.show');
-Route::post('/transfers/{transfer}/approve', [TransferController::class, 'approve'])->name('transfers.approve');
-Route::post('/transfers/{transfer}/complete', [TransferController::class, 'complete'])->name('transfers.complete');
-Route::post('/transfers/{transfer}/reject', [TransferController::class, 'reject'])->name('transfers.reject');
-Route::get('/api/location-distribution', [TransferController::class, 'getLocationDistribution'])->name('transfers.location-distribution');
+// // Transfer routes
+// Route::get('/transfers', [TransferController::class, 'index'])->name('transfers.index');
+// Route::get('/transfers/create', [TransferController::class, 'create'])->name('transfers.create');
+// Route::post('/transfers', [TransferController::class, 'store'])->name('transfers.store');
+// Route::get('/transfers/{transfer}', [TransferController::class, 'show'])->name('transfers.show');
+// Route::post('/transfers/{transfer}/approve', [TransferController::class, 'approve'])->name('transfers.approve');
+// Route::post('/transfers/{transfer}/complete', [TransferController::class, 'complete'])->name('transfers.complete');
+// Route::post('/transfers/{transfer}/reject', [TransferController::class, 'reject'])->name('transfers.reject');
+// Route::get('/api/location-distribution', [TransferController::class, 'getLocationDistribution'])->name('transfers.location-distribution');
 
 Route::get('mode-of-recruitment/export', [ModeOfRecruitmentController::class, 'export'])->name('mode-of-recruitment.export');
 Route::get('mode-of-recruitment/import', [ModeOfRecruitmentController::class, 'importForm'])->name('mode-of-recruitment.import');
@@ -99,3 +99,9 @@ Route::get('pay-fixation/import', [PayFixationController::class, 'importForm'])-
 Route::post('pay-fixation/import', [PayFixationController::class, 'import'])->name('pay-fixation.import.post');
 Route::get('pay-fixation/template', [PayFixationController::class, 'downloadTemplate'])->name('pay-fixation.template');
 Route::resource('pay-fixation', PayFixationController::class);
+
+Route::get('transfer/export', [TransferControllers::class, 'export'])->name('transfer.export');
+Route::get('transfer/import', [TransferControllers::class, 'importForm'])->name('transfer.import');
+Route::post('transfer/import', [TransferControllers::class, 'import'])->name('transfer.import.post');
+Route::get('transfer/template', [TransferControllers::class, 'downloadTemplate'])->name('transfer.template');
+Route::resource('transfer', TransferControllers::class);

@@ -20,6 +20,12 @@
         .hover-nav:hover {
             background-color: rgba(240, 249, 255, 0.5);
         }
+
+        ul li ul li a {
+    font-size: 14px;
+    padding-left: 2rem;
+}
+
     </style>
 </head>
 <body class="flex h-screen bg-gray-50">
@@ -42,12 +48,74 @@
                                 <span class="whitespace-nowrap">Dashboard</span>
                             </a>
                         </li>
-                        <li>
+
+                        <li class="relative">
+    <button type="button"
+        class="w-full flex justify-between items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover-nav {{ request()->is('employees*') ? 'active-nav' : '' }}"
+        onclick="toggleSubMenu('employee-submenu')">
+        <div class="flex items-center gap-3">
+            <i data-lucide="users" class="h-4 w-4"></i>
+            <span class="whitespace-nowrap">Employees</span>
+        </div>
+        <i data-lucide="chevron-down" class="h-4 w-4 transition-transform" id="employee-submenu-icon"></i>
+    </button>
+
+    <ul id="employee-submenu"
+        class="ml-6 mt-1 space-y-1 hidden transition-all duration-300"
+        data-open="{{ request()->is('employees/create') || request()->is('apar*') || request()->is('financial-upgradation*') || request()->is('mode-of-recruitment*') || request()->is('pay-fixation*') ? 'true' : 'false' }}">
+        
+        <li>
+            <a href="{{ route('employees.index') }}"
+                class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover-nav {{ request()->is('employees/index') ? 'active-nav' : '' }}">
+                <i data-lucide="list" class="h-4 w-4"></i>
+                <span class="whitespace-nowrap">All Employee</span>
+            </a>
+        </li>        
+        <li>
+            <a href="{{ route('employees.create') }}"
+                class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover-nav {{ request()->is('employees/create') ? 'active-nav' : '' }}">
+                <i data-lucide="user-plus" class="h-4 w-4"></i>
+                <span class="whitespace-nowrap">Add Employee</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('apar.index') }}"
+                class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover-nav {{ request()->is('apar*') ? 'active-nav' : '' }}">
+                <i data-lucide="clipboard-list" class="h-4 w-4"></i>
+                <span class="whitespace-nowrap">APAR Module</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('financial-upgradation.index') }}"
+                class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover-nav {{ request()->is('financial-upgradation*') ? 'active-nav' : '' }}">
+                <i data-lucide="arrow-up-circle" class="h-4 w-4"></i>
+                <span class="whitespace-nowrap">Financial Upgradation</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('mode-of-recruitment.index') }}"
+                class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover-nav {{ request()->is('mode-of-recruitment*') ? 'active-nav' : '' }}">
+                <i data-lucide="briefcase" class="h-4 w-4"></i>
+                <span class="whitespace-nowrap">MOM</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('pay-fixation.index') }}"
+                class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover-nav {{ request()->is('pay-fixation*') ? 'active-nav' : '' }}">
+                <i data-lucide="indian-rupee" class="h-4 w-4"></i>
+                <span class="whitespace-nowrap">Pay Fixation</span>
+            </a>
+        </li>
+    </ul>
+</li>
+
+
+<!--                         <li class="relative group">
                             <a href="{{ route('employees.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover-nav {{ request()->is('employees') ? 'active-nav' : '' }}">
                                 <i data-lucide="users" class="h-4 w-4"></i>
                                 <span class="whitespace-nowrap">All Employees</span>
                             </a>
-                        </li>
+                            <ul class="absolute left-0 mt-2 hidden group-hover:block bg-white rounded-lg shadow-lg z-10 min-w-[180px]">
                         <li>
                             <a href="{{ route('employees.create') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover-nav {{ request()->is('employees/create') ? 'active-nav' : '' }}">
                                 <i data-lucide="user-plus" class="h-4 w-4"></i>
@@ -82,6 +150,8 @@
                                 <span class="whitespace-nowrap">Pay Fixation</span>
                             </a>
                         </li>
+                    </ul>
+                        </li> -->
                         <li>
                             <a href="{{ url('/reports') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover-nav {{ request()->is('reports') ? 'active-nav' : '' }}">
                                 <i data-lucide="file-text" class="h-4 w-4"></i>
@@ -101,7 +171,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url('/transfers') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover-nav {{ request()->is('transfers') ? 'active-nav' : '' }}">
+                            <a href="{{ url('/transfer') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover-nav {{ request()->is('transfers') ? 'active-nav' : '' }}">
                                 <i data-lucide="calendar" class="h-4 w-4"></i>
                                 <span class="whitespace-nowrap">Transfers</span>
                             </a>
@@ -151,5 +221,32 @@
             // You can add a collapse button in your header if desired
         });
     </script>
+
+    <script>
+    function toggleSubMenu(id) {
+        const menu = document.getElementById(id);
+        const icon = document.getElementById(id + '-icon');
+
+        if (menu.classList.contains('hidden')) {
+            menu.classList.remove('hidden');
+            icon.classList.add('rotate-180');
+        } else {
+            menu.classList.add('hidden');
+            icon.classList.remove('rotate-180');
+        }
+    }
+
+    // Auto-expand active submenu on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        const submenu = document.getElementById('employee-submenu');
+        const icon = document.getElementById('employee-submenu-icon');
+        if (submenu.dataset.open === 'true') {
+            submenu.classList.remove('hidden');
+            icon.classList.add('rotate-180');
+        }
+        lucide.createIcons(); // Reinitialize icons
+    });
+</script>
+
 </body>
 </html>
