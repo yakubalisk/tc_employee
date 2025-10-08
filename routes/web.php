@@ -11,6 +11,8 @@ use App\Http\Controllers\AparGradingController;
 use App\Http\Controllers\FinancialUpgradationController;
 use App\Http\Controllers\ModeOfRecruitmentController;
 use App\Http\Controllers\PayFixationController;
+use App\Http\Controllers\FamilyController;
+use App\Http\Controllers\DoctorController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -105,3 +107,16 @@ Route::get('transfer/import', [TransferControllers::class, 'importForm'])->name(
 Route::post('transfer/import', [TransferControllers::class, 'import'])->name('transfer.import.post');
 Route::get('transfer/template', [TransferControllers::class, 'downloadTemplate'])->name('transfer.template');
 Route::resource('transfer', TransferControllers::class);
+
+Route::get('family/export', [FamilyController::class, 'export'])->name('family.export');
+Route::get('family/import', [FamilyController::class, 'importForm'])->name('family.import');
+Route::post('family/import', [FamilyController::class, 'import'])->name('family.import.post');
+Route::get('family/template', [FamilyController::class, 'downloadTemplate'])->name('family.template');
+Route::resource('family', FamilyController::class);
+
+
+Route::get('doctor/export', [DoctorController::class, 'export'])->name('doctor.export');
+Route::get('doctor/import', [DoctorController::class, 'importForm'])->name('doctor.import');
+Route::post('doctor/import', [DoctorController::class, 'import'])->name('doctor.import.post');
+Route::get('doctor/template', [DoctorController::class, 'downloadTemplate'])->name('doctor.template');
+Route::resource('doctor', DoctorController::class);

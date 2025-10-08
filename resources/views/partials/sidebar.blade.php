@@ -62,11 +62,11 @@
 
     <ul id="employee-submenu"
         class="ml-6 mt-1 space-y-1 hidden transition-all duration-300"
-        data-open="{{ request()->is('employees/create') || request()->is('apar*') || request()->is('financial-upgradation*') || request()->is('mode-of-recruitment*') || request()->is('pay-fixation*') ? 'true' : 'false' }}">
+        data-open="{{ request()->is('employees*') || request()->is('apar*') || request()->is('financial-upgradation*') || request()->is('mode-of-recruitment*') || request()->is('pay-fixation*')|| request()->is('family*')|| request()->is('doctor*') ? 'true' : 'false' }}">
         
         <li>
             <a href="{{ route('employees.index') }}"
-                class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover-nav {{ request()->is('employees/index') ? 'active-nav' : '' }}">
+                class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover-nav {{ request()->is('employees') ? 'active-nav' : '' }}">
                 <i data-lucide="list" class="h-4 w-4"></i>
                 <span class="whitespace-nowrap">All Employee</span>
             </a>
@@ -104,6 +104,20 @@
                 class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover-nav {{ request()->is('pay-fixation*') ? 'active-nav' : '' }}">
                 <i data-lucide="indian-rupee" class="h-4 w-4"></i>
                 <span class="whitespace-nowrap">Pay Fixation</span>
+            </a>
+        </li>        
+        <li>
+            <a href="{{ route('family.index') }}"
+                class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover-nav {{ request()->is('family*') ? 'active-nav' : '' }}">
+                <i data-lucide="contact" class="h-4 w-4"></i>
+                <span class="whitespace-nowrap">Family</span>
+            </a>
+        </li>        
+        <li>
+            <a href="{{ route('doctor.index') }}"
+                class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover-nav {{ request()->is('doctor*') ? 'active-nav' : '' }}">
+                <i data-lucide="briefcase-medical" class="h-4 w-4"></i>
+                <span class="whitespace-nowrap">Doctor</span>
             </a>
         </li>
     </ul>

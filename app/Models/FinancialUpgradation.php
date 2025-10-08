@@ -120,8 +120,8 @@ class FinancialUpgradation extends Model
     //     'dt_of_in_this_grade' => 'date',
     // ];
 
-    public function employee()
-    {
-        return $this->belongsTo(Employee::class);
-    }
+public function employee()
+{
+    return $this->belongsTo(Employee::class, 'empl_id', 'empId');
+}
 }

@@ -226,4 +226,21 @@ public function scopeWithApar($query)
 {
     return $query->whereHas('aparGradings');
 }
+
+public function financialUpgradations()
+{
+    return $this->hasMany(FinancialUpgradation::class, 'empl_id','empid');
+}
+
+// Accessor for latest financialUpgradations
+public function getLatestfinancialUpgradationsAttribute()
+{
+    return $this->financialUpgradations()->latest()->first();
+}
+
+// Scope for employees with financialUpgradations records
+public function scopeWithfinancialUpgradations($query)
+{
+    return $query->whereHas('financialUpgradations');
+}
 }

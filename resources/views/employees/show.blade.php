@@ -288,6 +288,58 @@
             <p class="text-gray-500 text-center py-4">No APAR records found for this employee.</p>
         @endif
     </div>
+</div>            
+
+
+<!-- Financial Upgradation Section -->
+<div class="card border rounded-xl">
+    <div class="card-header mb-5">
+        <div class="card-title text-2xl">Financial Upgradation History</div>
+    </div>
+    <div class="card-content">
+        @if($employee->financialUpgradations->count() > 0)
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Promotion Date</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Existing Designation</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Upgraded Designation</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Existing Scale</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Upgraded Scale</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Pay Fixed</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Financial Upgradation</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        @foreach($employee->financialUpgradations as $finance)
+                        <tr>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">
+                                {{ $finance->promotion_date }}
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $finance->existing_designation }}</td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $finance->upgraded_designation }}</td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $finance->existing_scale }}</td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $finance->upgraded_scale }}</td>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $finance->pay_fixed ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                    {{ $finance->pay_fixed ? 'YES' : 'NO' }}
+                                </span>
+                            </td>                            
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $finance->financial_upgradation_type ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                    {{ $finance->financial_upgradation_type }} 
+                                </span>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @else
+            <p class="text-gray-500 text-center py-4">No Financial Upgradation records found for this employee.</p>
+        @endif
+    </div>
 </div>
 
             <!-- Timestamps -->
