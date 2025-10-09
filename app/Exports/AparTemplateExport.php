@@ -15,15 +15,16 @@ class AparTemplateExport implements FromArray, WithHeadings, WithTitle, WithStri
     public function array(): array
     {
         return [
-            ['334', 'April', '2016', 'March', '2017', 'APAR', '', '8.4', '8.4', 'A', 'A+', 'FALSE', ''],
-            ['334', 'April', '2015', 'March', '2016', 'APAR', '', '9.3', '9.3', 'B', 'B+', 'FALSE', '']
+            ['555555', 'April', '2016', 'March', '2017', 'APAR', '', '8.4', '8.4', 'A', 'A+', 'FALSE', ''],
+            ['786786', 'April', '2015', 'March', '2016', 'APAR', '', '9.3', '9.3', 'B', 'B+', 'FALSE', ''],
+            ['123456', 'April', '2017', 'March', '2019', 'APAR', '', '7.3', '9.6', 'C', 'C+', 'TRUE', '']
         ];
     }
 
 public function headings(): array
 {
     return [
-        'empl_id',
+        'emp_code',
         'from_month', 
         'from_year',
         'to_month',

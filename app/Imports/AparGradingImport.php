@@ -25,19 +25,19 @@ class AparGradingImport implements ToModel, WithHeadingRow, WithValidation, With
         $row = array_change_key_case($row, CASE_LOWER);
         
         // Check if required columns exist
-        if (!isset($row['empl_id']) || !isset($row['from_month']) || !isset($row['from_year'])) {
+        if (!isset($row['emp_code']) || !isset($row['from_month']) || !isset($row['from_year'])) {
             \Log::error("Missing required columns in row {$this->rows}", $row);
             throw new \Exception("Missing required columns in row {$this->rows}. Check if your file has the correct headers.");
         }
 
         // Find employee by empId
-        $employee = Employee::where('empId', $row['empl_id'])
-                    ->orWhere('empCode', $row['empl_id'])
+        $employee = Employee::where('empCode', $row['emp_code'])
+                    // ->orWhere('empCode', $row['emp_code'])
                     ->first();
 
         if (!$employee) {
-            \Log::error("Employee not found for ID: {$row['empl_id']} in row {$this->rows}");
-            throw new \Exception("Employee not found for ID: '{$row['empl_id']}' in row {$this->rows}. Please check if the employee exists in the system.");
+            \Log::error("Employee not found for Code: {$row['emp_code']} in row {$this->rows}");
+            throw new \Exception("Employee not found for Code: '{$row['emp_code']}' in row {$this->rows}. Please check if the employee exists in the system.");
         }
 
         // Process consideration field
@@ -67,7 +67,7 @@ class AparGradingImport implements ToModel, WithHeadingRow, WithValidation, With
     public function rules(): array
     {
         return [
-            'empl_id' => 'required',
+            'emp_code' => 'required',
             'from_month' => 'required|string',
             'from_year' => 'required|integer|min:2000|max:2030',
             'to_month' => 'required|string', 
@@ -84,7 +84,7 @@ class AparGradingImport implements ToModel, WithHeadingRow, WithValidation, With
     public function customValidationMessages()
     {
         return [
-            'empl_id.required' => 'Employee ID is required',
+            'emp_code.required' => 'Employee Code is required',
             'from_month.required' => 'From Month is required',
             'from_year.required' => 'From Year is required',
             'to_month.required' => 'To Month is required',

@@ -16,8 +16,7 @@ class FinancialUpgradationTemplateExport implements FromArray, WithHeadings, Wit
     {
         return [
             [
-                '1',                    // sr_no
-                '4',                    // empl_id
+                '555555',                    // empl_id
                 '05-Nov-2011',          // promotion_date
                 'JQAO (LAB)',           // existing_designation
                 'QAO (LAB)',            // upgraded_designation
@@ -36,8 +35,7 @@ class FinancialUpgradationTemplateExport implements FromArray, WithHeadings, Wit
                 'lab'                   // department
             ],
             [
-                '2',
-                '15',
+                '123456',
                 '12-Mar-2013',
                 'Assistant Manager',
                 'Manager',
@@ -61,8 +59,7 @@ class FinancialUpgradationTemplateExport implements FromArray, WithHeadings, Wit
     public function headings(): array
     {
         return [
-            'sr_no',
-            'empl_id',
+            'emp_code',
             'promotion_date',
             'existing_designation',
             'upgraded_designation',

@@ -11,8 +11,7 @@ class FinancialUpgradation extends Model
 
 
         protected $fillable = [
-        'sr_no',
-        'empl_id',
+        'employee_id',
         'promotion_date',
         'existing_designation',
         'upgraded_designation',
@@ -70,7 +69,7 @@ class FinancialUpgradation extends Model
     public function scopeSearch($query, $search)
     {
         return $query->where(function ($q) use ($search) {
-            $q->where('empl_id', 'like', "%{$search}%")
+            $q->where('employee_id', 'like', "%{$search}%")
               ->orWhere('existing_designation', 'like', "%{$search}%")
               ->orWhere('upgraded_designation', 'like', "%{$search}%")
               ->orWhere('macp_remarks', 'like', "%{$search}%");
@@ -119,9 +118,9 @@ class FinancialUpgradation extends Model
     //     'dt_of_promotion_acp_macp' => 'date',
     //     'dt_of_in_this_grade' => 'date',
     // ];
-
-public function employee()
-{
-    return $this->belongsTo(Employee::class, 'empl_id', 'empId');
-}
+    // Relationship with Employee
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
+    }
 }

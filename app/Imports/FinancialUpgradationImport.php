@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\FinancialUpgradation;
+use App\Models\Employee;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Carbon\Carbon;
@@ -15,9 +16,13 @@ class FinancialUpgradationImport implements ToModel, WithHeadingRow
         $promotionDate = $this->parseDate($row['promotion_date'] ?? null);
         $dateInGrade = $this->parseDate($row['date_in_grade'] ?? null);
 
+                // Find employee by empId
+        $employee = Employee::where('empCode', $row['emp_code'])
+                    // ->orWhere('empCode', $row['emp_code'])
+                    ->first();
+
         return new FinancialUpgradation([
-            'sr_no' => $row['sr_no'] ?? $row['sr_no'] ?? 0,
-            'empl_id' => $row['empl_id'] ?? $row['employee_id'] ?? '',
+            'employee_id' => $employee->id,
             'promotion_date' => $promotionDate,
             'existing_designation' => $row['existing_designation'] ?? '',
             'upgraded_designation' => $row['upgraded_designation'] ?? '',

@@ -55,8 +55,7 @@
                     <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                         <h3 class="text-sm font-medium text-gray-900 dark:text-white mb-2">Required Fields</h3>
                         <div class="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm text-gray-600 dark:text-gray-400">
-                            <div>• Sr No</div>
-                            <div>• Employee ID</div>
+                            <div>• Employee Code</div>
                             <div>• Promotion Date</div>
                             <div>• Existing Designation</div>
                             <div>• Upgraded Designation</div>

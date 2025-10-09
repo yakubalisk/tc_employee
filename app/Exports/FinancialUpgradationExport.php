@@ -40,8 +40,7 @@ class FinancialUpgradationExport implements FromCollection, WithHeadings, WithMa
     {
         return [
             'ID',
-            'Sr No',
-            'Employee ID',
+            'Employee Code',
             'Promotion Date',
             'Existing Designation',
             'Upgraded Designation',
@@ -67,8 +66,7 @@ class FinancialUpgradationExport implements FromCollection, WithHeadings, WithMa
     {
         return [
             $record->id,
-            $record->sr_no,
-            $record->empl_id,
+            $record->employee->empCode,
             $record->promotion_date->format('d-M-y'),
             $record->existing_designation,
             $record->upgraded_designation,

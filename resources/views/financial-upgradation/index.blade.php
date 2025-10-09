@@ -88,10 +88,10 @@
                     <thead class="bg-gray-50 dark:bg-neutral-800">
                         <tr>
                             <th scope="col" class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider dark:text-neutral-300">
-                                Sr No
+                                ID
                             </th>
                             <th scope="col" class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider dark:text-neutral-300">
-                                Employee ID
+                                Employee
                             </th>
                             <th scope="col" class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider dark:text-neutral-300">
                                 Promotion Date
@@ -123,10 +123,13 @@
                         @foreach($records as $record)
                         <tr class="hover:bg-gray-50 dark:hover:bg-neutral-800 transition-colors duration-150">
                             <td class="px-4 py-4 whitespace-nowrap">
-                                <span class="text-sm font-medium text-gray-900 dark:text-neutral-100">{{ $record->sr_no }}</span>
+                                <span class="text-sm font-medium text-gray-900 dark:text-neutral-100">{{ $record->id }}</span>
                             </td>
                             <td class="px-4 py-4 whitespace-nowrap">
-                                <span class="text-sm font-mono text-gray-900 dark:text-neutral-100">{{ $record->empl_id }}</span>
+                                <div>
+                                    <div class="text-sm font-medium text-gray-900">{{ $record->employee->name }}</div>
+                                    <div class="text-sm text-gray-500">ID: {{ $record->employee->empId }} | Code: {{ $record->employee->empCode }}</div>
+                                </div>
                             </td>
                             <td class="px-4 py-4 whitespace-nowrap">
                                 <span class="text-sm text-gray-900 dark:text-neutral-100">{{ $record->promotion_date->format('d-M-y') }}</span>

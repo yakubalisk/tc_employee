@@ -28,12 +28,12 @@
             <div class="card-content p-4 space-y-4">
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-500 dark:text-gray-400">Sr No</label>
-                        <p class="mt-1 text-sm text-gray-900 dark:text-white">{{ $financialUpgradation->sr_no }}</p>
+                        <label class="block text-sm font-medium text-gray-500 dark:text-gray-400">Employee Name</label>
+                        <p class="mt-1 text-sm text-gray-900 dark:text-white">{{ $financialUpgradation->employee->name }}</p>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-500 dark:text-gray-400">Employee ID</label>
-                        <p class="mt-1 text-sm text-gray-900 dark:text-white font-mono">{{ $financialUpgradation->empl_id }}</p>
+                        <label class="block text-sm font-medium text-gray-500 dark:text-gray-400">Employee Code</label>
+                        <p class="mt-1 text-sm text-gray-900 dark:text-white font-mono">{{ $financialUpgradation->employee->empCode }}</p>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-500 dark:text-gray-400">Region</label>

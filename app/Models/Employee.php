@@ -229,7 +229,7 @@ public function scopeWithApar($query)
 
 public function financialUpgradations()
 {
-    return $this->hasMany(FinancialUpgradation::class, 'empl_id','empid');
+    return $this->hasMany(FinancialUpgradation::class);
 }
 
 // Accessor for latest financialUpgradations

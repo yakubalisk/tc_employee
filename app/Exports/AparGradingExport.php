@@ -18,7 +18,7 @@ class AparGradingExport implements FromCollection, WithHeadings, WithMapping
     {
         return [
             'ID',
-            'Empl ID',
+            'Emp Code',
             'Employee Name',
             'From Month',
             'From Year',
@@ -39,7 +39,7 @@ class AparGradingExport implements FromCollection, WithHeadings, WithMapping
     {
         return [
             $apar->id,
-            $apar->employee->empId,
+            $apar->employee->empCode,
             $apar->employee->name,
             $apar->from_month,
             $apar->from_year,

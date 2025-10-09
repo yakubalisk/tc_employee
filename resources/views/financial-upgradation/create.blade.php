@@ -25,20 +25,34 @@
                     <div class="space-y-4">
                         <h3 class="text-lg font-medium text-gray-900 dark:text-white">Basic Information</h3>
                         
-                        <div>
+                        <!-- <div>
                             <label for="sr_no" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Sr No *</label>
                             <input type="number" name="sr_no" id="sr_no" value="{{ old('sr_no') }}" 
                                    class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400"
                                    required>
                             @error('sr_no') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                        </div> -->
+
+                                                <!-- Employee Selection -->
+                        <div>
+                            <label for="employee_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Employee *</label>
+                            <select id="employee_id" name="employee_id" class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 border" required>
+                                <option value="">Select Employee</option>
+                                @foreach($employees as $emp)
+                                    <option value="{{ $emp->id }}" data-emp_code="{{ $emp->empCode }}" 
+                                        {{ (old('employee_id') == $emp->id || (request()->has('employee_id') && request('employee_id') == $emp->id)) ? 'selected' : '' }}>
+                                        {{ $emp->name }} (ID: {{ $emp->empId }} | Code: {{ $emp->empCode }})
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div>
-                            <label for="empl_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Employee ID *</label>
-                            <input type="text" name="empl_id" id="empl_id" value="{{ old('empl_id') }}"
+                            <label for="emp_code" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Employee Code *</label>
+                            <input type="text" name="emp_code" id="emp_code" value="{{ old('emp_code') }}"
                                    class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400"
                                    required>
-                            @error('empl_id') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                            @error('emp_code') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                         </div>
 
                         <div>
@@ -226,3 +240,31 @@
     </div>
 </div>
 @endsection
+
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+    const employeeSelect = document.getElementById('employee_id');
+    const emplIdInput = document.getElementById('emp_code');
+    // alert(emplIdInput);
+    // alert(employeeSelect);
+
+    function updateEmpCode() {
+        const selectedOption = employeeSelect.options[employeeSelect.selectedIndex];
+        // alert(selectedOption.dataset);
+        // console.log(selectedOption.dataset.emp_code);
+        if (selectedOption && selectedOption.dataset.emp_code) {
+            emplIdInput.value = selectedOption.dataset.emp_code;
+        } else {
+            emplIdInput.value = '';
+        }
+    }
+
+    // Initial update on page load if selection exists
+    updateEmpCode();
+
+    // Update on each change
+    employeeSelect.addEventListener('change', updateEmpCode);
+});
+
+</script>

@@ -9,6 +9,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\FinancialUpgradationExport;
 use App\Exports\FinancialUpgradationTemplateExport;
 use App\Imports\FinancialUpgradationImport;
+use App\Models\Employee;
 
 class FinancialUpgradationController extends Controller
 {
@@ -39,16 +40,23 @@ class FinancialUpgradationController extends Controller
         ));
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        return view('financial-upgradation.create');
+        $employees = Employee::orderBy('name')->get();
+        
+        // Pre-select employee if coming from employee page
+        $selectedEmployee = null;
+        if ($request->has('employee_id')) {
+            $selectedEmployee = Employee::find($request->employee_id);
+        }
+        return view('financial-upgradation.create' ,compact('employees', 'selectedEmployee'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'sr_no' => 'required|integer',
-            'empl_id' => 'required|string|max:50',
+            'employee_id' => 'required|integer',
+            'emp_code' => 'required|integer',
             'promotion_date' => 'required|date',
             'existing_designation' => 'required|string|max:255',
             'upgraded_designation' => 'required|string|max:255',
@@ -80,14 +88,15 @@ class FinancialUpgradationController extends Controller
 
     public function edit(FinancialUpgradation $financialUpgradation)
     {
-        return view('financial-upgradation.edit', compact('financialUpgradation'));
+        $employees = Employee::orderBy('name')->get();
+        return view('financial-upgradation.edit', compact('financialUpgradation', 'employees'));
     }
 
     public function update(Request $request, FinancialUpgradation $financialUpgradation)
     {
         $validated = $request->validate([
-            'sr_no' => 'required|integer',
-            'empl_id' => 'required|string|max:50',
+            'employee_id' => 'required|integer',
+            'emp_code' => 'required|integer',
             'promotion_date' => 'required|date',
             'existing_designation' => 'required|string|max:255',
             'upgraded_designation' => 'required|string|max:255',
