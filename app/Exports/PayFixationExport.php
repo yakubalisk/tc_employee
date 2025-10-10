@@ -34,7 +34,7 @@ class PayFixationExport implements FromCollection, WithHeadings, WithMapping
     {
         return [
             'ID',
-            'Employee ID',
+            'Employee Code',
             'Pay Fixation Date',
             'Basic Pay',
             'Grade Pay',

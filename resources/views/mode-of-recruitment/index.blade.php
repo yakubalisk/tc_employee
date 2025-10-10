@@ -68,7 +68,7 @@
                                 <thead class="bg-gray-50">
                                     <tr>
                                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Employee ID</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Employee</th>
                                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Designation</th>
                                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Seniority No</th>
                                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date of Entry</th>
@@ -82,7 +82,12 @@
                                     @foreach($records as $record)
                                     <tr>
                                         <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $record->PromotionID }}</td>
-                                        <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-gray-900">{{ $record->empID }}</td>
+                                        <td class="px-4 py-4 whitespace-nowrap">
+                                <div>
+                                    <div class="text-sm font-medium text-gray-900">{{ $record->employee->name }}</div>
+                                    <div class="text-sm text-gray-500">ID: {{ $record->employee->empId }} | Code: {{ $record->employee->empCode }}</div>
+                                </div>
+                            </td>
                                         <td class="px-4 py-3 whitespace-nowrap">
                                             <div>
                                                 <div class="text-sm font-medium text-gray-900">{{ $record->Designation }}</div>

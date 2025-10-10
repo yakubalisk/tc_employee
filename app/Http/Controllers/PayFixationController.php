@@ -8,6 +8,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\PayFixationExport;
 use App\Imports\PayFixationImport;
 use App\Exports\PayFixationTemplateExport;
+use App\Models\Employee;
 
 class PayFixationController extends Controller
 {
@@ -32,15 +33,22 @@ class PayFixationController extends Controller
         ));
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        return view('pay-fixation.create');
+        $employees = Employee::orderBy('name')->get();
+        
+        // Pre-select employee if coming from employee page
+        $selectedEmployee = null;
+        if ($request->has('employee_id')) {
+            $selectedEmployee = Employee::find($request->employee_id);
+        }
+        return view('pay-fixation.create',compact('employees','selectedEmployee'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'empl_id' => 'required|string|max:50',
+            'employee_id' => 'required|integer',
             'pay_fixation_date' => 'required|date',
             'basic_pay' => 'required|numeric|min:0',
             'grade_pay' => 'nullable|numeric|min:0',
@@ -63,13 +71,14 @@ class PayFixationController extends Controller
 
     public function edit(PayFixation $payFixation)
     {
-        return view('pay-fixation.edit', compact('payFixation'));
+        $employees = Employee::orderBy('name')->get();
+        return view('pay-fixation.edit', compact('payFixation','employees'));
     }
 
     public function update(Request $request, PayFixation $payFixation)
     {
         $validated = $request->validate([
-            'empl_id' => 'required|string|max:50',
+            'employee_id' => 'required|integer',
             'pay_fixation_date' => 'required|date',
             'basic_pay' => 'required|numeric|min:0',
             'grade_pay' => 'nullable|numeric|min:0',

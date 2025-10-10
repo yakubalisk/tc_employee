@@ -68,7 +68,7 @@
                                 <thead class="bg-gray-50">
                                     <tr>
                                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Employee ID</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Employee</th>
                                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fixation Date</th>
                                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Basic Pay</th>
                                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Grade Pay</th>
@@ -82,7 +82,10 @@
                                     @foreach($records as $record)
                                     <tr>
                                         <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $record->id }}</td>
-                                        <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-gray-900">{{ $record->empl_id }}</td>
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-gray-900">                                <div>
+                                    <div class="text-sm font-medium text-gray-900">{{ $record->employee->name }}</div>
+                                    <div class="text-sm text-gray-500">ID: {{ $record->employee->empId }} | Code: {{ $record->employee->empCode }}</div>
+                                </div></td>
                                         <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $record->formattedPayFixationDate }}</td>
                                         <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $record->formattedBasicPay }}</td>
                                         <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $record->formattedGradePay }}</td>

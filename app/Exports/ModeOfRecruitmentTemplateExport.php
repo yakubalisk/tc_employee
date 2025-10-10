@@ -15,7 +15,7 @@ class ModeOfRecruitmentTemplateExport implements FromArray, WithHeadings, WithTi
     {
         return [
             [
-                '288',                      // empID
+                '123456',                      // empID
                 'STAFF CAR DRIVER II',      // Designation_
                 '2',                        // Seniority_Number
                 'STAFF CAR DRIVER II',      // Designation
@@ -30,7 +30,7 @@ class ModeOfRecruitmentTemplateExport implements FromArray, WithHeadings, WithTi
                 ''                          // GSLI_Exit_dt
             ],
             [
-                '289',
+                '555555',
                 'STAFF CAR DRIVER II',
                 '3',
                 'STAFF CAR DRIVER II',
@@ -50,7 +50,7 @@ class ModeOfRecruitmentTemplateExport implements FromArray, WithHeadings, WithTi
     public function headings(): array
     {
         return [
-            'empID',
+            'emp_code',
             'Designation_',
             'Seniority_Number',
             'Designation',

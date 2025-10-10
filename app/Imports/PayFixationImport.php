@@ -15,7 +15,7 @@ class PayFixationImport implements ToModel, WithHeadingRow
         $payFixationDate = $this->parseDate($row['pay_fixation_date'] ?? $row['pay fixation date'] ?? null);
 
         return new PayFixation([
-            'empl_id' => $row['empl_id'] ?? $row['employee_id'] ?? '',
+            'employee_id' => $row['employee_id'] ?? '',
             'pay_fixation_date' => $payFixationDate,
             'basic_pay' => $row['basic_pay'] ?? $row['basic pay'] ?? 0,
             'grade_pay' => $row['grade_pay'] ?? $row['grade pay'] ?? null,

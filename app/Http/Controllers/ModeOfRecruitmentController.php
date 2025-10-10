@@ -8,6 +8,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ModeOfRecruitmentExport;
 use App\Imports\ModeOfRecruitmentImport;
 use App\Exports\ModeOfRecruitmentTemplateExport;
+use App\Models\Employee;
 
 class ModeOfRecruitmentController extends Controller
 {
@@ -32,15 +33,24 @@ class ModeOfRecruitmentController extends Controller
         ));
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        return view('mode-of-recruitment.create');
+
+        $employees = Employee::orderBy('name')->get();
+        
+        // Pre-select employee if coming from employee page
+        $selectedEmployee = null;
+        if ($request->has('employee_id')) {
+            $selectedEmployee = Employee::find($request->employee_id);
+        }
+        return view('mode-of-recruitment.create',compact('employees','selectedEmployee'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'empID' => 'required|string|max:50',
+            'employee_id' => 'required|integer',
+            // 'emp_code' => 'required|integer',
             'Designation_' => 'required|string|max:255',
             'Seniority_Number' => 'required|integer',
             'Designation' => 'required|string|max:255',
@@ -68,13 +78,14 @@ class ModeOfRecruitmentController extends Controller
 
     public function edit(ModeOfRecruitment $modeOfRecruitment)
     {
-        return view('mode-of-recruitment.edit', compact('modeOfRecruitment'));
+        $employees = Employee::orderBy('name')->get();
+        return view('mode-of-recruitment.edit', compact('modeOfRecruitment', 'employees'));
     }
 
     public function update(Request $request, ModeOfRecruitment $modeOfRecruitment)
     {
         $validated = $request->validate([
-            'empID' => 'required|string|max:50',
+            'employee_id' => 'required|integer',
             'Designation_' => 'required|string|max:255',
             'Seniority_Number' => 'required|integer',
             'Designation' => 'required|string|max:255',

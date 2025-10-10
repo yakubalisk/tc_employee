@@ -15,7 +15,7 @@ class PayFixationTemplateExport implements FromArray, WithHeadings, WithTitle, W
     {
         return [
             [
-                '224',          // empl_id
+                '123456',          // empl_id
                 '01-Jan-16',    // pay_fixation_date
                 '77700',        // basic_pay
                 '',             // grade_pay
@@ -25,7 +25,7 @@ class PayFixationTemplateExport implements FromArray, WithHeadings, WithTitle, W
                 '10'            // level_2
             ],
             [
-                '338',
+                '555555',
                 '01-Jan-16',
                 '83300',
                 '',
@@ -35,7 +35,7 @@ class PayFixationTemplateExport implements FromArray, WithHeadings, WithTitle, W
                 '11'
             ],
             [
-                '343',
+                '786786',
                 '01-Jan-16',
                 '38700',
                 '',
@@ -45,7 +45,7 @@ class PayFixationTemplateExport implements FromArray, WithHeadings, WithTitle, W
                 '6'
             ],
             [
-                '109',
+                '123456',
                 '01-Jan-16',
                 '40400',
                 '',
@@ -60,7 +60,7 @@ class PayFixationTemplateExport implements FromArray, WithHeadings, WithTitle, W
     public function headings(): array
     {
         return [
-            'empl_id',
+            'employee_id',
             'pay_fixation_date',
             'basic_pay',
             'grade_pay',

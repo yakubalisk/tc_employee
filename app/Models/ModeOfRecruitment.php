@@ -9,12 +9,9 @@ class ModeOfRecruitment extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'PromotionID';
-    public $incrementing = true;
-    protected $keyType = 'int';
-
     protected $fillable = [
-        'empID',
+        'employee_id',
+        'emp_code',
         'Designation_',
         'Seniority_Number',
         'Designation',
@@ -53,7 +50,7 @@ class ModeOfRecruitment extends Model
     public function scopeSearch($query, $search)
     {
         return $query->where(function ($q) use ($search) {
-            $q->where('empID', 'like', "%{$search}%")
+            $q->where('employee_id', 'like', "%{$search}%")
               ->orWhere('Designation', 'like', "%{$search}%")
               ->orWhere('Designation_', 'like', "%{$search}%")
               ->orWhere('Office_Order_No', 'like', "%{$search}%")
@@ -86,5 +83,10 @@ class ModeOfRecruitment extends Model
     public function getFormattedDateOfExitAttribute()
     {
         return $this->Date_of_Exit ? $this->Date_of_Exit->format('d-m-Y') : null;
+    }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
     }
 }

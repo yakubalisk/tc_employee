@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\ModeOfRecruitment;
+use App\Models\Employee;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Carbon\Carbon;
@@ -17,8 +18,13 @@ class ModeOfRecruitmentImport implements ToModel, WithHeadingRow
         $gsliEntryDt = $this->parseDate($row['gsli_entry_dt'] ?? $row['gsli entry dt'] ?? null);
         $gsliExitDt = $this->parseDate($row['gsli_exit_dt'] ?? $row['gsli exit dt'] ?? null);
 
+                        // Find employee by empId
+        $employee = Employee::where('empCode', $row['emp_code'])
+                    // ->orWhere('empCode', $row['emp_code'])
+                    ->first();
+
         return new ModeOfRecruitment([
-            'empID' => $row['empid'] ?? $row['emp_id'] ?? '',
+            'employee_id' => $employee->id,
             'Designation_' => $row['designation_'] ?? '',
             'Seniority_Number' => $row['seniority_number'] ?? $row['seniority number'] ?? 0,
             'Designation' => $row['designation'] ?? '',

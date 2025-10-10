@@ -34,7 +34,7 @@ class ModeOfRecruitmentExport implements FromCollection, WithHeadings, WithMappi
     {
         return [
             'PromotionID',
-            'empID',
+            'Employee Code',
             'Designation_',
             'Seniority Number',
             'Designation',

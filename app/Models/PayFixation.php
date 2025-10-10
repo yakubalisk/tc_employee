@@ -10,7 +10,7 @@ class PayFixation extends Model
     use HasFactory;
 
     protected $fillable = [
-        'empl_id',
+        'employee_id',
         'pay_fixation_date',
         'basic_pay',
         'grade_pay',
@@ -65,7 +65,7 @@ class PayFixation extends Model
     public function scopeSearch($query, $search)
     {
         return $query->where(function ($q) use ($search) {
-            $q->where('empl_id', 'like', "%{$search}%")
+            $q->where('employee_id', 'like', "%{$search}%")
               ->orWhere('revised_level', 'like', "%{$search}%")
               ->orWhere('pay_fixation_remarks', 'like', "%{$search}%");
         });
@@ -103,5 +103,10 @@ class PayFixation extends Model
     public function getFormattedGradePayAttribute()
     {
         return $this->grade_pay ? '₹' . number_format($this->grade_pay, 2) : 'N/A';
+    }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
     }
 }
