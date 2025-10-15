@@ -82,10 +82,11 @@
                                     @foreach($records as $record)
                                     <tr>
                                         <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $record->id }}</td>
-                                        <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-gray-900">                                <div>
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-gray-900">                                                                <!-- <div>
                                     <div class="text-sm font-medium text-gray-900">{{ $record->employee->name }}</div>
                                     <div class="text-sm text-gray-500">ID: {{ $record->employee->empId }} | Code: {{ $record->employee->empCode }}</div>
-                                </div></td>
+                                </div> -->
+                            </td>
                                         <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $record->formattedPayFixationDate }}</td>
                                         <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $record->formattedBasicPay }}</td>
                                         <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $record->formattedGradePay }}</td>

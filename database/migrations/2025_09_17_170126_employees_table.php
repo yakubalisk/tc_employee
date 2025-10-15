@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
             $table->string('empCode')->unique();
-            $table->string('empId')->unique();
+            // $table->string('empId')->unique();
             $table->string('name');
             $table->enum('gender', ['MALE', 'FEMALE', 'OTHER']);
             $table->enum('category', ['General', 'OBC', 'SC', 'ST']);

@@ -13,7 +13,7 @@ class Employee extends Model
         // Personal Information
         'profile_image',
         'empCode',
-        'empId', 
+        // 'empId', 
         'name',
         'gender',
         'category',
@@ -243,4 +243,37 @@ public function scopeWithfinancialUpgradations($query)
 {
     return $query->whereHas('financialUpgradations');
 }
+
+public function mom()
+{
+    return $this->hasMany(ModeOfRecruitment::class);
+}
+
+// Accessor for latest mom
+public function getLatestmomAttribute()
+{
+    return $this->mom()->latest()->first();
+}
+
+// Scope for employees with mom records
+public function scopeWithmom($query)
+{
+    return $query->whereHas('mom');
+}
+
+
+// Relationships
+    public function designationatappointment()
+    {
+        return $this->belongsTo(Designation::class, 'designationAtAppointment', 'id');
+    }    
+    public function designationatpresent()
+    {
+        return $this->belongsTo(Designation::class, 'designationAtPresent', 'id');
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class, 'presentPosting', 'id');
+    }
 }

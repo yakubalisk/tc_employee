@@ -115,12 +115,12 @@
                                         value="{{ old('empCode', $employee->empCode) }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border" 
                                         placeholder="130228" required>
                                 </div>
-                                <div>
+                            <!--     <div>
                                     <label for="empId" class="label text-sm font-semibold">Employee ID *</label>
                                     <input type="text" id="empId" name="empId" 
                                         value="{{ old('empId', $employee->empId) }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border" 
                                         placeholder="295" required>
-                                </div>
+                                </div> -->
                             </div>
                             
                             <div>
@@ -188,26 +188,68 @@
                                     value="{{ old('dateOfAppointment', $employee->dateOfAppointment->format('Y-m-d')) }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border" required>
                             </div>
 
-                            <div>
+                            <!-- <div>
                                 <label for="designationAtAppointment" class="label text-sm font-semibold">Designation at Appointment *</label>
                                 <input type="text" id="designationAtAppointment" name="designationAtAppointment" 
                                     value="{{ old('designationAtAppointment', $employee->designationAtAppointment) }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border" 
                                     placeholder="QAO (LAB)" required>
-                            </div>
+                            </div> -->
 
                             <div>
+                                    <label for="designationAtAppointment" class="block text-sm font-medium text-gray-700 mb-1">Designation at Appointment *</label>
+                                    <select name="designationAtAppointment" id="designationAtAppointment" 
+                                            class="py-2 px-3 block w-full border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500" required>
+                                        <option value="">Select Designation</option>
+                                        @foreach($designations as $id => $name)
+                                            <option value="{{ $id }}" {{ old('designationAtAppointment', $employee->designationatappointment->id) == $id ? 'selected' : '' }}>
+                                                {{ $name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('designationAtAppointment') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                </div>
+
+                            <!-- <div>
                                 <label for="designationAtPresent" class="label text-sm font-semibold">Current Designation *</label>
                                 <input type="text" id="designationAtPresent" name="designationAtPresent" 
                                     value="{{ old('designationAtPresent', $employee->designationAtPresent) }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border" 
                                     placeholder="JT. DIRECTOR (LAB)" required>
-                            </div>
+                            </div> -->
 
                             <div>
+                                    <label for="designationAtPresent" class="block text-sm font-medium text-gray-700 mb-1">Current Designation *</label>
+                                    <select name="designationAtPresent" id="designationAtPresent" 
+                                            class="py-2 px-3 block w-full border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500" required>
+                                        <option value="">Select Designation</option>
+                                        @foreach($designations as $id => $name)
+                                            <option value="{{ $id }}" {{ old('designationAtPresent', $employee->designationatpresent->id) == $id ? 'selected' : '' }}>
+                                                {{ $name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('designationAtPresent') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                </div>
+
+                            <!-- <div>
                                 <label for="presentPosting" class="label text-sm font-semibold">Present Posting *</label>
                                 <input type="text" id="presentPosting" name="presentPosting" 
                                     value="{{ old('presentPosting', $employee->presentPosting) }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none border" 
                                     placeholder="MUMBAI" required>
-                            </div>
+                            </div> -->
+
+                            <div>
+                                    <label for="presentPosting" class="block text-sm font-medium text-gray-700 mb-1">Present Posting *</label>
+                                    <select name="presentPosting" id="presentPosting" 
+                                            class="py-2 px-3 block w-full border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500" required>
+                                        <option value="">Select Region</option>
+                                        @foreach($regions as $id => $name)
+                                            <option value="{{ $id }}" {{ old('presentPosting', $employee->region->id) == $id ? 'selected' : '' }}>
+                                                {{ $name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('presentPosting') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                </div>
 
                             <div>
                                 <label for="personalFileNo" class="label text-sm font-semibold">Personal File No.</label>

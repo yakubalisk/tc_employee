@@ -3,17 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\Designation;
+use App\Models\Department;
+use App\Models\Region;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class EmployeeController extends Controller
 {
     public function create()
     {
-        return view('employees.create');
+        $designations = Designation::getDropdownOptions();
+        $departments = Department::getDropdownOptions();
+        $regions = Region::getDropdownOptions();
+        return view('employees.create',compact('departments', 'designations','regions'));
     }
 
 public function store(Request $request)
 {
+
+    // return $request;
     // Convert checkbox values BEFORE validation
     $checkboxFields = [
         'office_in_charge', 'nps', 'probation_period', 'department',
@@ -32,7 +41,7 @@ public function store(Request $request)
         // Personal Information
         // 'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         'empCode' => 'required|unique:employees|max:50',
-        'empId' => 'required|unique:employees|max:50',
+        // 'empId' => 'required|unique:employees|max:50',
         'name' => 'required|max:255',
         'gender' => 'required|in:MALE,FEMALE,OTHER',
         'category' => 'required|in:General,OBC,SC,ST',
@@ -42,9 +51,9 @@ public function store(Request $request)
         
         // Employment Details
         'dateOfAppointment' => 'required|date',
-        'designationAtAppointment' => 'required|string|max:255',
-        'designationAtPresent' => 'required|string|max:255',
-        'presentPosting' => 'required|string|max:255',
+        'designationAtAppointment' => 'required',
+        'designationAtPresent' => 'required',
+        'presentPosting' => 'required',
         'personalFileNo' => 'nullable|string|max:50',
         'officeLandline' => 'nullable|string|max:20',
         
@@ -117,12 +126,16 @@ public function store(Request $request)
         $filterCategory = $request->input('category', 'all');
         $filterStatus = $request->input('status', 'all');
 
-        $employees = Employee::query()
+        $employees = Employee::with(['designationatappointment', 'designationatpresent', 'region'])
             ->search($searchTerm)
             ->filterByGender($filterGender)
             ->filterByCategory($filterCategory)
             ->filterByStatus($filterStatus)
             ->paginate(10);
+        // echo "<pre>";
+        // print_r($employees);
+        // echo "</pre>";
+        // die();
 
 
         return view('employees.index', compact('employees', 'searchTerm', 'filterGender', 'filterCategory', 'filterStatus'));
@@ -221,7 +234,10 @@ public function show(Employee $employee)
 // Edit method
 public function edit(Employee $employee)
 {
-    return view('employees.edit', compact('employee'));
+    $designations = Designation::getDropdownOptions();
+    $departments = Department::getDropdownOptions();
+    $regions = Region::getDropdownOptions();
+    return view('employees.edit', compact('departments', 'designations','regions','employee'));
 }
 
 // Update method
@@ -230,9 +246,53 @@ public function update(Request $request, Employee $employee)
     // Similar validation as store but with unique rules ignoring current employee
     $validated = $request->validate([
         'empCode' => 'required|max:50|unique:employees,empCode,' . $employee->id,
-        'empId' => 'required|max:50|unique:employees,empId,' . $employee->id,
+        // 'empId' => 'required|max:50|unique:employees,empId,' . $employee->id,
         'email' => 'nullable|email|unique:employees,email,' . $employee->id,
-        // ... other validation rules (same as store)
+        'name' => 'required|max:255',
+        'gender' => 'required|in:MALE,FEMALE,OTHER',
+        'category' => 'required|in:General,OBC,SC,ST',
+        'education' => 'nullable|string',
+        'mobile' => 'nullable|digits:10',
+        
+        // Employment Details
+        'dateOfAppointment' => 'required|date',
+        'designationAtAppointment' => 'required',
+        'designationAtPresent' => 'required',
+        'presentPosting' => 'required',
+        'personalFileNo' => 'nullable|string|max:50',
+        'officeLandline' => 'nullable|string|max:20',
+        
+        // Personal Details
+        'dateOfBirth' => 'required|date',
+        'dateOfRetirement' => 'required|date|after:dateOfBirth',
+        'homeTown' => 'nullable|string|max:255',
+        'residentialAddress' => 'nullable|string',
+        'status' => 'required|in:EXISTING,RETIRED,TRANSFERRED',
+        
+        // Checkbox fields - NOW AS BOOLEAN
+        'office_in_charge' => 'boolean',
+        'nps' => 'boolean',
+        'probation_period' => 'boolean',
+        'department' => 'boolean',
+        'increment_individual_selc' => 'boolean',
+        'increment_withheld' => 'boolean',
+        'FR56J_2nd_batch' => 'boolean',
+        'apar_hod' => 'boolean',
+        'karmayogi_certificate_completed' => 'boolean',
+        '2021_2022' => 'boolean',
+        '2022_2023' => 'boolean',
+        '2023_2024' => 'boolean',
+        '2024_2025' => 'boolean',
+        
+        // Other fields
+        'promotee_transferee' => 'nullable|string|max:255',
+        'pension_file_no' => 'nullable|string|max:50',
+        'increment_month' => 'nullable|integer|min:1|max:12',
+        'status_of_post' => 'nullable|string|max:255',
+        'seniority_sequence_no' => 'nullable|string|max:50',
+        'sddlsection_incharge' => 'nullable|string|max:255',
+        'benevolent_member' => 'nullable|string|max:255',
+        'office_landline_number' => 'nullable|string|max:255',
     ]);
 
     try {

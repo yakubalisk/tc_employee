@@ -118,12 +118,12 @@
 
                         <div>
                             <label class="label text-sm font-semibold text-gray-500">Current Designation</label>
-                            <p class="text-gray-900">{{ $employee->designationAtPresent }}</p>
+                            <p class="text-gray-900">{{ $employee->designationatappointment->name }}</p>
                         </div>
 
                         <div>
                             <label class="label text-sm font-semibold text-gray-500">Present Posting</label>
-                            <p class="text-gray-900">{{ $employee->presentPosting }}</p>
+                            <p class="text-gray-900">{{ $employee->designationatpresent->name }}</p>
                         </div>
 
                         <div>
@@ -338,6 +338,68 @@
             </div>
         @else
             <p class="text-gray-500 text-center py-4">No Financial Upgradation records found for this employee.</p>
+        @endif
+    </div>
+</div>
+
+
+<!-- MOM Section -->
+<div class="card border rounded-xl">
+    <div class="card-header mb-5">
+    </div>
+    <div class="card-content">
+        <div class="card-title text-2xl">Mode of Recruitment History</div>
+        @if($employee->mom->count() > 0)
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <!-- <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Employee</th> -->
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Designation</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Seniority No</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date of Entry</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Office Order</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Method</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pay Fixation</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        @foreach($employee->mom as $record)
+                                                            <tr>
+                                        <!-- <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $record->PromotionID }}</td>
+                                        <td class="px-4 py-4 whitespace-nowrap">
+                                <div>
+                                    <div class="text-sm font-medium text-gray-900">{{ $record->employee->name }}</div>
+                                    <div class="text-sm text-gray-500">ID: {{ $record->employee->empId }} | Code: {{ $record->employee->empCode }}</div>
+                                </div>
+                            </td> -->
+                                        <td class="px-4 py-3 whitespace-nowrap">
+                                            <div>
+                                                <div class="text-sm font-medium text-gray-900">{{ $record->Designation }}</div>
+                                                <div class="text-sm text-gray-500">{{ $record->Designation_ }}</div>
+                                            </div>
+                                        </td>
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $record->Seniority_Number }}</td>
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $record->formattedDateOfEntry }}</td>
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">{{ Str::limit($record->Office_Order_No, 30) }}</td>
+                                        <td class="px-4 py-3 whitespace-nowrap">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                                {{ $record->Method_of_Recruitment }}
+                                            </span>
+                                        </td>
+                                        <td class="px-4 py-3 whitespace-nowrap">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $record->Pay_Fixation == 'Yes' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                                {{ $record->Pay_Fixation }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @else
+            <p class="text-gray-500 text-center py-4">No MOM records found for this employee.</p>
         @endif
     </div>
 </div>

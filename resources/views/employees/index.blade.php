@@ -133,10 +133,10 @@
                     </div>
                 </td>
                 <td class="px-4 py-4 whitespace-nowrap">
-                    <span class="text-sm text-gray-900 dark:text-neutral-100">{{ $employee->designationAtPresent }}</span>
+                    <span class="text-sm text-gray-900 dark:text-neutral-100">{{ $employee->designationatappointment->name }}</span>
                 </td>
                 <td class="px-4 py-4 whitespace-nowrap">
-                    <span class="text-sm text-gray-900 dark:text-neutral-100">{{ $employee->presentPosting }}</span>
+                    <span class="text-sm text-gray-900 dark:text-neutral-100">{{ $employee->designationatpresent->name }}</span>
                 </td>
                 <td class="px-4 py-4 whitespace-nowrap">
                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
