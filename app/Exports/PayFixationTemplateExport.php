@@ -60,7 +60,7 @@ class PayFixationTemplateExport implements FromArray, WithHeadings, WithTitle, W
     public function headings(): array
     {
         return [
-            'employee_id',
+            'emp_code',
             'pay_fixation_date',
             'basic_pay',
             'grade_pay',

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Doctor;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\DoctorExport;
@@ -21,11 +22,11 @@ class DoctorController extends Controller
             ->search($search)
             ->filterByQualification($qualification)
             ->filterByEmpID($empID)
-            ->orderBy('empID')
+            ->orderBy('employee_id')
             ->orderBy('name_of_doctor')
             ->paginate(10);
 
-        $employeeIds = Doctor::distinct()->pluck('empID', 'empID');
+        $employeeIds = Doctor::distinct()->pluck('employee_id', 'employee_id');
 
         return view('doctor.index', compact(
             'records', 
@@ -36,15 +37,22 @@ class DoctorController extends Controller
         ));
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        return view('doctor.create');
+        $employees = Employee::orderBy('name')->get();
+        
+        // Pre-select employee if coming from employee page
+        $selectedEmployee = null;
+        if ($request->has('employee_id')) {
+            $selectedEmployee = Employee::find($request->employee_id);
+        }
+        return view('doctor.create',compact('employees','selectedEmployee'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'empID' => 'required|string|max:50',
+            'employee_id' => 'required',
             'name_of_doctor' => 'nullable|string|max:255',
             'registration_no' => 'nullable|string|max:100',
             'address' => 'nullable|string',
@@ -65,13 +73,14 @@ class DoctorController extends Controller
 
     public function edit(Doctor $doctor)
     {
-        return view('doctor.edit', compact('doctor'));
+        $employees = Employee::orderBy('name')->get();
+        return view('doctor.edit', compact('doctor','employees'));
     }
 
     public function update(Request $request, Doctor $doctor)
     {
         $validated = $request->validate([
-            'empID' => 'required|string|max:50',
+            'employee_id' => 'required',
             'name_of_doctor' => 'nullable|string|max:255',
             'registration_no' => 'nullable|string|max:100',
             'address' => 'nullable|string',

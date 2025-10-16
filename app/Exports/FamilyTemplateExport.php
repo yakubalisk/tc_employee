@@ -15,7 +15,7 @@ class FamilyTemplateExport implements FromArray, WithHeadings, WithTitle, WithSt
     {
         return [
             [
-                '4',            // empID
+                '786786',            // empID
                 'NACHIKET',     // name_of_family_member
                 'Son',          // relationship
                 '25-Jan-06',    // date_of_birth
@@ -29,7 +29,7 @@ class FamilyTemplateExport implements FromArray, WithHeadings, WithTitle, WithSt
                 'No'            // pension_nps
             ],
             [
-                '4',
+                '555555',
                 'VARSHA',
                 'Wife',
                 '22-Oct-81',
@@ -43,7 +43,7 @@ class FamilyTemplateExport implements FromArray, WithHeadings, WithTitle, WithSt
                 'No'
             ],
             [
-                '7',
+                '123456',
                 'GEETANJALI A KAKAD',
                 'Wife',
                 '07-Jan-67',
@@ -57,7 +57,7 @@ class FamilyTemplateExport implements FromArray, WithHeadings, WithTitle, WithSt
                 'No'
             ],
             [
-                '7',
+                '444444',
                 'ABHISHEK A KAKAD',
                 'Son',
                 '05-Jan-99',
@@ -76,7 +76,7 @@ class FamilyTemplateExport implements FromArray, WithHeadings, WithTitle, WithSt
     public function headings(): array
     {
         return [
-            'empID',
+            'emp_code',
             'name_of_family_member',
             'relationship',
             'date_of_birth',

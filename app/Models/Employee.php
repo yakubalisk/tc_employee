@@ -261,6 +261,23 @@ public function scopeWithmom($query)
     return $query->whereHas('mom');
 }
 
+public function payFixation()
+{
+    return $this->hasMany(PayFixation::class);
+}
+
+// Accessor for latest mom
+public function getLatestpayFixationttribute()
+{
+    return $this->payFixation()->latest()->first();
+}
+
+// Scope for employees with mom records
+public function scopeWithpayFixation($query)
+{
+    return $query->whereHas('payFixation');
+}
+
 
 // Relationships
     public function designationatappointment()

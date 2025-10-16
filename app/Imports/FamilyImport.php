@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Family;
+use App\Models\Employee;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Carbon\Carbon;
@@ -22,8 +23,12 @@ class FamilyImport implements ToModel, WithHeadingRow
         $dcrg = $this->parseBoolean($row['dcrg'] ?? '');
         $pension_nps = $this->parseBoolean($row['pension_nps'] ?? $row['pension_nps'] ?? '');
 
+        $employee = Employee::where('empCode', $row['emp_code'])
+            // ->orWhere('empCode', $row['emp_code'])
+            ->first();
+
         return new Family([
-            'empID' => $row['empid'] ?? $row['employee_id'] ?? '',
+            'employee_id' => $employee->id,
             'name_of_family_member' => $row['name_of_family_member'] ?? $row['name of family member'] ?? '',
             'relationship' => $row['relationship'] ?? '',
             'date_of_birth' => $dateOfBirth,

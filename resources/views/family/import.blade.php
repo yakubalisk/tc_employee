@@ -58,7 +58,7 @@
                             <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
                                 <h3 class="text-sm font-medium text-gray-900 mb-2">Required Fields</h3>
                                 <div class="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm text-gray-600">
-                                    <div>• empID</div>
+                                    <div>• Employee Code</div>
                                     <div>• name_of_family_member</div>
                                     <div>• relationship</div>
                                     <div>• date_of_birth</div>

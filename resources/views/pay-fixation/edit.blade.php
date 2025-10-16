@@ -29,13 +29,25 @@
                             <div class="space-y-4">
                                 <h3 class="text-lg font-medium text-gray-900">Basic Information</h3>
                                 
-                                <div>
-                                    <label for="empl_id" class="block text-sm font-medium text-gray-700 mb-1">Employee ID *</label>
+                                <!-- <div>
+                                    <label for="empl_id" class="block text-sm font-medium text-gray-700 mb-1">Employee *</label>
                                     <input type="text" name="empl_id" id="empl_id" value="{{ old('empl_id', $payFixation->empl_id) }}" 
                                            class="py-2 px-3 block w-full border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500"
                                            required>
                                     @error('empl_id') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                                </div>
+                                </div> -->
+
+                                <div>
+                            <label for="employee_id" class="label text-sm font-semibold">Employee *</label>
+                            <select id="employee_id" name="employee_id" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 border" required>
+                                <option value="">Select Employee</option>
+                                @foreach($employees as $emp)
+                                    <option value="{{ $emp->id }}" data-emp_code="{{ $emp->empCode }}" {{ old('employee_id', $payFixation->employee_id) == $emp->id ? 'selected' : '' }}>
+                                        {{ $emp->name }} (ID: {{ $emp->empId }} | Code: {{ $emp->empCode }})
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
 
                                 <div>
                                     <label for="pay_fixation_date" class="block text-sm font-medium text-gray-700 mb-1">Pay Fixation Date *</label>

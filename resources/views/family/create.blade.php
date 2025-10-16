@@ -28,13 +28,26 @@
                             <div class="space-y-4">
                                 <h3 class="text-lg font-medium text-gray-900">Basic Information</h3>
                                 
-                                <div>
+                                <!-- <div>
                                     <label for="empID" class="block text-sm font-medium text-gray-700 mb-1">Employee ID *</label>
                                     <input type="text" name="empID" id="empID" value="{{ old('empID') }}" 
                                            class="py-2 px-3 block w-full border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500"
                                            required>
                                     @error('empID') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                                </div>
+                                </div> -->
+
+                                <div>
+                                <label for="employee_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Employee *</label>
+                                <select id="employee_id" name="employee_id" class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 border" required>
+                                    <option value="">Select Employee</option>
+                                    @foreach($employees as $emp)
+                                        <option value="{{ $emp->id }}" data-emp_code="{{ $emp->empCode }}" 
+                                            {{ (old('employee_id') == $emp->id || (request()->has('employee_id') && request('employee_id') == $emp->id)) ? 'selected' : '' }}>
+                                            {{ $emp->name }} (ID: {{ $emp->empId }} | Code: {{ $emp->empCode }})
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
 
                                 <div>
                                     <label for="name_of_family_member" class="block text-sm font-medium text-gray-700 mb-1">Family Member Name *</label>

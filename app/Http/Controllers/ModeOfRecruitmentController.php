@@ -24,6 +24,7 @@ class ModeOfRecruitmentController extends Controller
             ->filterByPayFixation($payFixation)
             ->orderBy('Date_of_Entry', 'desc')
             ->paginate(10);
+        // return $records;
 
         return view('mode-of-recruitment.index', compact(
             'records', 

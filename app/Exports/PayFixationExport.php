@@ -51,7 +51,7 @@ class PayFixationExport implements FromCollection, WithHeadings, WithMapping
     {
         return [
             $record->id,
-            $record->empl_id,
+            $record->employee->empCode,
             $record->pay_fixation_date->format('d-M-y'),
             $record->basic_pay,
             $record->grade_pay,

@@ -56,7 +56,7 @@ class ModeOfRecruitmentExport implements FromCollection, WithHeadings, WithMappi
     {
         return [
             $record->PromotionID,
-            $record->empID,
+            $record->employee->empCode,
             $record->Designation_,
             $record->Seniority_Number,
             $record->Designation,

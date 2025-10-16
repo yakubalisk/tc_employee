@@ -68,7 +68,7 @@
                                 <thead class="bg-gray-50">
                                     <tr>
                                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Employee ID</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Employee</th>
                                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Family Member</th>
                                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Relationship</th>
                                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date of Birth</th>
@@ -82,7 +82,12 @@
                                     @foreach($records as $record)
                                     <tr>
                                         <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $record->id }}</td>
-                                        <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-gray-900">{{ $record->empID }}</td>
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm font-mono text-gray-900">
+                                            <div>
+                                    <div class="text-sm font-medium text-gray-900">{{ $record->employee->name }}</div>
+                                    <div class="text-sm text-gray-500">ID: {{ $record->employee->empId }} | Code: {{ $record->employee->empCode }}</div>
+                                </div>
+                            </td>
                                         <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $record->name_of_family_member }}</td>
                                         <td class="px-4 py-3 whitespace-nowrap">
                                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">

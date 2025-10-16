@@ -105,6 +105,7 @@ class PayFixation extends Model
         return $this->grade_pay ? '₹' . number_format($this->grade_pay, 2) : 'N/A';
     }
 
+    // Relationship with Employee
     public function employee()
     {
         return $this->belongsTo(Employee::class);

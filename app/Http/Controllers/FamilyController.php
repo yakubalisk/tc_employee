@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Family;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\FamilyExport;
@@ -21,11 +22,11 @@ class FamilyController extends Controller
             ->search($search)
             ->filterByRelationship($relationship)
             ->filterByEmpID($empID)
-            ->orderBy('empID')
+            ->orderBy('employee_id')
             ->orderBy('relationship')
             ->paginate(10);
 
-        $employeeIds = Family::distinct()->pluck('empID', 'empID');
+        $employeeIds = Family::distinct()->pluck('employee_id', 'employee_id');
 
         return view('family.index', compact(
             'records', 
@@ -36,15 +37,23 @@ class FamilyController extends Controller
         ));
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        return view('family.create');
+        $employees = Employee::orderBy('name')->get();
+        
+        // Pre-select employee if coming from employee page
+        $selectedEmployee = null;
+        if ($request->has('employee_id')) {
+            $selectedEmployee = Employee::find($request->employee_id);
+        }
+        return view('family.create',compact('employees','selectedEmployee'));
     }
 
     public function store(Request $request)
     {
+        // return $request;
         $validated = $request->validate([
-            'empID' => 'required|string|max:50',
+            'employee_id' => 'required',
             'name_of_family_member' => 'required|string|max:255',
             'relationship' => 'required|string|max:50',
             'date_of_birth' => 'required|date',
@@ -71,13 +80,14 @@ class FamilyController extends Controller
 
     public function edit(Family $family)
     {
-        return view('family.edit', compact('family'));
+        $employees = Employee::orderBy('name')->get();
+        return view('family.edit', compact('family','employees'));
     }
 
     public function update(Request $request, Family $family)
     {
         $validated = $request->validate([
-            'empID' => 'required|string|max:50',
+            'employee_id' => 'required',
             'name_of_family_member' => 'required|string|max:255',
             'relationship' => 'required|string|max:50',
             'date_of_birth' => 'required|date',

@@ -11,7 +11,7 @@ class Family extends Model
     use HasFactory;
 
     protected $fillable = [
-        'empID',
+        'employee_id',
         'name_of_family_member',
         'relationship',
         'date_of_birth',
@@ -66,7 +66,7 @@ class Family extends Model
     public function scopeSearch($query, $search)
     {
         return $query->where(function ($q) use ($search) {
-            $q->where('empID', 'like', "%{$search}%")
+            $q->where('employee_id', 'like', "%{$search}%")
               ->orWhere('name_of_family_member', 'like', "%{$search}%")
               ->orWhere('relationship', 'like', "%{$search}%")
               ->orWhere('dependent_remarks', 'like', "%{$search}%")
@@ -126,5 +126,11 @@ class Family extends Model
         if ($this->pension_nps) $benefits[] = 'Pension/NPS';
 
         return implode(', ', $benefits) ?: 'None';
+    }
+
+    // Relationship with Employee
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
     }
 }

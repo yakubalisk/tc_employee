@@ -10,7 +10,7 @@ class Doctor extends Model
     use HasFactory;
 
     protected $fillable = [
-        'empID',
+        'employee_id',
         'name_of_doctor',
         'registration_no',
         'address',
@@ -37,7 +37,7 @@ class Doctor extends Model
     public function scopeSearch($query, $search)
     {
         return $query->where(function ($q) use ($search) {
-            $q->where('empID', 'like', "%{$search}%")
+            $q->where('employee_id', 'like', "%{$search}%")
               ->orWhere('name_of_doctor', 'like', "%{$search}%")
               ->orWhere('registration_no', 'like', "%{$search}%")
               ->orWhere('qualification', 'like', "%{$search}%")
@@ -57,7 +57,7 @@ class Doctor extends Model
     public function scopeFilterByEmpID($query, $empID)
     {
         if ($empID && $empID !== 'all') {
-            return $query->where('empID', $empID);
+            return $query->where('employee_id', $empID);
         }
         return $query;
     }
@@ -87,5 +87,11 @@ class Doctor extends Model
         return strlen($this->address) > 50 
             ? substr($this->address, 0, 50) . '...' 
             : $this->address;
+    }
+
+        // Relationship with Employee
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
     }
 }

@@ -15,7 +15,7 @@ class DoctorTemplateExport implements FromArray, WithHeadings, WithTitle, WithSt
     {
         return [
             [
-                '6',                                                    // empID
+                '786786',                                                    // empID
                 'DR GAUTAM R SHAH',                                     // name_of_doctor
                 '9812',                                                 // registration_no
                 'GROUND FLOOR, KHANPUR, AHMEDABAD',                     // address
@@ -23,7 +23,7 @@ class DoctorTemplateExport implements FromArray, WithHeadings, WithTitle, WithSt
                 ''                                                      // ama_remarks
             ],
             [
-                '11',
+                '555555',
                 'DR RAMESH KHATIWALA',
                 'G-7543',
                 'BEHIND OLD CIVIL HOSPITAL SURAT 395001',
@@ -31,7 +31,7 @@ class DoctorTemplateExport implements FromArray, WithHeadings, WithTitle, WithSt
                 ''
             ],
             [
-                '34',
+                '444444',
                 '',
                 '',
                 '.',
@@ -39,7 +39,7 @@ class DoctorTemplateExport implements FromArray, WithHeadings, WithTitle, WithSt
                 'GAGANDEEP HAWA SINGH'
             ],
             [
-                '42',
+                '123456',
                 'ATUL JAIMINI',
                 'DMC-49529, MCI-19367',
                 'GEMINI HOSPITAL GOHANA ROAD SONIPAT HARYANA',
@@ -47,7 +47,7 @@ class DoctorTemplateExport implements FromArray, WithHeadings, WithTitle, WithSt
                 'NARENDER SINGH'
             ],
             [
-                '49',
+                '888888',
                 'DR. ANUNAY DHONDIYAL',
                 '20308',
                 'MAYUR VIHAR-III, DELHI 110096',
@@ -60,7 +60,7 @@ class DoctorTemplateExport implements FromArray, WithHeadings, WithTitle, WithSt
     public function headings(): array
     {
         return [
-            'empID',
+            'emp_code',
             'name_of_doctor',
             'registration_no',
             'address',

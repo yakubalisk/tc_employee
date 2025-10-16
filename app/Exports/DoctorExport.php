@@ -35,7 +35,7 @@ class DoctorExport implements FromCollection, WithHeadings, WithMapping
     {
         return [
             'ID',
-            'Employee ID',
+            'Employee Code',
             'Name of Doctor',
             'Registration No',
             'Address',
@@ -50,7 +50,7 @@ class DoctorExport implements FromCollection, WithHeadings, WithMapping
     {
         return [
             $record->id,
-            $record->empID,
+            $record->employee->empCode,
             $record->name_of_doctor,
             $record->registration_no,
             $record->address,

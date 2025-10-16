@@ -6,6 +6,7 @@ use App\Models\PayFixation;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Carbon\Carbon;
+use App\Models\Employee;
 
 class PayFixationImport implements ToModel, WithHeadingRow
 {
@@ -14,8 +15,12 @@ class PayFixationImport implements ToModel, WithHeadingRow
         // Handle date conversion from Excel format
         $payFixationDate = $this->parseDate($row['pay_fixation_date'] ?? $row['pay fixation date'] ?? null);
 
+        $employee = Employee::where('empCode', $row['emp_code'])
+            // ->orWhere('empCode', $row['emp_code'])
+            ->first();
+
         return new PayFixation([
-            'employee_id' => $row['employee_id'] ?? '',
+            'employee_id' => $employee->id,
             'pay_fixation_date' => $payFixationDate,
             'basic_pay' => $row['basic_pay'] ?? $row['basic pay'] ?? 0,
             'grade_pay' => $row['grade_pay'] ?? $row['grade pay'] ?? null,

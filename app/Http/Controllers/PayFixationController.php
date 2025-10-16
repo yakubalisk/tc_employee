@@ -25,6 +25,8 @@ class PayFixationController extends Controller
             ->orderBy('pay_fixation_date', 'desc')
             ->paginate(10);
 
+        // return $records;
+
         return view('pay-fixation.index', compact(
             'records', 
             'search', 
@@ -47,6 +49,7 @@ class PayFixationController extends Controller
 
     public function store(Request $request)
     {
+        // return $request;
         $validated = $request->validate([
             'employee_id' => 'required|integer',
             'pay_fixation_date' => 'required|date',

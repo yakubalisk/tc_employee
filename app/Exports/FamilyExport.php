@@ -26,7 +26,7 @@ class FamilyExport implements FromCollection, WithHeadings, WithMapping
             ->search($this->search)
             ->filterByRelationship($this->relationship)
             ->filterByEmpID($this->empID)
-            ->orderBy('empID')
+            ->orderBy('employee_id')
             ->orderBy('relationship')
             ->get();
     }
@@ -35,7 +35,7 @@ class FamilyExport implements FromCollection, WithHeadings, WithMapping
     {
         return [
             'ID',
-            'Employee ID',
+            'Employee Code',
             'Name of Family Member',
             'Relationship',
             'Date of Birth',
@@ -57,7 +57,7 @@ class FamilyExport implements FromCollection, WithHeadings, WithMapping
     {
         return [
             $record->id,
-            $record->empID,
+            $record->employee->empCode,
             $record->name_of_family_member,
             $record->relationship,
             $record->date_of_birth->format('d-M-y'),
