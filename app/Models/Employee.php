@@ -266,16 +266,50 @@ public function payFixation()
     return $this->hasMany(PayFixation::class);
 }
 
-// Accessor for latest mom
+// Accessor for latest payFixation
 public function getLatestpayFixationttribute()
 {
     return $this->payFixation()->latest()->first();
 }
 
-// Scope for employees with mom records
+// Scope for employees with payFixation records
 public function scopeWithpayFixation($query)
 {
     return $query->whereHas('payFixation');
+}
+
+public function family()
+{
+    return $this->hasMany(family::class);
+}
+
+// Accessor for latest family
+public function getLatestfamilyttribute()
+{
+    return $this->family()->latest()->first();
+}
+
+// Scope for employees with family records
+public function scopeWithfamily($query)
+{
+    return $query->whereHas('family');
+}
+
+public function doctor()
+{
+    return $this->hasMany(doctor::class);
+}
+
+// Accessor for latest doctor
+public function getLatestdoctorttribute()
+{
+    return $this->doctor()->latest()->first();
+}
+
+// Scope for employees with doctor records
+public function scopeWithdoctor($query)
+{
+    return $query->whereHas('doctor');
 }
 
 

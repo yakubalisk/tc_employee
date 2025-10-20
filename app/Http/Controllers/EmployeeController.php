@@ -26,9 +26,11 @@ public function store(Request $request)
     // Convert checkbox values BEFORE validation
     $checkboxFields = [
         'office_in_charge', 'nps', 'probation_period', 'department',
-        'increment_individual_selc', 'increment_withheld', 'FR56J_2nd_batch',
-        'apar_hod', 'karmayogi_certificate_completed', '2021_2022', 
-        '2022_2023', '2023_2024', '2024_2025'
+        // 'increment_individual_selc', 'increment_withheld', 'FR56J_2nd_batch',
+        // 'apar_hod', 
+        'karmayogi_certificate_completed', 
+        // '2021_2022', 
+        // '2022_2023', '2023_2024', '2024_2025'
     ];
 
     // Convert checkboxes from "on" to boolean true/false
@@ -69,15 +71,15 @@ public function store(Request $request)
         'nps' => 'boolean',
         'probation_period' => 'boolean',
         'department' => 'boolean',
-        'increment_individual_selc' => 'boolean',
-        'increment_withheld' => 'boolean',
-        'FR56J_2nd_batch' => 'boolean',
-        'apar_hod' => 'boolean',
+        // 'increment_individual_selc' => 'boolean',
+        // 'increment_withheld' => 'boolean',
+        // 'FR56J_2nd_batch' => 'boolean',
+        // 'apar_hod' => 'boolean',
         'karmayogi_certificate_completed' => 'boolean',
-        '2021_2022' => 'boolean',
-        '2022_2023' => 'boolean',
-        '2023_2024' => 'boolean',
-        '2024_2025' => 'boolean',
+        // '2021_2022' => 'boolean',
+        // '2022_2023' => 'boolean',
+        // '2023_2024' => 'boolean',
+        // '2024_2025' => 'boolean',
         
         // Other fields
         'promotee_transferee' => 'nullable|string|max:255',
@@ -274,15 +276,15 @@ public function update(Request $request, Employee $employee)
         'nps' => 'boolean',
         'probation_period' => 'boolean',
         'department' => 'boolean',
-        'increment_individual_selc' => 'boolean',
-        'increment_withheld' => 'boolean',
-        'FR56J_2nd_batch' => 'boolean',
-        'apar_hod' => 'boolean',
+        // 'increment_individual_selc' => 'boolean',
+        // 'increment_withheld' => 'boolean',
+        // 'FR56J_2nd_batch' => 'boolean',
+        // 'apar_hod' => 'boolean',
         'karmayogi_certificate_completed' => 'boolean',
-        '2021_2022' => 'boolean',
-        '2022_2023' => 'boolean',
-        '2023_2024' => 'boolean',
-        '2024_2025' => 'boolean',
+        // '2021_2022' => 'boolean',
+        // '2022_2023' => 'boolean',
+        // '2023_2024' => 'boolean',
+        // '2024_2025' => 'boolean',
         
         // Other fields
         'promotee_transferee' => 'nullable|string|max:255',
@@ -310,9 +312,11 @@ public function update(Request $request, Employee $employee)
         // Convert checkbox values
         $checkboxFields = [
             'office_in_charge', 'nps', 'probation_period', 'department',
-            'increment_individual_selc', 'increment_withheld', 'FR56J_2nd_batch',
-            'apar_hod', 'karmayogi_certificate_completed', '2021_2022', 
-            '2022_2023', '2023_2024', '2024_2025'
+            // 'increment_individual_selc', 'increment_withheld', 'FR56J_2nd_batch',
+            // 'apar_hod', 
+            'karmayogi_certificate_completed', 
+            // '2021_2022', 
+            // '2022_2023', '2023_2024', '2024_2025'
         ];
 
         foreach ($checkboxFields as $field) {

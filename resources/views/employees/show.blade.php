@@ -404,6 +404,149 @@
     </div>
 </div>
 
+<!-- Pay Fixation Section -->
+<div class="card border rounded-xl">
+    <div class="card-header mb-5">
+        <div class="card-title text-2xl">Pay Fixation History</div>
+    </div>
+    <div class="card-content">
+        @if($employee->payFixation->count() > 0)
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Fixation Date</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Basic Pay</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Grade Pay</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Cell No</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Revised Level</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Level 2</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        @foreach($employee->payFixation as $payFix)
+                        <tr>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">
+                                {{ $payFix->formattedPayFixationDate }}
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $payFix->formattedBasicPay }}</td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $payFix->formattedGradePay }}</td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $payFix->cell_no }}</td>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $payFix->revised_level ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                    {{ $payFix->revised_level }}
+                                </span>
+                            </td>                            
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $payFix->level_2 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                    {{ $payFix->level_2 }} 
+                                </span>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @else
+            <p class="text-gray-500 text-center py-4">No Pay Fixation records found for this employee.</p>
+        @endif
+    </div>
+</div>
+
+<!-- Family Section -->
+<div class="card border rounded-xl">
+    <div class="card-header mb-5">
+        <div class="card-title text-2xl">Family History</div>
+    </div>
+    <div class="card-content">
+        @if($employee->family->count() > 0)
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Family Member</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Relationship</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date of Birth</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Age</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Dependent</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Benefits</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        @foreach($employee->family as $fam)
+                        <tr>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">
+                                {{ $fam->name_of_family_member }}
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                                {{ $fam->relationship }}
+                                            </span></td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $fam->formattedDateOfBirth }}</td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $fam->calculated_age }}</td>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $record->dependent_remarks ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
+                                                {{ $fam->dependent_remarks ? 'Yes' : 'No' }}
+                                            </span>
+                            </td>                            
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
+                                            {{ Str::limit($fam->benefits_summary, 30) }}
+                                        </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @else
+            <p class="text-gray-500 text-center py-4">No Family records found for this employee.</p>
+        @endif
+    </div>
+</div>
+
+<!-- Doctor Section -->
+<div class="card border rounded-xl">
+    <div class="card-header mb-5">
+        <div class="card-title text-2xl">Doctor History</div>
+    </div>
+    <div class="card-content">
+        @if($employee->doctor->count() > 0)
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Doctor Name</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Registration No</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Qualification</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Address</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        @foreach($employee->doctor as $doct)
+                        <tr>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">
+                                {{ $doct->formattedDoctorName }}
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $doct->registration_no ?? 'N/A' }}</td>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                            @if($doct->qualification)
+                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                                    {{ $doct->qualification }}
+                                                </span>
+                                            @else
+                                                <span class="text-sm text-gray-500">N/A</span>
+                                            @endif
+                                        </td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $doct->shortAddress }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @else
+            <p class="text-gray-500 text-center py-4">No Doctor records found for this employee.</p>
+        @endif
+    </div>
+</div>
+
             <!-- Timestamps -->
             <div class="card border rounded-xl">
                 <div class="card-header mb-5">

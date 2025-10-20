@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\TransferExport;
 use App\Imports\TransferImport;
+use App\Models\Employee;
 use App\Exports\TransferTemplateExport;
 
 class TransferControllers extends Controller
@@ -43,19 +44,27 @@ class TransferControllers extends Controller
         ));
     }
 
-    public function create()
+    public function create(Request $request)
     {
         $regions = Region::getDropdownOptions();
         $departments = Department::getDropdownOptions();
         $designations = Designation::getDropdownOptions();
+        $employees = Employee::orderBy('name')->get();
+        
+        // Pre-select employee if coming from employee page
+        $selectedEmployee = null;
+        if ($request->has('employee_id')) {
+            $selectedEmployee = Employee::find($request->employee_id);
+        }
 
-        return view('transfer.create', compact('regions', 'departments', 'designations'));
+        return view('transfer.create', compact('regions', 'departments', 'designations','employees','selectedEmployee'));
     }
 
     public function store(Request $request)
     {
+        // return $request;
         $validated = $request->validate([
-            'empID' => 'required|string|max:50',
+            'employee_id' => 'required',
             'designation_id' => 'required|exists:designations,id',
             'date_of_joining' => 'required|date',
             'date_of_releiving' => 'required|date|after:date_of_joining',
@@ -85,14 +94,15 @@ class TransferControllers extends Controller
         $regions = Region::getDropdownOptions();
         $departments = Department::getDropdownOptions();
         $designations = Designation::getDropdownOptions();
+        $employees = Employee::orderBy('name')->get();
 
-        return view('transfer.edit', compact('transfer', 'regions', 'departments', 'designations'));
+        return view('transfer.edit', compact('transfer', 'regions', 'departments', 'designations','employees'));
     }
 
     public function update(Request $request, Transfer $transfer)
     {
         $validated = $request->validate([
-            'empID' => 'required|string|max:50',
+            'employee_id' => 'required',
             'designation_id' => 'required|exists:designations,id',
             'date_of_joining' => 'required|date',
             'date_of_releiving' => 'required|date|after:date_of_joining',

@@ -14,7 +14,7 @@ class Transfer extends Model
     protected $keyType = 'int';
 
     protected $fillable = [
-        'empID',
+        'employee_id',
         'designation_id',
         'date_of_joining',
         'date_of_releiving',
@@ -58,7 +58,7 @@ class Transfer extends Model
     public function scopeSearch($query, $search)
     {
         return $query->where(function ($q) use ($search) {
-            $q->where('empID', 'like', "%{$search}%")
+            $q->where('employee_id', 'like', "%{$search}%")
               ->orWhere('transfer_order_no', 'like', "%{$search}%")
               ->orWhere('transfer_remarks', 'like', "%{$search}%")
               ->orWhereHas('designation', function ($q) use ($search) {
@@ -129,5 +129,11 @@ class Transfer extends Model
         } else {
             return "{$months} months";
         }
+    }
+
+            // Relationship with Employee
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
     }
 }

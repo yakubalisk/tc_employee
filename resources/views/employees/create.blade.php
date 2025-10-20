@@ -375,12 +375,12 @@
                                         <span class="text-sm text-gray-500 ms-3 dark:text-neutral-400 font-semibold">Department/Section Incharge</span>
                                       </label>
                                 </div>                                 
-                                <div class="mt-5">
+                                <!-- <div class="mt-5">
                                       <label for="hs-checkbox-in-form" class="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
                                         <input type="checkbox" value="{{ old('2021_2022') }}" name="2021_2022" class="shrink-0 mt-0.5 border-gray-200 rounded-sm text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-checkbox-in-form sm:text-sm">
                                         <span class="text-sm text-gray-500 ms-3 dark:text-neutral-400 font-semibold">2021-2022</span>
                                       </label>
-                                </div>                                
+                                </div> -->                                
                                 <div>
                                     <label for="homeTown" class="label text-sm font-semibold">Seniority Sequence number</label>
                                     <input type="text" id="homeTown" name="seniority_sequence_no" 
@@ -393,12 +393,12 @@
                                         value="{{ old('sddlsection_incharge') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 border" 
                                         placeholder="Addl section incharge"></textarea>
                                 </div>                                
-                                <div class="mt-5">
+                                <!-- <div class="mt-5">
                                       <label for="hs-checkbox-in-form" class="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
                                         <input type="checkbox" value="{{ old('2023_2024') }}" name="2023_2024" class="shrink-0 mt-0.5 border-gray-200 rounded-sm text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-checkbox-in-form sm:text-sm">
                                         <span class="text-sm text-gray-500 ms-3 dark:text-neutral-400 font-semibold">2023-2024 APAR</span>
                                       </label>
-                                </div>                                  
+                                </div> -->                                  
                                 <div>
                                     <label for="homeTown" class="label text-sm font-semibold">Benevolent Member</label>
                                     <input type="text" id="homeTown" name="benevolent_member" 
@@ -412,36 +412,37 @@
                                         <span class="text-sm text-gray-500 ms-3 dark:text-neutral-400 font-semibold">2022-23 APAR</span>
                                       </label>
                                 </div>
-                                <div class="mt-5">
+                                <!-- <div class="mt-5">
                                       <label for="hs-checkbox-in-form" class="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
                                         <input type="checkbox" value="{{ old('increment_individual_selc') }}" name="increment_individual_selc" class="shrink-0 mt-0.5 border-gray-200 rounded-sm text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-checkbox-in-form sm:text-sm">
                                         <span class="text-sm text-gray-500 ms-3 dark:text-neutral-400 font-semibold">Increment Individual selc</span>
                                       </label>
-                                </div>
+                                </div> -->
                                 <div>
                                     <label for="homeTown" class="label text-sm font-semibold">Office Landline Number</label>
                                     <input type="text" id="homeTown" name="office_landline_number" 
                                         value="{{ old('office_landline_number') }}" class="py-1.5 sm:py-2 px-3 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 border" 
                                         placeholder="KRISHNA RAJA NAGARA, MYSORE">
                                 </div> 
-                                <div class="mt-5">
+                                <!-- <div class="mt-5">
                                       <label for="hs-checkbox-in-form" class="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
                                         <input type="checkbox" value="{{ old('increment_withheld') }}" name="increment_withheld" class="shrink-0 mt-0.5 border-gray-200 rounded-sm text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-checkbox-in-form sm:text-sm">
                                         <span class="text-sm text-gray-500 ms-3 dark:text-neutral-400 font-semibold">Increment withheld</span>
                                       </label>
-                                </div>
-                                <div class="mt-5">
+                                </div> -->
+                                <!-- <div class="mt-5">
                                       <label for="hs-checkbox-in-form" class="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
                                         <input type="checkbox" value="{{ old('FR56J_2nd_batch') }}" name="FR56J_2nd_batch" class="shrink-0 mt-0.5 border-gray-200 rounded-sm text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-checkbox-in-form sm:text-sm">
                                         <span class="text-sm text-gray-500 ms-3 dark:text-neutral-400 font-semibold">FR56J 2nd batch</span>
                                       </label>
-                                </div>
-                                <div class="mt-5">
+                                </div> -->
+                                <!-- <div class="mt-5">
                                       <label for="hs-checkbox-in-form" class="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
                                         <input type="checkbox" value="{{ old('apar_hod') }}" name="apar_hod" class="shrink-0 mt-0.5 border-gray-200 rounded-sm text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-checkbox-in-form sm:text-sm">
                                         <span class="text-sm text-gray-500 ms-3 dark:text-neutral-400 font-semibold">Apar HoD</span>
                                       </label>
-                                </div> <div class="mt-5">
+                                </div>  -->
+                                <div class="mt-5">
                                       <label for="hs-checkbox-in-form" class="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
                                         <input type="checkbox" value="{{ old('2024_2025') }}" name="2024_2025" class="shrink-0 mt-0.5 border-gray-200 rounded-sm text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-checkbox-in-form sm:text-sm">
                                         <span class="text-sm text-gray-500 ms-3 dark:text-neutral-400 font-semibold">2024-25 APAR</span>

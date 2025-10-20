@@ -38,8 +38,12 @@
                                 <p class="mt-1 text-sm text-gray-900">{{ $transfer->transferId }}</p>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-500">Employee ID</label>
-                                <p class="mt-1 text-sm text-gray-900 font-mono">{{ $transfer->empID }}</p>
+                                <label class="block text-sm font-medium text-gray-500">Employee Code</label>
+                                <p class="mt-1 text-sm text-gray-900">{{ $transfer->employee->empCode }}</p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-500">Employee</label>
+                                <p class="mt-1 text-sm text-gray-900 font-mono">{{ $transfer->employee->name }}</p>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-500">Designation</label>

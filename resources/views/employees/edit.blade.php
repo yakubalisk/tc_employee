@@ -319,6 +319,14 @@
                     </div>
                     <div class="card-content space-y-4">
                         <div class="grid grid-cols-3 gap-4">
+                               <!--      'increment_individual_selc' => 'Increment Individual selc',
+                                    'increment_withheld' => 'Increment withheld',
+                                    'FR56J_2nd_batch' => 'FR56J 2nd batch',
+                                    'apar_hod' => 'Apar HoD', -->
+<!--                                     '2021_2022' => '2021-2022',
+                                    '2022_2023' => '2022-23 APAR',
+                                    '2023_2024' => '2023-2024 APAR',
+                                    '2024_2025' => '2024-25 APAR', -->
                             <!-- Checkbox fields -->
                             @php
                                 $checkboxFields = [
@@ -326,15 +334,7 @@
                                     'nps' => 'NPS',
                                     'probation_period' => 'Probation Period cleared',
                                     'department' => 'Department/Section Incharge',
-                                    'increment_individual_selc' => 'Increment Individual selc',
-                                    'increment_withheld' => 'Increment withheld',
-                                    'FR56J_2nd_batch' => 'FR56J 2nd batch',
-                                    'apar_hod' => 'Apar HoD',
                                     'karmayogi_certificate_completed' => 'Karmayogi Certificate Completed',
-                                    '2021_2022' => '2021-2022',
-                                    '2022_2023' => '2022-23 APAR',
-                                    '2023_2024' => '2023-2024 APAR',
-                                    '2024_2025' => '2024-25 APAR',
                                 ];
                             @endphp
 
