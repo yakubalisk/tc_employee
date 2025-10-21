@@ -22,6 +22,9 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 // Employee routes
+Route::get('/employees/import', [EmployeeController::class, 'showImportForm'])->name('employees.import.form');
+Route::post('/employees/import', [EmployeeController::class, 'import'])->name('employees.import');
+Route::get('/employees/template', [EmployeeController::class, 'downloadTemplate'])->name('employees.template');
 Route::get('/employees/create', [EmployeeController::class, 'create'])->name('employees.create');
 Route::post('/employees', [EmployeeController::class, 'store'])->name('employees.store');
 Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');

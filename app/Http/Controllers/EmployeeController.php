@@ -8,6 +8,9 @@ use App\Models\Department;
 use App\Models\Region;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Imports\EmployeeImport;
+use App\Exports\EmployeeTemplateExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class EmployeeController extends Controller
 {
@@ -114,7 +117,7 @@ public function store(Request $request)
             ->with('success', 'Employee created successfully!');
             
     } catch (\Exception $e) {
-        // print($e->getMessage());die();
+        print($e->getMessage());die();
         return redirect()->back()
             ->withInput()
             ->with('error', 'Error creating employee: ' . $e->getMessage());
@@ -239,6 +242,7 @@ public function edit(Employee $employee)
     $designations = Designation::getDropdownOptions();
     $departments = Department::getDropdownOptions();
     $regions = Region::getDropdownOptions();
+    // return $employee;
     return view('employees.edit', compact('departments', 'designations','regions','employee'));
 }
 
@@ -333,5 +337,34 @@ public function update(Request $request, Employee $employee)
             ->withInput()
             ->with('error', 'Error updating employee: ' . $e->getMessage());
     }
+}
+
+public function showImportForm()
+{
+    return view('employees.import'); // Make sure this matches your view file name
+}
+
+public function import(Request $request)
+{
+    $request->validate([
+        'file' => 'required|file|mimes:xlsx,xls,csv|max:10240' // 10MB
+    ]);
+
+    try {
+        Excel::import(new EmployeeImport, $request->file('file'));
+        
+        return redirect()->route('employees.index')
+            ->with('success', 'Employees imported successfully!');
+            
+    } catch (\Exception $e) {
+        return redirect()->back()
+            ->with('error', 'Error importing employees: ' . $e->getMessage())
+            ->withInput();
+    }
+}
+
+public function downloadTemplate()
+{
+    return Excel::download(new EmployeeTemplateExport, 'employee-template.xlsx');
 }
 }

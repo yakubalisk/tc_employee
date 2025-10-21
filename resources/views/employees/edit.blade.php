@@ -382,10 +382,130 @@
 </div>
 
 <script>
-// Include the same JavaScript from create page for image preview and validation
 document.addEventListener('DOMContentLoaded', function() {
-    // Your existing JavaScript code from create page
-    // ... (copy the entire script section from create page)
+    // Set max date for retirement date to be after birth date
+    const dobInput = document.getElementById('dateOfBirth');
+    const retirementInput = document.getElementById('dateOfRetirement');
+    
+    if (dobInput && retirementInput) {
+        dobInput.addEventListener('change', function() {
+            retirementInput.min = this.value;
+            if (retirementInput.value && retirementInput.value < this.value) {
+                retirementInput.value = '';
+            }
+        });
+    }
+
+    // Set max date for appointment date to today
+    const appointmentInput = document.getElementById('dateOfAppointment');
+    if (appointmentInput) {
+        const today = new Date().toISOString().split('T')[0];
+        appointmentInput.max = today;
+    }
+
+    // Mobile number validation
+    const mobileInput = document.getElementById('mobile');
+    if (mobileInput) {
+        mobileInput.addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);
+        });
+    }
+ // Image preview functionality
+    const imageInput = document.getElementById('profile_image');
+    const preview = document.getElementById('previewImage');
+    const defaultAvatar = document.getElementById('defaultAvatar');
+    const removeButton = document.getElementById('removeImage');
+    const dropArea = document.getElementById('imagePreview');
+
+    // Handle file input change
+    imageInput.addEventListener('change', function(e) {
+        handleImageSelection(this);
+    });
+
+    function handleImageSelection(input) {
+        if (input.files && input.files[0]) {
+            const file = input.files[0];
+            
+            // Validate file size (2MB)
+            if (file.size > 2 * 1024 * 1024) {
+                alert('File size must be less than 2MB');
+                input.value = '';
+                return;
+            }
+            
+            // Validate file type
+            const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+            if (!validTypes.includes(file.type)) {
+                alert('Please select a valid image file (JPG, PNG, or WEBP)');
+                input.value = '';
+                return;
+            }
+            
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.classList.remove('hidden');
+                defaultAvatar.classList.add('hidden');
+                removeButton.classList.remove('hidden');
+            }
+            
+            reader.readAsDataURL(file);
+        }
+    }
+
+    // Remove image functionality
+    removeButton.addEventListener('click', function() {
+        imageInput.value = '';
+        preview.src = '';
+        preview.classList.add('hidden');
+        defaultAvatar.classList.remove('hidden');
+        removeButton.classList.add('hidden');
+    });
+
+    // Drag and drop functionality
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, highlight, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, unhighlight, false);
+    });
+
+    function highlight() {
+        dropArea.classList.add('border-blue-500', 'border-2');
+    }
+
+    function unhighlight() {
+        dropArea.classList.remove('border-blue-500', 'border-2');
+    }
+
+    dropArea.addEventListener('drop', handleDrop, false);
+
+    function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        
+        if (files.length) {
+            imageInput.files = files;
+            handleImageSelection(imageInput);
+        }
+    }
+
+    // Click on preview to upload
+    dropArea.addEventListener('click', function() {
+        imageInput.click();
+    });
 });
+
 </script>
 @endsection
