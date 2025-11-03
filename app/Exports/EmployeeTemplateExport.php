@@ -23,9 +23,9 @@ class EmployeeTemplateExport implements FromArray, WithHeadings, WithTitle, With
                 '9876543210',               // mobile
                 'rajesh.kumar@example.com', // email
                 '15-Jan-2020',              // date_of_appointment
-                'Software Engineer',        // designation_at_appointment
-                'Senior Software Engineer', // designation_at_present
-                'Headquarters',             // present_posting
+                'QAO (LAB)',                // designation_at_appointment
+                'ASST. DIRECTOR (LAB)',     // designation_at_present
+                'DELHI - NCR',              // present_posting
                 'PFN001',                   // personal_file_no
                 '011-23456789',             // office_landline
                 '15-Mar-1990',              // date_of_birth
@@ -56,9 +56,9 @@ class EmployeeTemplateExport implements FromArray, WithHeadings, WithTitle, With
                 '9876543211',
                 'priya.sharma@example.com',
                 '20-Mar-2019',
-                'Marketing Executive',
-                'Marketing Manager',
-                'Regional Office',
+                'JQAO (LAB)',
+                'DY. DIRECTOR (LAB)',
+                'MUMBAI',
                 'PFN002',
                 '011-23456790',
                 '20-Aug-1988',
@@ -79,72 +79,6 @@ class EmployeeTemplateExport implements FromArray, WithHeadings, WithTitle, With
                 'Section B',
                 'No',
                 '011-23456791'
-            ],
-            [
-                'EMP003',
-                'Amit Singh',
-                'MALE',
-                'SC',
-                'B.Com',
-                '9876543212',
-                'amit.singh@example.com',
-                '10-Jun-2018',
-                'Accountant',
-                'Senior Accountant',
-                'Finance Department',
-                'PFN003',
-                '011-23456792',
-                '10-Dec-1985',
-                '10-Dec-2045',
-                'Kolkata',
-                'C-789, PQR Lane, Kolkata',
-                'EXISTING',
-                'No',
-                'No',
-                'No',
-                'Yes',
-                'No',
-                'Promotee',
-                'PEN003',
-                '3',
-                'Filled',
-                'SEQ003',
-                'Section C',
-                'Yes',
-                '011-23456793'
-            ],
-            [
-                'EMP004',
-                'Sunita Patel',
-                'FEMALE',
-                'ST',
-                'M.Sc Chemistry',
-                '9876543213',
-                'sunita.patel@example.com',
-                '05-Sep-2021',
-                'Lab Assistant',
-                'Lab Technician',
-                'Research Wing',
-                'PFN004',
-                '011-23456794',
-                '05-Feb-1992',
-                '05-Feb-2052',
-                'Chennai',
-                'D-321, LMN Street, Chennai',
-                'EXISTING',
-                'No',
-                'Yes',
-                'Yes',
-                'No',
-                'No',
-                '',
-                'PEN004',
-                '7',
-                'Temporary',
-                'SEQ004',
-                'Section D',
-                'No',
-                '011-23456795'
             ]
         ];
     }
@@ -195,20 +129,22 @@ class EmployeeTemplateExport implements FromArray, WithHeadings, WithTitle, With
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
+                $sheet = $event->sheet->getDelegate();
+
                 // Auto-size columns for better readability
                 $columns = [
-                    'A' => 12,  'B' => 20,  'C' => 10,  'D' => 12,
+                    'A' => 12,  'B' => 20,  'C' => 12,  'D' => 12,
                     'E' => 20,  'F' => 15,  'G' => 25,  'H' => 18,
-                    'I' => 22,  'J' => 22,  'K' => 18,  'L' => 15,
+                    'I' => 25,  'J' => 25,  'K' => 20,  'L' => 15,
                     'M' => 15,  'N' => 18,  'O' => 18,  'P' => 15,
-                    'Q' => 25,  'R' => 12,  'S' => 15,  'T' => 8,
+                    'Q' => 25,  'R' => 12,  'S' => 15,  'T' => 10,
                     'U' => 15,  'V' => 12,  'W' => 25,  'X' => 18,
                     'Y' => 15,  'Z' => 15,  'AA' => 15, 'AB' => 20,
                     'AC' => 18, 'AD' => 18, 'AE' => 20
                 ];
                 
                 foreach ($columns as $column => $width) {
-                    $event->sheet->getDelegate()->getColumnDimension($column)->setWidth($width);
+                    $sheet->getColumnDimension($column)->setWidth($width);
                 }
 
                 // Style the header row
@@ -234,7 +170,7 @@ class EmployeeTemplateExport implements FromArray, WithHeadings, WithTitle, With
                 ]);
 
                 // Style the data rows
-                $dataRange = 'A2:AE5';
+                $dataRange = 'A2:AE3';
                 $event->sheet->getStyle($dataRange)->applyFromArray([
                     'borders' => [
                         'allBorders' => [
@@ -247,80 +183,173 @@ class EmployeeTemplateExport implements FromArray, WithHeadings, WithTitle, With
                     ],
                 ]);
 
-                // Add data validation notes
-                $event->sheet->setCellValue('AG1', 'DATA VALIDATION NOTES:');
-                $event->sheet->setCellValue('AG2', 'REQUIRED FIELDS:');
-                $event->sheet->setCellValue('AG3', '• emp_code, name, gender, category');
-                $event->sheet->setCellValue('AG4', '• date_of_appointment, designation_at_appointment');
-                $event->sheet->setCellValue('AG5', '• designation_at_present, present_posting');
-                $event->sheet->setCellValue('AG6', '• date_of_birth, date_of_retirement, status');
-                
-                $event->sheet->setCellValue('AG8', 'GENDER OPTIONS:');
-                $event->sheet->setCellValue('AG9', 'MALE, FEMALE, OTHER');
-                
-                $event->sheet->setCellValue('AG11', 'CATEGORY OPTIONS:');
-                $event->sheet->setCellValue('AG12', 'General, OBC, SC, ST');
-                
-                $event->sheet->setCellValue('AG14', 'STATUS OPTIONS:');
-                $event->sheet->setCellValue('AG15', 'EXISTING, RETIRED, TRANSFERRED');
-                
-                $event->sheet->setCellValue('AG17', 'DATE FORMATS:');
-                $event->sheet->setCellValue('AG18', 'DD-MMM-YYYY (15-Jan-2020)');
-                $event->sheet->setCellValue('AG19', 'DD/MM/YYYY, MM/DD/YYYY');
-                $event->sheet->setCellValue('AG20', 'YYYY-MM-DD, Excel serial dates');
-                
-                $event->sheet->setCellValue('AG22', 'BOOLEAN FIELDS:');
-                $event->sheet->setCellValue('AG23', 'Yes/No, True/False, 1/0, Y/N');
-                
-                $event->sheet->setCellValue('AG25', 'INCREMENT MONTH:');
-                $event->sheet->setCellValue('AG26', '1-12 or January-December');
-                
-                $event->sheet->setCellValue('AG28', 'MOBILE NUMBER:');
-                $event->sheet->setCellValue('AG29', '10 digits only (auto-cleaned)');
+                // Add dropdown lists
+                $this->addDropdownLists($sheet, $event);
 
-                // Style the notes section
-                $notesRange = 'AG1:AK30';
-                $event->sheet->getStyle($notesRange)->applyFromArray([
-                    'font' => [
-                        'bold' => true,
-                        'color' => ['rgb' => '333333'],
-                    ],
-                    'fill' => [
-                        'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-                        'color' => ['rgb' => 'F8F9FA'],
-                    ],
-                    'borders' => [
-                        'allBorders' => [
-                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                            'color' => ['rgb' => 'DDDDDD'],
-                        ],
-                    ],
-                    'alignment' => [
-                        'wrapText' => true,
-                    ],
-                ]);
-
-                // Auto-size the notes columns
-                $event->sheet->getDelegate()->getColumnDimension('AG')->setWidth(25);
-                $event->sheet->getDelegate()->getColumnDimension('AH')->setWidth(25);
-                $event->sheet->getDelegate()->getColumnDimension('AI')->setWidth(25);
-                $event->sheet->getDelegate()->getColumnDimension('AJ')->setWidth(25);
-                $event->sheet->getDelegate()->getColumnDimension('AK')->setWidth(25);
-
-                // Make header row bold and specific cells
-                $event->sheet->getStyle('AG1')->getFont()->setBold(true);
-                $event->sheet->getStyle('AG2')->getFont()->setBold(true);
-                $event->sheet->getStyle('AG8')->getFont()->setBold(true);
-                $event->sheet->getStyle('AG11')->getFont()->setBold(true);
-                $event->sheet->getStyle('AG14')->getFont()->setBold(true);
-                $event->sheet->getStyle('AG17')->getFont()->setBold(true);
-                $event->sheet->getStyle('AG22')->getFont()->setBold(true);
-                $event->sheet->getStyle('AG25')->getFont()->setBold(true);
-                $event->sheet->getStyle('AG28')->getFont()->setBold(true);
+                // Add validation notes
+                $this->addValidationNotes($event);
 
                 // Freeze the header row for better navigation
-                $event->sheet->getDelegate()->freezePane('A2');
+                $sheet->freezePane('A2');
             },
         ];
+    }
+
+    private function addDropdownLists($sheet, $event)
+    {
+        // Define the options for each dropdown
+        $dropdownOptions = [
+            'C' => ['MALE', 'FEMALE', 'OTHER'], // Gender
+            'D' => ['General', 'OBC', 'SC', 'ST'], // Category
+            'I' => [ // Designation at appointment
+                'QAO (LAB)', 'JQAO (LAB)', 'SECRETARY', 'FIELD OFFICER', 'SSA', 'ASST. SECRETARY',
+                'QAO (EP&QA)', 'PUNCH OPERATOR', 'VIGILANCE OFFICER', 'JSA', 'CHIEF ACCOUNT OFFICER',
+                'ACCOUNTANT', 'JR.INVESTIGATOR', 'ACCOUNTS OFFICER', 'SUPERINTENDENT', 'DIRECTOR (EP&QA)',
+                'ASST. DIRECTOR (OL)', 'ASSISTANT', 'JT. DIRECTOR (EP&QA)', 'SR.TRANSLATOR', 'JR.TRANSLATOR',
+                'DY. DIRECTOR (EP&QA)', 'SR.STENO', 'LIBRARIAN', 'ASST. DIRECTOR (EP&QA)', 'JR.STENO',
+                'DIRECTOR (CDP)', 'UDC', 'DIRECTOR (TQM)', 'MAINTENANCE MECHANIC', 'DIRECTOR (LAB)', 'LDC',
+                'JT. DIRECTOR (LAB)', 'STAFF CAR DRIVER I', 'DY. DIRECTOR (LAB)', 'STAFF CAR DRIVER II',
+                'ASST. DIRECTOR (LAB)', 'STAFF CAR DRIVER III', 'DIRECTOR (MR)', 'SR. ATTENDANT',
+                'DEPUTY DIRECTOR (MR)', 'ATTENDANT', 'MARKET RESEARCH OFFICER', 'STATISTICAL OFFICER'
+            ],
+            'J' => [ // Designation at present
+                'QAO (LAB)', 'JQAO (LAB)', 'SECRETARY', 'FIELD OFFICER', 'SSA', 'ASST. SECRETARY',
+                'QAO (EP&QA)', 'PUNCH OPERATOR', 'VIGILANCE OFFICER', 'JSA', 'CHIEF ACCOUNT OFFICER',
+                'ACCOUNTANT', 'JR.INVESTIGATOR', 'ACCOUNTS OFFICER', 'SUPERINTENDENT', 'DIRECTOR (EP&QA)',
+                'ASST. DIRECTOR (OL)', 'ASSISTANT', 'JT. DIRECTOR (EP&QA)', 'SR.TRANSLATOR', 'JR.TRANSLATOR',
+                'DY. DIRECTOR (EP&QA)', 'SR.STENO', 'LIBRARIAN', 'ASST. DIRECTOR (EP&QA)', 'JR.STENO',
+                'DIRECTOR (CDP)', 'UDC', 'DIRECTOR (TQM)', 'MAINTENANCE MECHANIC', 'DIRECTOR (LAB)', 'LDC',
+                'JT. DIRECTOR (LAB)', 'STAFF CAR DRIVER I', 'DY. DIRECTOR (LAB)', 'STAFF CAR DRIVER II',
+                'ASST. DIRECTOR (LAB)', 'STAFF CAR DRIVER III', 'DIRECTOR (MR)', 'SR. ATTENDANT',
+                'DEPUTY DIRECTOR (MR)', 'ATTENDANT', 'MARKET RESEARCH OFFICER', 'STATISTICAL OFFICER'
+            ],
+            'K' => [ // Present posting
+                'AHMEDABAD', 'AMRITSAR', 'BANGALORE', 'BELLARY', 'BHUBANESHWAR', 'CHANDIGARH',
+                'CHENNAI', 'COCHIN', 'COCHIN2', 'COIMBATORE', 'DELHI - NCR', 'DEPUTATION',
+                'GAUWHATI', 'GUNTUR', 'GURGOAN', 'HYDERABAD', 'ICHALKARANJI', 'INDORE',
+                'JAIPUR', 'JODHPUR', 'KANNUR', 'KANPUR', 'KARUR', 'KOLKATA', 'LUDHIANA',
+                'MADURAI', 'MUMBAI', 'MUMBAI - JNPT', 'NAGARI', 'NAGPUR', 'NEW DELHI',
+                'NEW DELHI - EOK', 'NEW DELHI - NARAINA', 'PANIPAT', 'PONDICHERRY', 'SALEM',
+                'SOLAPUR', 'SRINAGAR', 'SURAT', 'TIRUPUR', 'TUTICORINE', 'VARANSI'
+            ],
+            'R' => ['EXISTING', 'RETIRED', 'TRANSFERRED'], // Status
+            'S' => ['Yes', 'No'], // Office in charge
+            'T' => ['Yes', 'No'], // NPS
+            'U' => ['Yes', 'No'], // Probation period
+            'V' => ['Yes', 'No'], // Department
+            'W' => ['Yes', 'No'], // Karmayogi certificate
+            'AC' => ['Yes', 'No'], // Benevolent member
+        ];
+
+        // Apply dropdown validation to each column
+        foreach ($dropdownOptions as $column => $options) {
+            $this->applyDropdownValidation($sheet, $column, $options);
+        }
+    }
+
+    private function applyDropdownValidation($sheet, $column, $options)
+    {
+        // Apply to first 100 rows
+        $range = $column . '2:' . $column . '100';
+        
+        $validation = $sheet->getDataValidation($range);
+        $validation->setType(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST);
+        $validation->setErrorStyle(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_STOP);
+        $validation->setAllowBlank(true);
+        $validation->setShowInputMessage(true);
+        $validation->setShowErrorMessage(true);
+        $validation->setShowDropDown(true);
+        $validation->setErrorTitle('Invalid input');
+        $validation->setError('Please select a value from the dropdown list.');
+        $validation->setPromptTitle('Select from list');
+        $validation->setPrompt('Please choose a value from the dropdown list.');
+        
+        // Set the formula with options (limited to avoid Excel issues)
+        $validation->setFormula1('"' . implode(',', $options) . '"');
+    }
+
+    private function addValidationNotes($event)
+    {
+        // Add data validation notes
+        $event->sheet->setCellValue('AG1', 'USAGE INSTRUCTIONS:');
+        $event->sheet->setCellValue('AG2', '• Click on cells with dropdown arrows ↓');
+        $event->sheet->setCellValue('AG3', '• Select from available options');
+        $event->sheet->setCellValue('AG4', '• Do not type manually in dropdown fields');
+        
+        $event->sheet->setCellValue('AG6', 'DROPDOWN FIELDS:');
+        $event->sheet->setCellValue('AG7', '• Gender (Column C)');
+        $event->sheet->setCellValue('AG8', '• Category (Column D)');
+        $event->sheet->setCellValue('AG9', '• Designation at Appointment (Column I)');
+        $event->sheet->setCellValue('AG10', '• Designation at Present (Column J)');
+        $event->sheet->setCellValue('AG11', '• Present Posting (Column K)');
+        $event->sheet->setCellValue('AG12', '• Status (Column R)');
+        $event->sheet->setCellValue('AG13', '• Yes/No Fields (Columns S-W, AC)');
+        
+        $event->sheet->setCellValue('AG15', 'FREE TEXT FIELDS:');
+        $event->sheet->setCellValue('AG16', '• emp_code, name, education, mobile');
+        $event->sheet->setCellValue('AG17', '• email, personal_file_no, home_town');
+        $event->sheet->setCellValue('AG18', '• residential_address, pension_file_no');
+        $event->sheet->setCellValue('AG19', '• seniority_sequence_no, etc.');
+
+        $event->sheet->setCellValue('AI1', 'DATE FORMAT EXAMPLES:');
+        $event->sheet->setCellValue('AI2', 'DD-MMM-YYYY:');
+        $event->sheet->setCellValue('AI3', '15-Jan-2020');
+        $event->sheet->setCellValue('AI4', 'DD/MM/YYYY:');
+        $event->sheet->setCellValue('AI5', '15/01/2020');
+        $event->sheet->setCellValue('AI6', 'MM/DD/YYYY:');
+        $event->sheet->setCellValue('AI7', '01/15/2020');
+        $event->sheet->setCellValue('AI8', 'YYYY-MM-DD:');
+        $event->sheet->setCellValue('AI9', '2020-01-15');
+
+        $event->sheet->setCellValue('AI11', 'INCREMENT MONTH:');
+        $event->sheet->setCellValue('AI12', '• 1-12 (January-December)');
+        $event->sheet->setCellValue('AI13', '• Or month names');
+
+        $event->sheet->setCellValue('AI15', 'MOBILE NUMBER:');
+        $event->sheet->setCellValue('AI16', '• 10 digits only');
+        $event->sheet->setCellValue('AI17', '• No country code');
+
+        // Style the notes section
+        $notesRange = 'AG1:AK20';
+        $event->sheet->getStyle($notesRange)->applyFromArray([
+            'font' => [
+                'color' => ['rgb' => '333333'],
+            ],
+            'fill' => [
+                'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                'color' => ['rgb' => 'F8F9FA'],
+            ],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                    'color' => ['rgb' => 'DDDDDD'],
+                ],
+            ],
+            'alignment' => [
+                'wrapText' => true,
+            ],
+        ]);
+
+        // Style headers in notes
+        $headerCells = ['AG1', 'AG6', 'AG15', 'AI1', 'AI11', 'AI15'];
+        foreach ($headerCells as $cell) {
+            $event->sheet->getStyle($cell)->applyFromArray([
+                'font' => [
+                    'bold' => true,
+                    'color' => ['rgb' => 'FFFFFF'],
+                ],
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'color' => ['rgb' => '2E86C1'],
+                ],
+            ]);
+        }
+
+        // Auto-size the notes columns
+        $event->sheet->getDelegate()->getColumnDimension('AG')->setWidth(25);
+        $event->sheet->getDelegate()->getColumnDimension('AH')->setWidth(5);
+        $event->sheet->getDelegate()->getColumnDimension('AI')->setWidth(20);
+        $event->sheet->getDelegate()->getColumnDimension('AJ')->setWidth(5);
+        $event->sheet->getDelegate()->getColumnDimension('AK')->setWidth(5);
     }
 }
