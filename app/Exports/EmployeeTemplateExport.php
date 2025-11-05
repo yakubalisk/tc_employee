@@ -8,6 +8,7 @@ use Maatwebsite\Excel\Concerns\WithTitle;
 use Maatwebsite\Excel\Concerns\WithStrictNullComparison;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
+use App\Models\Designation; // Add this import
 
 class EmployeeTemplateExport implements FromArray, WithHeadings, WithTitle, WithStrictNullComparison, WithEvents
 {
@@ -23,9 +24,9 @@ class EmployeeTemplateExport implements FromArray, WithHeadings, WithTitle, With
                 '9876543210',               // mobile
                 'rajesh.kumar@example.com', // email
                 '15-Jan-2020',              // date_of_appointment
-                'QAO (LAB)',                // designation_at_appointment
-                'ASST. DIRECTOR (LAB)',     // designation_at_present
-                'DELHI - NCR',              // present_posting
+                'QAO (LAB)',                        // designation_at_appointment ID
+                'JQAO (LAB)',                       // designation_at_present ID  
+                '11',                       // present_posting ID
                 'PFN001',                   // personal_file_no
                 '011-23456789',             // office_landline
                 '15-Mar-1990',              // date_of_birth
@@ -46,39 +47,6 @@ class EmployeeTemplateExport implements FromArray, WithHeadings, WithTitle, With
                 'Section A',                // sddlsection_incharge
                 'Yes',                      // benevolent_member
                 '011-23456780'              // office_landline_number
-            ],
-            [
-                'EMP002',
-                'Priya Sharma',
-                'FEMALE',
-                'OBC',
-                'MBA Marketing',
-                '9876543211',
-                'priya.sharma@example.com',
-                '20-Mar-2019',
-                'JQAO (LAB)',
-                'DY. DIRECTOR (LAB)',
-                'MUMBAI',
-                'PFN002',
-                '011-23456790',
-                '20-Aug-1988',
-                '20-Aug-2048',
-                'Mumbai',
-                'B-456, XYZ Society, Mumbai',
-                'EXISTING',
-                'Yes',
-                'Yes',
-                'No',
-                'Yes',
-                'No',
-                'Transferee',
-                'PEN002',
-                '6',
-                'Vacant',
-                'SEQ002',
-                'Section B',
-                'No',
-                '011-23456791'
             ]
         ];
     }
@@ -87,16 +55,16 @@ class EmployeeTemplateExport implements FromArray, WithHeadings, WithTitle, With
     {
         return [
             'emp_code',
-            'name',
+            'name', 
             'gender',
             'category',
             'education',
             'mobile',
             'email',
             'date_of_appointment',
-            'designation_at_appointment',
-            'designation_at_present',
-            'present_posting',
+            'designation_at_appointment_id',
+            'designation_at_present_id',
+            'present_posting_id',
             'personal_file_no',
             'office_landline',
             'date_of_birth',
@@ -131,32 +99,26 @@ class EmployeeTemplateExport implements FromArray, WithHeadings, WithTitle, With
             AfterSheet::class => function(AfterSheet $event) {
                 $sheet = $event->sheet->getDelegate();
 
-                // Auto-size columns for better readability
+                // Auto-size columns
                 $columns = [
-                    'A' => 12,  'B' => 20,  'C' => 12,  'D' => 12,
-                    'E' => 20,  'F' => 15,  'G' => 25,  'H' => 18,
-                    'I' => 25,  'J' => 25,  'K' => 20,  'L' => 15,
-                    'M' => 15,  'N' => 18,  'O' => 18,  'P' => 15,
-                    'Q' => 25,  'R' => 12,  'S' => 15,  'T' => 10,
-                    'U' => 15,  'V' => 12,  'W' => 25,  'X' => 18,
-                    'Y' => 15,  'Z' => 15,  'AA' => 15, 'AB' => 20,
-                    'AC' => 18, 'AD' => 18, 'AE' => 20
+                    'A' => 12, 'B' => 20, 'C' => 12, 'D' => 12, 'E' => 20, 'F' => 15,
+                    'G' => 25, 'H' => 18, 'I' => 18, 'J' => 18, 'K' => 18, 'L' => 15,
+                    'M' => 15, 'N' => 18, 'O' => 18, 'P' => 15, 'Q' => 25, 'R' => 12,
+                    'S' => 15, 'T' => 10, 'U' => 15, 'V' => 12, 'W' => 25, 'X' => 18,
+                    'Y' => 15, 'Z' => 15, 'AA' => 15, 'AB' => 20, 'AC' => 18, 'AD' => 18, 'AE' => 20
                 ];
                 
                 foreach ($columns as $column => $width) {
                     $sheet->getColumnDimension($column)->setWidth($width);
                 }
 
-                // Style the header row
+                // Style header row
                 $headerRange = 'A1:AE1';
                 $event->sheet->getStyle($headerRange)->applyFromArray([
-                    'font' => [
-                        'bold' => true,
-                        'color' => ['rgb' => 'FFFFFF'],
-                    ],
+                    'font' => ['bold' => true, 'color' => ['rgb' => 'FFFFFF']],
                     'fill' => [
-                        'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-                        'color' => ['rgb' => '2E86C1'],
+                        'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 
+                        'color' => ['rgb' => '2E86C1']
                     ],
                     'borders' => [
                         'allBorders' => [
@@ -169,8 +131,8 @@ class EmployeeTemplateExport implements FromArray, WithHeadings, WithTitle, With
                     ],
                 ]);
 
-                // Style the data rows
-                $dataRange = 'A2:AE3';
+                // Style data rows
+                $dataRange = 'A2:AE2';
                 $event->sheet->getStyle($dataRange)->applyFromArray([
                     'borders' => [
                         'allBorders' => [
@@ -178,178 +140,218 @@ class EmployeeTemplateExport implements FromArray, WithHeadings, WithTitle, With
                             'color' => ['rgb' => 'DDDDDD'],
                         ],
                     ],
-                    'alignment' => [
-                        'wrapText' => true,
-                    ],
                 ]);
 
-                // Add dropdown lists
-                $this->addDropdownLists($sheet, $event);
+                // Add dropdown lists FIRST (before adding reference data)
+                $this->addDropdownLists($sheet);
 
-                // Add validation notes
-                $this->addValidationNotes($event);
+                // Add reference data
+                $this->addReferenceData($event);
 
-                // Freeze the header row for better navigation
+                // Add instructions
+                $this->addInstructions($event);
+
                 $sheet->freezePane('A2');
             },
         ];
     }
 
-    private function addDropdownLists($sheet, $event)
+    private function addDropdownLists($sheet)
     {
-        // Define the options for each dropdown
-        $dropdownOptions = [
-            'C' => ['MALE', 'FEMALE', 'OTHER'], // Gender
-            'D' => ['General', 'OBC', 'SC', 'ST'], // Category
-            'I' => [ // Designation at appointment
-                'QAO (LAB)', 'JQAO (LAB)', 'SECRETARY', 'FIELD OFFICER', 'SSA', 'ASST. SECRETARY',
-                'QAO (EP&QA)', 'PUNCH OPERATOR', 'VIGILANCE OFFICER', 'JSA', 'CHIEF ACCOUNT OFFICER',
-                'ACCOUNTANT', 'JR.INVESTIGATOR', 'ACCOUNTS OFFICER', 'SUPERINTENDENT', 'DIRECTOR (EP&QA)',
-                'ASST. DIRECTOR (OL)', 'ASSISTANT', 'JT. DIRECTOR (EP&QA)', 'SR.TRANSLATOR', 'JR.TRANSLATOR',
-                'DY. DIRECTOR (EP&QA)', 'SR.STENO', 'LIBRARIAN', 'ASST. DIRECTOR (EP&QA)', 'JR.STENO',
-                'DIRECTOR (CDP)', 'UDC', 'DIRECTOR (TQM)', 'MAINTENANCE MECHANIC', 'DIRECTOR (LAB)', 'LDC',
-                'JT. DIRECTOR (LAB)', 'STAFF CAR DRIVER I', 'DY. DIRECTOR (LAB)', 'STAFF CAR DRIVER II',
-                'ASST. DIRECTOR (LAB)', 'STAFF CAR DRIVER III', 'DIRECTOR (MR)', 'SR. ATTENDANT',
-                'DEPUTY DIRECTOR (MR)', 'ATTENDANT', 'MARKET RESEARCH OFFICER', 'STATISTICAL OFFICER'
-            ],
-            'J' => [ // Designation at present
-                'QAO (LAB)', 'JQAO (LAB)', 'SECRETARY', 'FIELD OFFICER', 'SSA', 'ASST. SECRETARY',
-                'QAO (EP&QA)', 'PUNCH OPERATOR', 'VIGILANCE OFFICER', 'JSA', 'CHIEF ACCOUNT OFFICER',
-                'ACCOUNTANT', 'JR.INVESTIGATOR', 'ACCOUNTS OFFICER', 'SUPERINTENDENT', 'DIRECTOR (EP&QA)',
-                'ASST. DIRECTOR (OL)', 'ASSISTANT', 'JT. DIRECTOR (EP&QA)', 'SR.TRANSLATOR', 'JR.TRANSLATOR',
-                'DY. DIRECTOR (EP&QA)', 'SR.STENO', 'LIBRARIAN', 'ASST. DIRECTOR (EP&QA)', 'JR.STENO',
-                'DIRECTOR (CDP)', 'UDC', 'DIRECTOR (TQM)', 'MAINTENANCE MECHANIC', 'DIRECTOR (LAB)', 'LDC',
-                'JT. DIRECTOR (LAB)', 'STAFF CAR DRIVER I', 'DY. DIRECTOR (LAB)', 'STAFF CAR DRIVER II',
-                'ASST. DIRECTOR (LAB)', 'STAFF CAR DRIVER III', 'DIRECTOR (MR)', 'SR. ATTENDANT',
-                'DEPUTY DIRECTOR (MR)', 'ATTENDANT', 'MARKET RESEARCH OFFICER', 'STATISTICAL OFFICER'
-            ],
-            'K' => [ // Present posting
-                'AHMEDABAD', 'AMRITSAR', 'BANGALORE', 'BELLARY', 'BHUBANESHWAR', 'CHANDIGARH',
-                'CHENNAI', 'COCHIN', 'COCHIN2', 'COIMBATORE', 'DELHI - NCR', 'DEPUTATION',
-                'GAUWHATI', 'GUNTUR', 'GURGOAN', 'HYDERABAD', 'ICHALKARANJI', 'INDORE',
-                'JAIPUR', 'JODHPUR', 'KANNUR', 'KANPUR', 'KARUR', 'KOLKATA', 'LUDHIANA',
-                'MADURAI', 'MUMBAI', 'MUMBAI - JNPT', 'NAGARI', 'NAGPUR', 'NEW DELHI',
-                'NEW DELHI - EOK', 'NEW DELHI - NARAINA', 'PANIPAT', 'PONDICHERRY', 'SALEM',
-                'SOLAPUR', 'SRINAGAR', 'SURAT', 'TIRUPUR', 'TUTICORINE', 'VARANSI'
-            ],
-            'R' => ['EXISTING', 'RETIRED', 'TRANSFERRED'], // Status
-            'S' => ['Yes', 'No'], // Office in charge
-            'T' => ['Yes', 'No'], // NPS
-            'U' => ['Yes', 'No'], // Probation period
-            'V' => ['Yes', 'No'], // Department
-            'W' => ['Yes', 'No'], // Karmayogi certificate
-            'AC' => ['Yes', 'No'], // Benevolent member
+    $designationNames = Designation::pluck('name')->toArray();
+    
+    // If list is too long, use cell references
+    if (count($designationNames) > 20) {
+        // Use cell reference method for long lists
+        $startRow = 100;
+        foreach ($designationNames as $index => $name) {
+            $sheet->setCellValue('Z' . ($startRow + $index), $name);
+        }
+        $designationRange = 'Z' . $startRow . ':Z' . ($startRow + count($designationNames) - 1);
+        
+        $dropdownConfig = [
+            'I' => [$designationRange, 'Designation Appointment'],
+            'J' => [$designationRange, 'Designation Present'],
+        ];
+    } else {
+        // Use direct formula for shorter lists
+        $dropdownConfig = [
+            'I' => [$designationNames, 'Designation Appointment'],
+            'J' => [$designationNames, 'Designation Present'],
+        ];
+    }
+        // Location IDs (1-42)  
+        $locationIds = range(1, 42);
+        $locationIdsFormatted = '"' . implode(',', $locationIds) . '"';
+
+
+        // Apply dropdowns to specific columns
+        $dropdownConfig += [
+            // Column => [options, title]
+            'C' => [['MALE', 'FEMALE', 'OTHER'], 'Gender'],
+            'D' => [['General', 'OBC', 'SC', 'ST'], 'Category'],
+            // 'I' => [['QAO (LAB)', 'JQAO (LAB)', 'QAO (EP&QA)', 'ST'], 'Designation Appointment ID'],
+            // 'J' => [['QAO (LAB)', 'JQAO (LAB)', 'QAO (EP&QA)', 'ST'], 'Designation Present ID'], 
+            // 'I' => [$hardcoded, 'Designation Hardcoded'],
+            // 'I' => ['Z100:Z' . (100 + count($testDynamic) - 1), 'Designation Appointment'],
+            // 'J' => ['Z100:Z' . (100 + count($testDynamic) - 1), 'Designation Present'],
+            // 'J' => [$testDynamic, 'Designation Dynamic'],
+            'K' => [$locationIds, 'Location ID'],
+            'R' => [['EXISTING', 'RETIRED', 'TRANSFERRED'], 'Status'],
+            'S' => [['Yes', 'No'], 'Office In Charge'],
+            'T' => [['Yes', 'No'], 'NPS'],
+            'U' => [['Yes', 'No'], 'Probation Period'],
+            'V' => [['Yes', 'No'], 'Department'],
+            'W' => [['Yes', 'No'], 'Karmayogi Certificate'],
+            'AC' => [['Yes', 'No'], 'Benevolent Member'],
         ];
 
-        // Apply dropdown validation to each column
-        foreach ($dropdownOptions as $column => $options) {
-            $this->applyDropdownValidation($sheet, $column, $options);
+        foreach ($dropdownConfig as $column => [$options, $title]) {
+            $this->applyDataValidation($sheet, $column, $options, $title);
         }
+    // die();
     }
 
-    private function applyDropdownValidation($sheet, $column, $options)
+    private function setupNamedRanges($sheet, $designationNames, $locationNames)
+{
+    // Write designations to column Z starting from row 100
+    $designationStart = 100;
+    foreach ($designationNames as $index => $name) {
+        $sheet->setCellValue('Z' . ($designationStart + $index), $name);
+    }
+    
+    // Write locations to column AA starting from row 100
+    $locationStart = 100;
+    foreach ($locationNames as $index => $name) {
+        $sheet->setCellValue('AA' . ($locationStart + $index), $name);
+    }
+    
+    // Hide these columns if you want
+    $sheet->getColumnDimension('Z')->setVisible(false);
+    $sheet->getColumnDimension('AA')->setVisible(false);
+}
+
+    private function applyDataValidation($sheet, $column, $options, $title)
     {
-        // Apply to first 100 rows
-        $range = $column . '2:' . $column . '100';
+        $range = $column . '2:' . $column . '1000'; // Apply to many rows
         
         $validation = $sheet->getDataValidation($range);
         $validation->setType(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST);
-        $validation->setErrorStyle(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_STOP);
+        $validation->setErrorStyle(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_INFORMATION);
         $validation->setAllowBlank(true);
         $validation->setShowInputMessage(true);
         $validation->setShowErrorMessage(true);
         $validation->setShowDropDown(true);
-        $validation->setErrorTitle('Invalid input');
-        $validation->setError('Please select a value from the dropdown list.');
-        $validation->setPromptTitle('Select from list');
-        $validation->setPrompt('Please choose a value from the dropdown list.');
+        $validation->setErrorTitle('Input error');
+        $validation->setError("Value is not in list. Please select from dropdown.");
+        $validation->setPromptTitle("Select $title");
+        $validation->setPrompt("Please select a value from the dropdown list.");
         
-        // Set the formula with options (limited to avoid Excel issues)
-        $validation->setFormula1('"' . implode(',', $options) . '"');
+        // // Convert options to comma-separated string
+        // if (is_array($options)) {
+        //     $formula = '"' . implode(',', $options) . '"';           
+        //     $validation->setFormula1($formula);
+        //     // echo "<pre>";
+        //     // print_r($validation);
+        //     // echo "</pre>";
+        // }
+            if (is_array($options)) {
+        // For direct arrays (shorter lists)
+        $formula = '"' . implode(',', $options) . '"';
+        $validation->setFormula1($formula);
+    } else {
+        // For cell ranges (longer lists) - ADD THE = SIGN
+        $validation->setFormula1('=' . $options);
+    }
     }
 
-    private function addValidationNotes($event)
+    private function addReferenceData($event)
     {
-        // Add data validation notes
-        $event->sheet->setCellValue('AG1', 'USAGE INSTRUCTIONS:');
-        $event->sheet->setCellValue('AG2', '• Click on cells with dropdown arrows ↓');
-        $event->sheet->setCellValue('AG3', '• Select from available options');
-        $event->sheet->setCellValue('AG4', '• Do not type manually in dropdown fields');
+        $sheet = $event->sheet->getDelegate();
         
-        $event->sheet->setCellValue('AG6', 'DROPDOWN FIELDS:');
-        $event->sheet->setCellValue('AG7', '• Gender (Column C)');
-        $event->sheet->setCellValue('AG8', '• Category (Column D)');
-        $event->sheet->setCellValue('AG9', '• Designation at Appointment (Column I)');
-        $event->sheet->setCellValue('AG10', '• Designation at Present (Column J)');
-        $event->sheet->setCellValue('AG11', '• Present Posting (Column K)');
-        $event->sheet->setCellValue('AG12', '• Status (Column R)');
-        $event->sheet->setCellValue('AG13', '• Yes/No Fields (Columns S-W, AC)');
+        // Designation mapping
+        $designations = [
+            1 => 'QAO (LAB)', 2 => 'JQAO (LAB)', 3 => 'SECRETARY', 4 => 'FIELD OFFICER', 
+            5 => 'SSA', 6 => 'ASST. SECRETARY', 7 => 'QAO (EP&QA)', 8 => 'PUNCH OPERATOR',
+            9 => 'VIGILANCE OFFICER', 10 => 'JSA', 11 => 'CHIEF ACCOUNT OFFICER', 12 => 'ACCOUNTANT',
+            13 => 'JR.INVESTIGATOR', 14 => 'ACCOUNTS OFFICER', 15 => 'SUPERINTENDENT', 16 => 'DIRECTOR (EP&QA)',
+            17 => 'ASST. DIRECTOR (OL)', 18 => 'ASSISTANT', 19 => 'JT. DIRECTOR (EP&QA)', 20 => 'SR.TRANSLATOR',
+            21 => 'JR.TRANSLATOR', 22 => 'DY. DIRECTOR (EP&QA)', 23 => 'SR.STENO', 24 => 'LIBRARIAN',
+            25 => 'ASST. DIRECTOR (EP&QA)', 26 => 'JR.STENO', 27 => 'DIRECTOR (CDP)', 28 => 'UDC',
+            29 => 'DIRECTOR (TQM)', 30 => 'MAINTENANCE MECHANIC', 31 => 'DIRECTOR (LAB)', 32 => 'LDC',
+            33 => 'JT. DIRECTOR (LAB)', 34 => 'STAFF CAR DRIVER I', 35 => 'DY. DIRECTOR (LAB)', 36 => 'STAFF CAR DRIVER II',
+            37 => 'ASST. DIRECTOR (LAB)', 38 => 'STAFF CAR DRIVER III', 39 => 'DIRECTOR (MR)', 40 => 'SR. ATTENDANT',
+            41 => 'DEPUTY DIRECTOR (MR)', 42 => 'ATTENDANT', 43 => 'MARKET RESEARCH OFFICER', 44 => 'STATISTICAL OFFICER'
+        ];
+
+        // Location mapping
+        $locations = [
+            1 => 'AHMEDABAD', 2 => 'AMRITSAR', 3 => 'BANGALORE', 4 => 'BELLARY', 5 => 'BHUBANESHWAR',
+            6 => 'CHANDIGARH', 7 => 'CHENNAI', 8 => 'COCHIN', 9 => 'COCHIN2', 10 => 'COIMBATORE',
+            11 => 'DELHI - NCR', 12 => 'DEPUTATION', 13 => 'GAUWHATI', 14 => 'GUNTUR', 15 => 'GURGOAN',
+            16 => 'HYDERABAD', 17 => 'ICHALKARANJI', 18 => 'INDORE', 19 => 'JAIPUR', 20 => 'JODHPUR',
+            21 => 'KANNUR', 22 => 'KANPUR', 23 => 'KARUR', 24 => 'KOLKATA', 25 => 'LUDHIANA',
+            26 => 'MADURAI', 27 => 'MUMBAI', 28 => 'MUMBAI - JNPT', 29 => 'NAGARI', 30 => 'NAGPUR',
+            31 => 'NEW DELHI', 32 => 'NEW DELHI - EOK', 33 => 'NEW DELHI - NARAINA', 34 => 'PANIPAT',
+            35 => 'PONDICHERRY', 36 => 'SALEM', 37 => 'SOLAPUR', 38 => 'SRINAGAR', 39 => 'SURAT',
+            40 => 'TIRUPUR', 41 => 'TUTICORINE', 42 => 'VARANSI'
+        ];
+
+        // Add designation reference table
+        $sheet->setCellValue('AG1', 'DESIGNATION REFERENCE');
+        $sheet->setCellValue('AG2', 'ID');
+        $sheet->setCellValue('AH2', 'DESIGNATION NAME');
         
-        $event->sheet->setCellValue('AG15', 'FREE TEXT FIELDS:');
-        $event->sheet->setCellValue('AG16', '• emp_code, name, education, mobile');
-        $event->sheet->setCellValue('AG17', '• email, personal_file_no, home_town');
-        $event->sheet->setCellValue('AG18', '• residential_address, pension_file_no');
-        $event->sheet->setCellValue('AG19', '• seniority_sequence_no, etc.');
-
-        $event->sheet->setCellValue('AI1', 'DATE FORMAT EXAMPLES:');
-        $event->sheet->setCellValue('AI2', 'DD-MMM-YYYY:');
-        $event->sheet->setCellValue('AI3', '15-Jan-2020');
-        $event->sheet->setCellValue('AI4', 'DD/MM/YYYY:');
-        $event->sheet->setCellValue('AI5', '15/01/2020');
-        $event->sheet->setCellValue('AI6', 'MM/DD/YYYY:');
-        $event->sheet->setCellValue('AI7', '01/15/2020');
-        $event->sheet->setCellValue('AI8', 'YYYY-MM-DD:');
-        $event->sheet->setCellValue('AI9', '2020-01-15');
-
-        $event->sheet->setCellValue('AI11', 'INCREMENT MONTH:');
-        $event->sheet->setCellValue('AI12', '• 1-12 (January-December)');
-        $event->sheet->setCellValue('AI13', '• Or month names');
-
-        $event->sheet->setCellValue('AI15', 'MOBILE NUMBER:');
-        $event->sheet->setCellValue('AI16', '• 10 digits only');
-        $event->sheet->setCellValue('AI17', '• No country code');
-
-        // Style the notes section
-        $notesRange = 'AG1:AK20';
-        $event->sheet->getStyle($notesRange)->applyFromArray([
-            'font' => [
-                'color' => ['rgb' => '333333'],
-            ],
-            'fill' => [
-                'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-                'color' => ['rgb' => 'F8F9FA'],
-            ],
-            'borders' => [
-                'allBorders' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                    'color' => ['rgb' => 'DDDDDD'],
-                ],
-            ],
-            'alignment' => [
-                'wrapText' => true,
-            ],
-        ]);
-
-        // Style headers in notes
-        $headerCells = ['AG1', 'AG6', 'AG15', 'AI1', 'AI11', 'AI15'];
-        foreach ($headerCells as $cell) {
-            $event->sheet->getStyle($cell)->applyFromArray([
-                'font' => [
-                    'bold' => true,
-                    'color' => ['rgb' => 'FFFFFF'],
-                ],
-                'fill' => [
-                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-                    'color' => ['rgb' => '2E86C1'],
-                ],
-            ]);
+        $row = 3;
+        foreach ($designations as $id => $name) {
+            $sheet->setCellValue('AG' . $row, $id);
+            $sheet->setCellValue('AH' . $row, $name);
+            $row++;
         }
 
-        // Auto-size the notes columns
-        $event->sheet->getDelegate()->getColumnDimension('AG')->setWidth(25);
-        $event->sheet->getDelegate()->getColumnDimension('AH')->setWidth(5);
-        $event->sheet->getDelegate()->getColumnDimension('AI')->setWidth(20);
-        $event->sheet->getDelegate()->getColumnDimension('AJ')->setWidth(5);
-        $event->sheet->getDelegate()->getColumnDimension('AK')->setWidth(5);
+        // Add location reference table
+        $sheet->setCellValue('AJ1', 'LOCATION REFERENCE');
+        $sheet->setCellValue('AJ2', 'ID');
+        $sheet->setCellValue('AK2', 'LOCATION NAME');
+        
+        $row = 3;
+        foreach ($locations as $id => $name) {
+            $sheet->setCellValue('AJ' . $row, $id);
+            $sheet->setCellValue('AK' . $row, $name);
+            $row++;
+        }
+
+        // Style reference tables
+        $refHeaderStyle = [
+            'font' => ['bold' => true, 'color' => ['rgb' => 'FFFFFF']],
+            'fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'color' => ['rgb' => '2E86C1']],
+        ];
+        
+        $sheet->getStyle('AG1:AH1')->applyFromArray($refHeaderStyle);
+        $sheet->getStyle('AJ1:AK1')->applyFromArray($refHeaderStyle);
+        $sheet->getStyle('AG2:AH2')->applyFromArray($refHeaderStyle);
+        $sheet->getStyle('AJ2:AK2')->applyFromArray($refHeaderStyle);
+    }
+
+    private function addInstructions($event)
+    {
+        $sheet = $event->sheet->getDelegate();
+
+        $sheet->setCellValue('AM1', 'IMPORTANT INSTRUCTIONS:');
+        $sheet->setCellValue('AM2', '1. Columns I, J, K have DROPDOWNS for IDs');
+        $sheet->setCellValue('AM3', '2. Click on cells in these columns to see dropdown arrow ↓');
+        $sheet->setCellValue('AM4', '3. Select ID from dropdown (refer to tables on left)');
+        $sheet->setCellValue('AM5', '4. Store the ID in database for proper relationships');
+        $sheet->setCellValue('AM6', '5. Other columns also have dropdowns for standardized data');
+
+        // Style instructions
+        $sheet->getStyle('AM1:AM6')->applyFromArray([
+            'font' => ['bold' => true],
+            'fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'color' => ['rgb' => 'FFF2CC']],
+            'borders' => ['allBorders' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]],
+        ]);
+
+        // Auto-size instruction column
+        $sheet->getColumnDimension('AM')->setWidth(35);
     }
 }
