@@ -9,6 +9,7 @@ use Maatwebsite\Excel\Concerns\WithStrictNullComparison;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
 use App\Models\Designation; // Add this import
+use App\Models\Region; // Add this import
 
 class EmployeeTemplateExport implements FromArray, WithHeadings, WithTitle, WithStrictNullComparison, WithEvents
 {
@@ -26,7 +27,7 @@ class EmployeeTemplateExport implements FromArray, WithHeadings, WithTitle, With
                 '15-Jan-2020',              // date_of_appointment
                 'QAO (LAB)',                        // designation_at_appointment ID
                 'JQAO (LAB)',                       // designation_at_present ID  
-                '11',                       // present_posting ID
+                'MUMBAI',                       // present_posting ID
                 'PFN001',                   // personal_file_no
                 '011-23456789',             // office_landline
                 '15-Mar-1990',              // date_of_birth
@@ -159,6 +160,11 @@ class EmployeeTemplateExport implements FromArray, WithHeadings, WithTitle, With
     private function addDropdownLists($sheet)
     {
     $designationNames = Designation::pluck('name')->toArray();
+    $locationNames = Region::pluck('name')->toArray();
+    // echo "<pre>";
+    // print_r($locationNames);
+    // echo "</pre>";
+    // die();
     
     // If list is too long, use cell references
     if (count($designationNames) > 20) {
@@ -179,10 +185,29 @@ class EmployeeTemplateExport implements FromArray, WithHeadings, WithTitle, With
             'I' => [$designationNames, 'Designation Appointment'],
             'J' => [$designationNames, 'Designation Present'],
         ];
+    }    
+
+    // If list is too long, use cell references
+    if (count($locationNames) > 20) {
+        // Use cell reference method for long lists
+        $startRow = 100;
+        foreach ($locationNames as $index => $name) {
+            $sheet->setCellValue('Z' . ($startRow + $index), $name);
+        }
+        $locationRange = 'Z' . $startRow . ':Z' . ($startRow + count($locationNames) - 1);
+        
+        $dropdownConfig += [
+            'K' => [$locationRange, 'Location ID'],
+        ];
+    } else {
+        // Use direct formula for shorter lists
+        $dropdownConfig += [
+            'K' => [$locationNames, 'Location ID'],
+        ];
     }
         // Location IDs (1-42)  
-        $locationIds = range(1, 42);
-        $locationIdsFormatted = '"' . implode(',', $locationIds) . '"';
+        // $locationIds = range(1, 42);
+        // $locationIdsFormatted = '"' . implode(',', $locationIds) . '"';
 
 
         // Apply dropdowns to specific columns
@@ -196,7 +221,7 @@ class EmployeeTemplateExport implements FromArray, WithHeadings, WithTitle, With
             // 'I' => ['Z100:Z' . (100 + count($testDynamic) - 1), 'Designation Appointment'],
             // 'J' => ['Z100:Z' . (100 + count($testDynamic) - 1), 'Designation Present'],
             // 'J' => [$testDynamic, 'Designation Dynamic'],
-            'K' => [$locationIds, 'Location ID'],
+            // 'K' => [$locationNames, 'Location ID'],
             'R' => [['EXISTING', 'RETIRED', 'TRANSFERRED'], 'Status'],
             'S' => [['Yes', 'No'], 'Office In Charge'],
             'T' => [['Yes', 'No'], 'NPS'],
