@@ -344,19 +344,66 @@ public function showImportForm()
     return view('employees.import'); // Make sure this matches your view file name
 }
 
+// public function import(Request $request)
+// {
+//     // print_r($request);die();
+//     $request->validate([
+//         'file' => 'required|file|mimes:xlsx,xls,csv|max:10240' // 10MB
+//     ]);
+
+//     try {
+//         Excel::import(new EmployeeImport, $request->file('file'));
+        
+//         return redirect()->route('employees.index')
+//             ->with('success', 'Employees imported successfully!');
+            
+//     } catch (\Exception $e) {
+//         return redirect()->back()
+//             ->with('error', 'Error importing employees: ' . $e->getMessage())
+//             ->withInput();
+//     }
+// }
+
 public function import(Request $request)
 {
     $request->validate([
-        'file' => 'required|file|mimes:xlsx,xls,csv|max:10240' // 10MB
+        'file' => 'required|file|mimes:xlsx,xls,csv|max:10240'
     ]);
 
     try {
-        Excel::import(new EmployeeImport, $request->file('file'));
+        $import = new EmployeeImport();
+
+                // Get the total rows first to debug
+        $rows = Excel::toArray($import, $request->file('file'));
+        \Log::info('Total rows found: ' . count($rows[0]));
+        
+        Excel::import($import, $request->file('file'));
+        
+        $importedCount = $import->getImportedCount();
+        $failures = $import->failures();
+        // print_r($failures);die();
+        
+        if ($failures->isNotEmpty()) {
+            echo "<pre>";
+            print_r($importedCount);
+            print_r($failures);
+            echo "</pre>";
+            die();
+            return redirect()->back()
+                ->with('warning', "Imported {$importedCount} employees, but some rows failed.")
+                ->with('failures', $failures);
+        }
         
         return redirect()->route('employees.index')
-            ->with('success', 'Employees imported successfully!');
+            ->with('success', "Successfully imported {$importedCount} employees!");
             
     } catch (\Exception $e) {
+        $response = array(
+            'error' => 'fail', 
+            'message' => $e->getMessage(), 
+            'file' => $e->getFile()
+        );
+        print_r($response);die();
         return redirect()->back()
             ->with('error', 'Error importing employees: ' . $e->getMessage())
             ->withInput();
